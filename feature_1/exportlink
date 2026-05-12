@@ -1,0 +1,19 @@
+export RISCV=/home/khim/Desktop/RISCV/riscv-gnu-toolchain
+export PATH=$RISCV/bin:$PATH
+
+sudo minicom -D /dev/ttyUSB1 -b 115200
+
+dd if=/dev/zero of=sdcard.img bs=1M count=16
+sgdisk --clear --new=1:2048:0 --typecode=1:2E54B353-1271-4842-806F-E436D6AF6985 sdcard.img
+dd if=build/out.bin of=sdcard.img conv=notrunc seek=2048
+
+dd if=/dev/zero of=sdcard.img bs=1M count=16
+sgdisk --clear --new=1:2048:0 --typecode=1:2E54B353-1271-4842-806F-E436D6AF6985 sdcard.img
+dd if=out.bin of=sdcard.img conv=notrunc seek=2048
+
+sudo wipefs -a /dev/sda
+sudo dd if=sdcard.img of=/dev/sda bs=4M status=progress
+sync
+
+
+
