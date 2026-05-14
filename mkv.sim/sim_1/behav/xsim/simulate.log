@@ -1,0 +1,5 @@
+Time resolution is 1 ps
+Note: --- BAT DAU KIEM THU MIXWORDS ---
+Time: 0 ps  Iteration: 0  Process: /MixWords_tb/stim_proc  File: /home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sim_1/new/MixWords_tb.vhd
+Note: --- KET THUC MO PHONG: TAT CA CAC TEST PASS ---
+Time: 60 ns  Iteration: 0  Process: /MixWords_tb/stim_proc  File: /home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sim_1/new/MixWords_tb.vhd
