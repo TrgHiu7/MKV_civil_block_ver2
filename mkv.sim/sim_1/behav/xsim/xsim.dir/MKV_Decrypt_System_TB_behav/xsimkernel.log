@@ -1,0 +1,7 @@
+Running: xsim.dir/MKV_Decrypt_System_TB_behav/xsimk.exe -simmode gui -wdb MKV_Decrypt_System_TB_behav.wdb -simrunnum 0 -socket 54319
+Design successfully loaded
+Design Loading Memory Usage: 9420 KB (Peak: 9420 KB)
+Design Loading CPU Usage: 15 ms
+Simulation completed
+Simulation Memory Usage: 9988 KB (Peak: 9988 KB)
+Simulation CPU Usage: 15 ms

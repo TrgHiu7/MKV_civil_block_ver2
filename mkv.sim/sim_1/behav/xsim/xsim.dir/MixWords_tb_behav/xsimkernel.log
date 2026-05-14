@@ -1,7 +1,7 @@
-Running: xsim.dir/MixWords_tb_behav/xsimk -simmode gui -wdb MixWords_tb_behav.wdb -simrunnum 0 -socket 36383
+Running: xsim.dir/MixWords_tb_behav/xsimk.exe -simmode gui -wdb MixWords_tb_behav.wdb -simrunnum 0 -socket 54906
 Design successfully loaded
-Design Loading Memory Usage: 28068 KB (Peak: 28568 KB)
-Design Loading CPU Usage: 10 ms
+Design Loading Memory Usage: 9428 KB (Peak: 9428 KB)
+Design Loading CPU Usage: 0 ms
 Simulation completed
-Simulation Memory Usage: 118004 KB (Peak: 167336 KB)
-Simulation CPU Usage: 20 ms
+Simulation Memory Usage: 9984 KB (Peak: 9984 KB)
+Simulation CPU Usage: 0 ms

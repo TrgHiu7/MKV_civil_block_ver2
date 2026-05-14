@@ -1,5 +1,5 @@
 Time resolution is 1 ps
-Note: --- BAT DAU KIEM THU MIXWORDS ---
-Time: 0 ps  Iteration: 0  Process: /MixWords_tb/stim_proc  File: /home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sim_1/new/MixWords_tb.vhd
-Note: --- KET THUC MO PHONG: TAT CA CAC TEST PASS ---
-Time: 60 ns  Iteration: 0  Process: /MixWords_tb/stim_proc  File: /home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sim_1/new/MixWords_tb.vhd
+Error: KHONG KHOP: Ket qua giai ma sai so voi ban ro goc!
+Time: 140 ns  Iteration: 0  Process: /MKV_Decrypt_System_TB/stim_proc  File: D:/BAITAP/fpga_arty100/mkv/mkv.srcs/sim_1/new/MKV_Decrypt_System_TB.vhd
+Note: Ket thuc mo phong he thong Decrypt.
+Time: 240 ns  Iteration: 0  Process: /MKV_Decrypt_System_TB/stim_proc  File: D:/BAITAP/fpga_arty100/mkv/mkv.srcs/sim_1/new/MKV_Decrypt_System_TB.vhd

@@ -1,7 +1,7 @@
 Vivado Simulator v2022.2
 Copyright 1986-1999, 2001-2022 Xilinx, Inc. All Rights Reserved.
-Running: /home/tronghieu/tools/Xilinx/Vivado/2022.2/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -L xil_defaultlib -L secureip --snapshot MixWords_tb_behav xil_defaultlib.MixWords_tb -log elaborate.log 
-Using 8 slave threads.
+Running: C:/Xilinx/Vivado/2022.2/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot MKV_Decrypt_System_TB_behav xil_defaultlib.MKV_Decrypt_System_TB -log elaborate.log 
+Using 2 slave threads.
 Starting static elaboration
 Completed static elaboration
 Starting simulation data flow analysis
@@ -11,7 +11,10 @@ Compiling package std.standard
 Compiling package std.textio
 Compiling package ieee.std_logic_1164
 Compiling package ieee.numeric_std
-Compiling architecture behavioral of entity xil_defaultlib.SubCells [subcells_default]
-Compiling architecture behavioral of entity xil_defaultlib.MixWords [mixwords_default]
-Compiling architecture behavioral of entity xil_defaultlib.mixwords_tb
-Built simulation snapshot MixWords_tb_behav
+Compiling architecture behavioral of entity xil_defaultlib.Key_Init [key_init_default]
+Compiling architecture behavioral of entity xil_defaultlib.XWords [xwords_default]
+Compiling architecture behavioral of entity xil_defaultlib.invSubCells [invsubcells_default]
+Compiling architecture behavioral of entity xil_defaultlib.invMixWords [invmixwords_default]
+Compiling architecture behavioral of entity xil_defaultlib.MKV_Decrypt_System [mkv_decrypt_system_default]
+Compiling architecture behavioral of entity xil_defaultlib.mkv_decrypt_system_tb
+Built simulation snapshot MKV_Decrypt_System_TB_behav
