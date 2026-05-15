@@ -1,5 +1,3 @@
 Time resolution is 1 ps
-Error: KHONG KHOP: Ket qua giai ma sai so voi ban ro goc!
-Time: 140 ns  Iteration: 0  Process: /MKV_Decrypt_System_TB/stim_proc  File: D:/BAITAP/fpga_arty100/mkv/mkv.srcs/sim_1/new/MKV_Decrypt_System_TB.vhd
-Note: Ket thuc mo phong he thong Decrypt.
-Time: 240 ns  Iteration: 0  Process: /MKV_Decrypt_System_TB/stim_proc  File: D:/BAITAP/fpga_arty100/mkv/mkv.srcs/sim_1/new/MKV_Decrypt_System_TB.vhd
+Note: KEY EXPANSION DONE
+Time: 505 ns  Iteration: 0  Process: /tb_Key_Expansion/line__66  File: /home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sim_1/new/tb_Key_Expansion.vhd
