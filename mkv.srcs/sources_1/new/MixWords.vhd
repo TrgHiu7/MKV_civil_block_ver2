@@ -95,104 +95,39 @@ entity MixWords is
 end MixWords;
 
 architecture Behavioral of MixWords is
-
-    ----------------------------------------------------------------
-    -- GF(2^8) multiplication
-    ----------------------------------------------------------------
-    function gf_mul(
-        a, b : std_logic_vector(7 downto 0)
+    function xtime(
+        a : std_logic_vector(7 downto 0)
     ) return std_logic_vector is
-        variable p      : std_logic_vector(7 downto 0) := x"00";
-        variable temp_a : std_logic_vector(7 downto 0) := a;
-    begin
-        for i in 0 to 7 loop
-            if b(i) = '1' then
-                p := p xor temp_a;
-            end if;
-            if temp_a(7) = '1' then
-                temp_a := (temp_a(6 downto 0) & '0') xor x"1B";
-            else
-                temp_a := (temp_a(6 downto 0) & '0');
-            end if;
-        end loop;
-        return p;
+        variable temp : std_logic_vector(7 downto 0);
+    begin    
+        if a(7) = '1' then
+            temp := (a(6 downto 0) & '0') xor x"2B";
+        else
+            temp := (a(6 downto 0) & '0');
+        end if;    
+        return temp;
     end function;
-
-    ----------------------------------------------------------------
-    -- WORD signals
-    ----------------------------------------------------------------
-    signal s0, s1, s2, s3 : std_logic_vector(31 downto 0);
-    signal y0, y1, y2, y3 : std_logic_vector(31 downto 0);
-
 begin
-
-    ----------------------------------------------------------------
-    -- Split input
-    ----------------------------------------------------------------
-    s0 <= data_in(127 downto 96);
-    s1 <= data_in(95 downto 64);
-    s2 <= data_in(63 downto 32);
-    s3 <= data_in(31 downto 0);
-
-    ----------------------------------------------------------------
-    -- Generate byte-wise MixWords
-    ----------------------------------------------------------------
-    gen_mix : for i in 0 to 3 generate
-        signal byte_s0, byte_s1, byte_s2, byte_s3 : std_logic_vector(7 downto 0);
-        signal byte_y0, byte_y1, byte_y2, byte_y3 : std_logic_vector(7 downto 0);
-    begin
-
-        ----------------------------------------------------------------
-        -- Extract bytes
-        ----------------------------------------------------------------
-        byte_s0 <= s0(i*8+7 downto i*8);
-        byte_s1 <= s1(i*8+7 downto i*8);
-        byte_s2 <= s2(i*8+7 downto i*8);
-        byte_s3 <= s3(i*8+7 downto i*8);
-
-        ----------------------------------------------------------------
-        -- PROCESS thực hiện tính toán ma trận MKV-128 chuẩn theo ảnh
-        ----------------------------------------------------------------
-        process(byte_s0, byte_s1, byte_s2, byte_s3)
+    gen_cols: for i in 0 to 3 generate
+        concurrency_block: block
+            signal x0, x1, x2, x3 : std_logic_vector(7 downto 0);
+            signal y0, y1, y2, y3 : std_logic_vector(7 downto 0);
         begin
-            -- Hàng 1: [0x01  0x02  0x01  0x03]
-            byte_y0 <= gf_mul(byte_s0, x"01") xor
-                       gf_mul(byte_s1, x"02") xor
-                       gf_mul(byte_s2, x"01") xor
-                       gf_mul(byte_s3, x"03");
+            x0 <= data_in(127 - 32*i downto 120 - 32*i);
+            x1 <= data_in(119 - 32*i downto 112 - 32*i);
+            x2 <= data_in(111 - 32*i downto 104 - 32*i);
+            x3 <= data_in(103 - 32*i downto 96 - 32*i);
 
-            -- Hàng 2: [0x03  0x07  0x01  0x04]
-            byte_y1 <= gf_mul(byte_s0, x"03") xor
-                       gf_mul(byte_s1, x"07") xor
-                       gf_mul(byte_s2, x"01") xor
-                       gf_mul(byte_s3, x"04");
-
-            -- Hàng 3: [0x04  0x0B  0x03  0x0C]
-            byte_y2 <= gf_mul(byte_s0, x"04") xor
-                       gf_mul(byte_s1, x"0B") xor
-                       gf_mul(byte_s2, x"03") xor
-                       gf_mul(byte_s3, x"0C");
-
-            -- Hàng 4: [0x0C  0x1E  0x06  0x14]
-            byte_y3 <= gf_mul(byte_s0, x"0C") xor
-                       gf_mul(byte_s1, x"1E") xor
-                       gf_mul(byte_s2, x"06") xor
-                       gf_mul(byte_s3, x"14");
-        end process;
-
-        ----------------------------------------------------------------
-        -- Assign output bytes
-        ----------------------------------------------------------------
-        y0(i*8+7 downto i*8) <= byte_y0;
-        y1(i*8+7 downto i*8) <= byte_y1;
-        y2(i*8+7 downto i*8) <= byte_y2;
-        y3(i*8+7 downto i*8) <= byte_y3;
-
-    end generate;
-
-    ----------------------------------------------------------------
-    -- Merge output
-    ----------------------------------------------------------------
-    data_out <= y0 & y1 & y2 & y3;
+            y0 <= x0 xor x2 xor x3 xor (xtime(x1 xor x3));
+            y1 <= x1 xor x3 xor y0 xor (xtime(x2 xor y0));
+            y2 <= x2 xor y0 xor y1 xor (xtime(x3 xor y1));
+            y3 <= x3 xor y1 xor y2 xor (xtime(y0 xor y2));
+            
+            data_out(127 - 32*i downto 120 - 32*i) <= y0;
+            data_out(119 - 32*i downto 112 - 32*i) <= y1;
+            data_out(111 - 32*i downto 104 - 32*i) <= y2;
+            data_out(103 - 32*i downto 96 - 32*i)  <= y3;
+        end block;
+    end generate gen_cols;
 
 end Behavioral;
