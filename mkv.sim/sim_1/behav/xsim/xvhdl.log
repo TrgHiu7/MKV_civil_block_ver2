@@ -1,2 +1,2 @@
-INFO: [VRFC 10-163] Analyzing VHDL file "/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sim_1/new/tb_Key_Expansion.vhd" into library xil_defaultlib
-INFO: [VRFC 10-3107] analyzing entity 'tb_Key_Expansion'
+INFO: [VRFC 10-163] Analyzing VHDL file "D:/BAITAP/fpga_arty100/mkv/mkv.srcs/sources_1/new/Key_Expansion.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Key_Expansion'

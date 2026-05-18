@@ -218,14 +218,21 @@ begin
     GKEY0: Gen_Key port map (data_in => i_data0, data_out => o_data0);
     GKEY1: Gen_Key port map (data_in => i_data1, data_out => o_data1);
 
-    -- GÁN LIÊN TỤC (Concurrent Assignment) CHO DATAPATH
+    -- G�?N LIÊN TỤC (Concurrent Assignment) CHO DATAPATH
     -- Giải quyết triệt để lỗi mất dữ liệu khi chuyển state
-    i_data0 <= k0_reg xor const_func(1, 0) when round_cnt_reg = 1 else
-               k0_reg xor const_func(0, round_cnt_reg - 1);
+--    i_data0 <= k0_reg xor const_func(1, 0) when round_cnt_reg = 1 else
+--               k0_reg xor const_func(0, round_cnt_reg - 1);
                
-    i_data1 <= k1_reg xor const_func(0, 0) when round_cnt_reg = 1 else
-               k1_reg xor const_func(1, round_cnt_reg - 1);
+--    i_data1 <= k1_reg xor const_func(0, 0) when round_cnt_reg = 1 else
+--               k1_reg xor const_func(1, round_cnt_reg - 1);
 
+    i_data0 <= (k0_reg xor const_func(1, 0))           when ((state_reg = MAIN_PROCESS or state_reg = UPDATE_KEY) and round_cnt_reg = 1) else
+               (k1_reg xor const_func(0, round_cnt_reg - 1)) when (state_reg = MAIN_PROCESS or state_reg = UPDATE_KEY) else
+               (others => '0');
+               
+    i_data1 <= (k1_reg xor const_func(0, 0))           when ((state_reg = MAIN_PROCESS or state_reg = UPDATE_KEY) and round_cnt_reg = 1) else
+               (k0_reg xor const_func(1, round_cnt_reg - 1)) when (state_reg = MAIN_PROCESS or state_reg = UPDATE_KEY) else
+               (others => '0');
     -- Gán ngõ ra từ các thanh ghi
     done      <= done_reg;
     keyk0_out <= keyk0_reg;
@@ -257,7 +264,7 @@ begin
     -- Sửa lỗi thiếu Sensitivity List
     process(state_reg, start, key_master, round_cnt_reg, k0_reg, k1_reg, o_data0, o_data1, keyk0_reg, keyk1_reg, done_reg)
     begin
-        -- GIÁ TRỊ MẶC ĐỊNH CHO MỌI TÍN HIỆU (Chống Latch)
+        -- GI�? TRỊ MẶC �?ỊNH CHO MỌI T�?N HIỆU (Chống Latch)
         state_next     <= state_reg;
         round_cnt_next <= round_cnt_reg;
         k0_next        <= k0_reg;
@@ -290,8 +297,8 @@ begin
                 state_next <= NEXT_ROUND;
                 
             when NEXT_ROUND =>
-                keyk0_next <= k1_reg;
-                keyk1_next <= k0_reg;
+                keyk0_next <= k0_reg;
+                keyk1_next <= k1_reg;
                 if round_cnt_reg = 9 then
                     state_next <= FINISH;
                 else

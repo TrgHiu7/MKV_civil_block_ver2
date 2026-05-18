@@ -1,4 +1,4 @@
 Time resolution is 1 ps
 Failure: End of Simulation.
-Time: 385 ns  Iteration: 0  Process: /tb_Key_Expansion/stim_proc  File: /home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sim_1/new/tb_Key_Expansion.vhd
-$finish called at time : 385 ns : File "/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sim_1/new/tb_Key_Expansion.vhd" Line 92
+Time: 385 ns  Iteration: 0  Process: /tb_Key_Expansion/stim_proc  File: D:/BAITAP/fpga_arty100/mkv/mkv.srcs/sim_1/new/tb_Key_Expansion.vhd
+$finish called at time : 385 ns : File "D:/BAITAP/fpga_arty100/mkv/mkv.srcs/sim_1/new/tb_Key_Expansion.vhd" Line 77
