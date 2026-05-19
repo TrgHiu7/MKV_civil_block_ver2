@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Vivado v2022.2 (64-bit)
+# SW Build 3671981 on Fri Oct 14 04:59:54 MDT 2022
+# IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
+# Start of session at: Tue May 19 17:16:47 2026
+# Process ID: 26320
+# Current directory: /home/tronghieu/vivado-workspace/HW/mkv/mkv.runs/impl_1
+# Command line: vivado -log Key_Expansion.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source Key_Expansion.tcl -notrace
+# Log file: /home/tronghieu/vivado-workspace/HW/mkv/mkv.runs/impl_1/Key_Expansion.vdi
+# Journal file: /home/tronghieu/vivado-workspace/HW/mkv/mkv.runs/impl_1/vivado.jou
+# Running On: tronghieu-LOQ-15IAX9, OS: Linux, CPU Frequency: 2373.760 MHz, CPU Physical cores: 8, Host memory: 29119 MB
+#-----------------------------------------------------------
+source Key_Expansion.tcl -notrace

@@ -1,0 +1,526 @@
+
+*** Running vivado
+    with args -log Key_Expansion.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source Key_Expansion.tcl
+
+
+****** Vivado v2022.2 (64-bit)
+  **** SW Build 3671981 on Fri Oct 14 04:59:54 MDT 2022
+  **** IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+source Key_Expansion.tcl -notrace
+Command: synth_design -top Key_Expansion -part xc7a100tcsg324-1 -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 25952
+INFO: [Synth 8-11241] undeclared symbol 'REGCCE', assumed default net type 'wire' [/home/tronghieu/tools/Xilinx/Vivado/2022.2/data/verilog/src/unimacro/BRAM_SINGLE_MACRO.v:2170]
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1681.418 ; gain = 342.801 ; free physical = 16680 ; free virtual = 29826
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1086.527; parent = 882.370; children = 204.157
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 2694.531; parent = 1681.422; children = 1013.109
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'Key_Expansion' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Key_Expansion.vhd:38]
+INFO: [Synth 8-3491] module 'Gen_Key' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Gen_Key.vhd:23' bound to instance 'GKEY0' of component 'Gen_Key' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Key_Expansion.vhd:76]
+INFO: [Synth 8-638] synthesizing module 'Gen_Key' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Gen_Key.vhd:30]
+INFO: [Synth 8-3491] module 'SubCells_128' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd:22' bound to instance 'Sub1' of component 'SubCells_128' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Gen_Key.vhd:57]
+INFO: [Synth 8-638] synthesizing module 'SubCells_128' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd:28]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/SubCells.vhd:23' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd:38]
+INFO: [Synth 8-638] synthesizing module 'SubCells' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/SubCells.vhd:29]
+INFO: [Synth 8-256] done synthesizing module 'SubCells' (0#1) [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/SubCells.vhd:29]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/SubCells.vhd:23' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/SubCells.vhd:23' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/SubCells.vhd:23' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/SubCells.vhd:23' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/SubCells.vhd:23' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/SubCells.vhd:23' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/SubCells.vhd:23' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/SubCells.vhd:23' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/SubCells.vhd:23' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/SubCells.vhd:23' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/SubCells.vhd:23' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/SubCells.vhd:23' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/SubCells.vhd:23' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/SubCells.vhd:23' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/SubCells.vhd:23' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd:38]
+INFO: [Synth 8-256] done synthesizing module 'SubCells_128' (0#1) [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd:28]
+INFO: [Synth 8-3491] module 'MixWords' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/MixWords.vhd:90' bound to instance 'Mix1' of component 'MixWords' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Gen_Key.vhd:63]
+INFO: [Synth 8-638] synthesizing module 'MixWords' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/MixWords.vhd:97]
+INFO: [Synth 8-256] done synthesizing module 'MixWords' (0#1) [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/MixWords.vhd:97]
+INFO: [Synth 8-3491] module 'SubCells_128' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd:22' bound to instance 'Sub2' of component 'SubCells_128' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Gen_Key.vhd:69]
+INFO: [Synth 8-3491] module 'XWords' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/XWords.vhd:20' bound to instance 'XW1' of component 'XWords' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Gen_Key.vhd:75]
+INFO: [Synth 8-638] synthesizing module 'XWords' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/XWords.vhd:26]
+INFO: [Synth 8-256] done synthesizing module 'XWords' (0#1) [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/XWords.vhd:26]
+INFO: [Synth 8-3491] module 'SubCells_128' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd:22' bound to instance 'Sub3' of component 'SubCells_128' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Gen_Key.vhd:81]
+INFO: [Synth 8-3491] module 'MixWords' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/MixWords.vhd:90' bound to instance 'Mix2' of component 'MixWords' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Gen_Key.vhd:87]
+INFO: [Synth 8-3491] module 'SubCells_128' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd:22' bound to instance 'Sub4' of component 'SubCells_128' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Gen_Key.vhd:93]
+INFO: [Synth 8-3491] module 'XWords' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/XWords.vhd:20' bound to instance 'XW2' of component 'XWords' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Gen_Key.vhd:99]
+INFO: [Synth 8-256] done synthesizing module 'Gen_Key' (0#1) [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Gen_Key.vhd:30]
+INFO: [Synth 8-3491] module 'Gen_Key' declared at '/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Gen_Key.vhd:23' bound to instance 'GKEY1' of component 'Gen_Key' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Key_Expansion.vhd:77]
+WARNING: [Synth 8-614] signal 'xor_key_reg' is read in the process but is not in the sensitivity list [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Key_Expansion.vhd:114]
+INFO: [Synth 8-256] done synthesizing module 'Key_Expansion' (0#1) [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Key_Expansion.vhd:38]
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 1753.387 ; gain = 414.770 ; free physical = 16588 ; free virtual = 29734
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1086.527; parent = 882.370; children = 204.157
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 2766.500; parent = 1753.391; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1768.230 ; gain = 429.613 ; free physical = 16590 ; free virtual = 29737
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1086.527; parent = 882.370; children = 204.157
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 2781.344; parent = 1768.234; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a100tcsg324-1
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1776.234 ; gain = 437.617 ; free physical = 16590 ; free virtual = 29736
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1086.527; parent = 882.370; children = 204.157
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 2789.348; parent = 1776.238; children = 1013.109
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg_reg' in module 'Key_Expansion'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    idle |                           000100 |                              000
+            main_process |                           010000 |                              001
+              update_key |                           100000 |                              010
+              next_round |                           001000 |                              011
+                  finish |                           000001 |                              100
+                  iSTATE |                           000010 |                              111
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg_reg' using encoding 'one-hot' in module 'Key_Expansion'
+WARNING: [Synth 8-327] inferring latch for variable 'key_post_reg' [/home/tronghieu/vivado-workspace/HW/mkv/mkv.srcs/sources_1/new/Key_Expansion.vhd:159]
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1792.250 ; gain = 453.633 ; free physical = 16559 ; free virtual = 29708
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1086.527; parent = 882.370; children = 204.157
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 2805.363; parent = 1792.254; children = 1013.109
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input    4 Bit       Adders := 1     
++---XORs : 
+	   2 Input    128 Bit         XORs := 5     
+	   2 Input     32 Bit         XORs := 24    
+	   2 Input      8 Bit         XORs := 128   
+	   4 Input      8 Bit         XORs := 16    
+	   3 Input      8 Bit         XORs := 48    
++---Registers : 
+	              128 Bit    Registers := 5     
+	                4 Bit    Registers := 1     
+	                1 Bit    Registers := 1     
++---Muxes : 
+	   6 Input  128 Bit        Muxes := 2     
+	   2 Input  128 Bit        Muxes := 5     
+	   2 Input    8 Bit        Muxes := 64    
+	   5 Input    6 Bit        Muxes := 1     
+	   2 Input    6 Bit        Muxes := 2     
+	   6 Input    4 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 1     
+	   6 Input    1 Bit        Muxes := 5     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 240 (col length:80)
+BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-3332] Sequential element (FSM_onehot_state_reg_reg[1]) is unused and will be removed from module Key_Expansion.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:48 ; elapsed = 00:01:51 . Memory (MB): peak = 2190.211 ; gain = 851.594 ; free physical = 16484 ; free virtual = 29661
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1562.826; parent = 1358.700; children = 204.157
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3203.324; parent = 2190.215; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+ROM: Preliminary Mapping Report
++-------------+------------------------------------+---------------+----------------+
+|Module Name  | RTL Object                         | Depth x Width | Implemented As | 
++-------------+------------------------------------+---------------+----------------+
+|SubCells     | sbox_mkv[0]                        | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[1].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[2].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[3].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[4].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[5].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[6].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[7].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[8].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[9].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[10].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[11].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[12].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[13].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[14].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[15].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[6].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[7].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[8].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[9].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[10].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[11].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[12].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[13].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[14].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[15].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[3].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[4].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[5].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[6].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[7].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[8].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[9].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[10].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[11].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[12].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[13].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[14].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[15].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[5].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[6].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[8].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[9].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[11].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[12].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[13].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[14].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[15].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[5].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[6].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[7].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[8].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[9].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[11].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[12].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[13].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[14].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[15].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[5].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[6].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[7].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[8].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[9].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[11].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[12].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[13].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[14].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[15].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[5].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[6].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[7].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[8].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[9].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[11].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[12].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[13].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[14].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[15].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[5].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[6].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[7].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[8].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[9].SBOX_INST/sbox_mkv[0]  | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[11].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[12].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[13].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[14].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[15].SBOX_INST/sbox_mkv[0] | 256x8         | LUT            | 
++-------------+------------------------------------+---------------+----------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:01:49 ; elapsed = 00:01:52 . Memory (MB): peak = 2190.211 ; gain = 851.594 ; free physical = 16485 ; free virtual = 29663
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1562.826; parent = 1358.700; children = 204.157
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3203.324; parent = 2190.215; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:01:51 ; elapsed = 00:01:54 . Memory (MB): peak = 2190.211 ; gain = 851.594 ; free physical = 16507 ; free virtual = 29685
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1562.826; parent = 1358.700; children = 204.157
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3203.324; parent = 2190.215; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:01:53 ; elapsed = 00:01:56 . Memory (MB): peak = 2190.211 ; gain = 851.594 ; free physical = 16515 ; free virtual = 29695
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1562.826; parent = 1358.700; children = 204.157
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3203.324; parent = 2190.215; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:53 ; elapsed = 00:01:56 . Memory (MB): peak = 2190.211 ; gain = 851.594 ; free physical = 16515 ; free virtual = 29695
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1562.826; parent = 1358.700; children = 204.157
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3203.324; parent = 2190.215; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:53 ; elapsed = 00:01:56 . Memory (MB): peak = 2190.211 ; gain = 851.594 ; free physical = 16515 ; free virtual = 29695
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1562.826; parent = 1358.700; children = 204.157
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3203.324; parent = 2190.215; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:54 ; elapsed = 00:01:57 . Memory (MB): peak = 2190.211 ; gain = 851.594 ; free physical = 16517 ; free virtual = 29695
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1562.826; parent = 1358.700; children = 204.157
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3203.324; parent = 2190.215; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:54 ; elapsed = 00:01:57 . Memory (MB): peak = 2190.211 ; gain = 851.594 ; free physical = 16517 ; free virtual = 29695
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1562.826; parent = 1358.700; children = 204.157
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3203.324; parent = 2190.215; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:54 ; elapsed = 00:01:57 . Memory (MB): peak = 2190.211 ; gain = 851.594 ; free physical = 16520 ; free virtual = 29698
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1562.826; parent = 1358.700; children = 204.157
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3203.324; parent = 2190.215; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+------+------+
+|      |Cell  |Count |
++------+------+------+
+|1     |LUT2  |   330|
+|2     |LUT3  |   531|
+|3     |LUT4  |   430|
+|4     |LUT5  |   195|
+|5     |LUT6  |  5379|
+|6     |MUXF7 |  1170|
+|7     |MUXF8 |   478|
+|8     |FDCE  |   651|
+|9     |FDPE  |     2|
+|10    |LD    |   128|
++------+------+------+
+
+Report Instance Areas: 
++------+-------------------------------+----------------+------+
+|      |Instance                       |Module          |Cells |
++------+-------------------------------+----------------+------+
+|1     |top                            |                |  9294|
+|2     |  GKEY0                        |Gen_Key         |  3932|
+|3     |    Sub1                       |SubCells_128_67 |  2492|
+|4     |      \gen_sbox[0].SBOX_INST   |SubCells_119    |   105|
+|5     |      \gen_sbox[10].SBOX_INST  |SubCells_120    |   255|
+|6     |      \gen_sbox[11].SBOX_INST  |SubCells_121    |    20|
+|7     |      \gen_sbox[12].SBOX_INST  |SubCells_122    |   489|
+|8     |      \gen_sbox[13].SBOX_INST  |SubCells_123    |    34|
+|9     |      \gen_sbox[14].SBOX_INST  |SubCells_124    |   423|
+|10    |      \gen_sbox[15].SBOX_INST  |SubCells_125    |    25|
+|11    |      \gen_sbox[1].SBOX_INST   |SubCells_126    |    35|
+|12    |      \gen_sbox[2].SBOX_INST   |SubCells_127    |   110|
+|13    |      \gen_sbox[3].SBOX_INST   |SubCells_129    |    26|
+|14    |      \gen_sbox[4].SBOX_INST   |SubCells_130    |   280|
+|15    |      \gen_sbox[5].SBOX_INST   |SubCells_131    |    35|
+|16    |      \gen_sbox[6].SBOX_INST   |SubCells_132    |   282|
+|17    |      \gen_sbox[7].SBOX_INST   |SubCells_133    |    26|
+|18    |      \gen_sbox[8].SBOX_INST   |SubCells_134    |   314|
+|19    |      \gen_sbox[9].SBOX_INST   |SubCells_135    |    33|
+|20    |    Sub2                       |SubCells_128_68 |   192|
+|21    |      \gen_sbox[0].SBOX_INST   |SubCells_103    |    24|
+|22    |      \gen_sbox[10].SBOX_INST  |SubCells_104    |     8|
+|23    |      \gen_sbox[11].SBOX_INST  |SubCells_105    |     8|
+|24    |      \gen_sbox[12].SBOX_INST  |SubCells_106    |    24|
+|25    |      \gen_sbox[13].SBOX_INST  |SubCells_107    |     8|
+|26    |      \gen_sbox[14].SBOX_INST  |SubCells_108    |     8|
+|27    |      \gen_sbox[15].SBOX_INST  |SubCells_109    |     8|
+|28    |      \gen_sbox[1].SBOX_INST   |SubCells_110    |     8|
+|29    |      \gen_sbox[2].SBOX_INST   |SubCells_111    |     8|
+|30    |      \gen_sbox[3].SBOX_INST   |SubCells_112    |     8|
+|31    |      \gen_sbox[4].SBOX_INST   |SubCells_113    |    24|
+|32    |      \gen_sbox[5].SBOX_INST   |SubCells_114    |     8|
+|33    |      \gen_sbox[6].SBOX_INST   |SubCells_115    |     8|
+|34    |      \gen_sbox[7].SBOX_INST   |SubCells_116    |     8|
+|35    |      \gen_sbox[8].SBOX_INST   |SubCells_117    |    24|
+|36    |      \gen_sbox[9].SBOX_INST   |SubCells_118    |     8|
+|37    |    Sub3                       |SubCells_128_69 |   350|
+|38    |      \gen_sbox[0].SBOX_INST   |SubCells_87     |    24|
+|39    |      \gen_sbox[10].SBOX_INST  |SubCells_88     |    24|
+|40    |      \gen_sbox[11].SBOX_INST  |SubCells_89     |    14|
+|41    |      \gen_sbox[12].SBOX_INST  |SubCells_90     |    24|
+|42    |      \gen_sbox[13].SBOX_INST  |SubCells_91     |    24|
+|43    |      \gen_sbox[14].SBOX_INST  |SubCells_92     |    24|
+|44    |      \gen_sbox[15].SBOX_INST  |SubCells_93     |    14|
+|45    |      \gen_sbox[1].SBOX_INST   |SubCells_94     |    24|
+|46    |      \gen_sbox[2].SBOX_INST   |SubCells_95     |    24|
+|47    |      \gen_sbox[3].SBOX_INST   |SubCells_96     |    17|
+|48    |      \gen_sbox[4].SBOX_INST   |SubCells_97     |    24|
+|49    |      \gen_sbox[5].SBOX_INST   |SubCells_98     |    24|
+|50    |      \gen_sbox[6].SBOX_INST   |SubCells_99     |    24|
+|51    |      \gen_sbox[7].SBOX_INST   |SubCells_100    |    17|
+|52    |      \gen_sbox[8].SBOX_INST   |SubCells_101    |    24|
+|53    |      \gen_sbox[9].SBOX_INST   |SubCells_102    |    24|
+|54    |    Sub4                       |SubCells_128_70 |   898|
+|55    |      \gen_sbox[0].SBOX_INST   |SubCells_71     |    80|
+|56    |      \gen_sbox[10].SBOX_INST  |SubCells_72     |    24|
+|57    |      \gen_sbox[11].SBOX_INST  |SubCells_73     |    24|
+|58    |      \gen_sbox[12].SBOX_INST  |SubCells_74     |     8|
+|59    |      \gen_sbox[13].SBOX_INST  |SubCells_75     |     8|
+|60    |      \gen_sbox[14].SBOX_INST  |SubCells_76     |    24|
+|61    |      \gen_sbox[15].SBOX_INST  |SubCells_77     |    24|
+|62    |      \gen_sbox[1].SBOX_INST   |SubCells_78     |    60|
+|63    |      \gen_sbox[2].SBOX_INST   |SubCells_79     |    76|
+|64    |      \gen_sbox[3].SBOX_INST   |SubCells_80     |     8|
+|65    |      \gen_sbox[4].SBOX_INST   |SubCells_81     |   287|
+|66    |      \gen_sbox[5].SBOX_INST   |SubCells_82     |   116|
+|67    |      \gen_sbox[6].SBOX_INST   |SubCells_83     |   135|
+|68    |      \gen_sbox[7].SBOX_INST   |SubCells_84     |     8|
+|69    |      \gen_sbox[8].SBOX_INST   |SubCells_85     |     8|
+|70    |      \gen_sbox[9].SBOX_INST   |SubCells_86     |     8|
+|71    |  GKEY1                        |Gen_Key_0       |  4314|
+|72    |    Sub1                       |SubCells_128    |  2876|
+|73    |      \gen_sbox[0].SBOX_INST   |SubCells_51     |   105|
+|74    |      \gen_sbox[10].SBOX_INST  |SubCells_52     |   351|
+|75    |      \gen_sbox[11].SBOX_INST  |SubCells_53     |    20|
+|76    |      \gen_sbox[12].SBOX_INST  |SubCells_54     |   585|
+|77    |      \gen_sbox[13].SBOX_INST  |SubCells_55     |    34|
+|78    |      \gen_sbox[14].SBOX_INST  |SubCells_56     |   519|
+|79    |      \gen_sbox[15].SBOX_INST  |SubCells_57     |    25|
+|80    |      \gen_sbox[1].SBOX_INST   |SubCells_58     |    35|
+|81    |      \gen_sbox[2].SBOX_INST   |SubCells_59     |   110|
+|82    |      \gen_sbox[3].SBOX_INST   |SubCells_60     |    26|
+|83    |      \gen_sbox[4].SBOX_INST   |SubCells_61     |   280|
+|84    |      \gen_sbox[5].SBOX_INST   |SubCells_62     |    35|
+|85    |      \gen_sbox[6].SBOX_INST   |SubCells_63     |   282|
+|86    |      \gen_sbox[7].SBOX_INST   |SubCells_64     |    26|
+|87    |      \gen_sbox[8].SBOX_INST   |SubCells_65     |   410|
+|88    |      \gen_sbox[9].SBOX_INST   |SubCells_66     |    33|
+|89    |    Sub2                       |SubCells_128_1  |   192|
+|90    |      \gen_sbox[0].SBOX_INST   |SubCells_35     |    24|
+|91    |      \gen_sbox[10].SBOX_INST  |SubCells_36     |     8|
+|92    |      \gen_sbox[11].SBOX_INST  |SubCells_37     |     8|
+|93    |      \gen_sbox[12].SBOX_INST  |SubCells_38     |    24|
+|94    |      \gen_sbox[13].SBOX_INST  |SubCells_39     |     8|
+|95    |      \gen_sbox[14].SBOX_INST  |SubCells_40     |     8|
+|96    |      \gen_sbox[15].SBOX_INST  |SubCells_41     |     8|
+|97    |      \gen_sbox[1].SBOX_INST   |SubCells_42     |     8|
+|98    |      \gen_sbox[2].SBOX_INST   |SubCells_43     |     8|
+|99    |      \gen_sbox[3].SBOX_INST   |SubCells_44     |     8|
+|100   |      \gen_sbox[4].SBOX_INST   |SubCells_45     |    24|
+|101   |      \gen_sbox[5].SBOX_INST   |SubCells_46     |     8|
+|102   |      \gen_sbox[6].SBOX_INST   |SubCells_47     |     8|
+|103   |      \gen_sbox[7].SBOX_INST   |SubCells_48     |     8|
+|104   |      \gen_sbox[8].SBOX_INST   |SubCells_49     |    24|
+|105   |      \gen_sbox[9].SBOX_INST   |SubCells_50     |     8|
+|106   |    Sub3                       |SubCells_128_2  |   350|
+|107   |      \gen_sbox[0].SBOX_INST   |SubCells_19     |    24|
+|108   |      \gen_sbox[10].SBOX_INST  |SubCells_20     |    24|
+|109   |      \gen_sbox[11].SBOX_INST  |SubCells_21     |    14|
+|110   |      \gen_sbox[12].SBOX_INST  |SubCells_22     |    24|
+|111   |      \gen_sbox[13].SBOX_INST  |SubCells_23     |    24|
+|112   |      \gen_sbox[14].SBOX_INST  |SubCells_24     |    24|
+|113   |      \gen_sbox[15].SBOX_INST  |SubCells_25     |    14|
+|114   |      \gen_sbox[1].SBOX_INST   |SubCells_26     |    24|
+|115   |      \gen_sbox[2].SBOX_INST   |SubCells_27     |    24|
+|116   |      \gen_sbox[3].SBOX_INST   |SubCells_28     |    17|
+|117   |      \gen_sbox[4].SBOX_INST   |SubCells_29     |    24|
+|118   |      \gen_sbox[5].SBOX_INST   |SubCells_30     |    24|
+|119   |      \gen_sbox[6].SBOX_INST   |SubCells_31     |    24|
+|120   |      \gen_sbox[7].SBOX_INST   |SubCells_32     |    17|
+|121   |      \gen_sbox[8].SBOX_INST   |SubCells_33     |    24|
+|122   |      \gen_sbox[9].SBOX_INST   |SubCells_34     |    24|
+|123   |    Sub4                       |SubCells_128_3  |   896|
+|124   |      \gen_sbox[0].SBOX_INST   |SubCells        |    80|
+|125   |      \gen_sbox[10].SBOX_INST  |SubCells_4      |    24|
+|126   |      \gen_sbox[11].SBOX_INST  |SubCells_5      |    24|
+|127   |      \gen_sbox[12].SBOX_INST  |SubCells_6      |     8|
+|128   |      \gen_sbox[13].SBOX_INST  |SubCells_7      |     8|
+|129   |      \gen_sbox[14].SBOX_INST  |SubCells_8      |    24|
+|130   |      \gen_sbox[15].SBOX_INST  |SubCells_9      |    24|
+|131   |      \gen_sbox[1].SBOX_INST   |SubCells_10     |    60|
+|132   |      \gen_sbox[2].SBOX_INST   |SubCells_11     |    76|
+|133   |      \gen_sbox[3].SBOX_INST   |SubCells_12     |     8|
+|134   |      \gen_sbox[4].SBOX_INST   |SubCells_13     |   285|
+|135   |      \gen_sbox[5].SBOX_INST   |SubCells_14     |   116|
+|136   |      \gen_sbox[6].SBOX_INST   |SubCells_15     |   135|
+|137   |      \gen_sbox[7].SBOX_INST   |SubCells_16     |     8|
+|138   |      \gen_sbox[8].SBOX_INST   |SubCells_17     |     8|
+|139   |      \gen_sbox[9].SBOX_INST   |SubCells_18     |     8|
++------+-------------------------------+----------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:54 ; elapsed = 00:01:57 . Memory (MB): peak = 2190.211 ; gain = 851.594 ; free physical = 16520 ; free virtual = 29698
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1562.826; parent = 1358.700; children = 204.157
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3203.324; parent = 2190.215; children = 1013.109
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 4 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:54 ; elapsed = 00:01:57 . Memory (MB): peak = 2190.211 ; gain = 851.594 ; free physical = 16520 ; free virtual = 29698
+Synthesis Optimization Complete : Time (s): cpu = 00:01:54 ; elapsed = 00:01:57 . Memory (MB): peak = 2190.219 ; gain = 851.594 ; free physical = 16520 ; free virtual = 29698
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.07 ; elapsed = 00:00:00.07 . Memory (MB): peak = 2190.219 ; gain = 0.000 ; free physical = 16619 ; free virtual = 29801
+INFO: [Netlist 29-17] Analyzing 1776 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2238.234 ; gain = 0.000 ; free physical = 16529 ; free virtual = 29723
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 128 instances were transformed.
+  LD => LDCE: 128 instances
+
+Synth Design complete, checksum: 48859dc6
+INFO: [Common 17-83] Releasing license: Synthesis
+53 Infos, 4 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:01:58 ; elapsed = 00:01:59 . Memory (MB): peak = 2238.234 ; gain = 899.617 ; free physical = 16720 ; free virtual = 29914
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Common 17-1381] The checkpoint '/home/tronghieu/vivado-workspace/HW/mkv/mkv.runs/synth_1/Key_Expansion.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file Key_Expansion_utilization_synth.rpt -pb Key_Expansion_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Tue May 19 17:16:35 2026...

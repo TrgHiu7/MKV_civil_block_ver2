@@ -17,7 +17,8 @@ architecture behavior of tb_Key_Expansion is
         
         done        : out std_logic;
         keyk0_out   : out std_logic_vector(127 downto 0);
-        keyk1_out   : out std_logic_vector(127 downto 0)
+        keyk1_out   : out std_logic_vector(127 downto 0);
+        key_post    : out std_logic_vector(127 downto 0)
     );
     end component;
 
@@ -29,7 +30,7 @@ architecture behavior of tb_Key_Expansion is
     signal done       : std_logic;
     signal keyk0_out  : std_logic_vector(127 downto 0);
     signal keyk1_out  : std_logic_vector(127 downto 0);
-
+    signal key_post  : std_logic_vector(127 downto 0);
     constant clk_period : time := 10 ns;
 
 begin
@@ -41,7 +42,8 @@ begin
         key_master => key_master,
         done       => done,
         keyk0_out  => keyk0_out,
-        keyk1_out  => keyk1_out
+        keyk1_out  => keyk1_out,
+        key_post   => key_post
     );
 
     clk_process :process
@@ -63,6 +65,7 @@ begin
         wait for 20 ns;
 
         key_master <= x"0102030405060708090A0B0C0D0E0F1112131415161718191A1B1C1D1E1F2223";
+--        key_master <= x"000102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F";
         wait for 10 ns;
         start <= '1';
         
@@ -73,8 +76,7 @@ begin
         start <= '0';
         
         wait for 50 ns;
-        
-        assert false report "End of Simulation." severity failure;
+
         wait;
     end process;
 

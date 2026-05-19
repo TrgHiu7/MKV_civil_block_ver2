@@ -29,10 +29,6 @@ end Gen_Key;
 
 architecture Behavioral of Gen_Key is
 
-    ----------------------------------------------------------------
-    -- COMPONENTS
-    ----------------------------------------------------------------
-
     component SubCells_128
         Port (
             data_in  : in  std_logic_vector(127 downto 0);
@@ -54,16 +50,9 @@ architecture Behavioral of Gen_Key is
         );
     end component;
 
-    ----------------------------------------------------------------
-    -- INTERNAL SIGNALS
-    ----------------------------------------------------------------
-
     signal s1, s2, s3, s4 : std_logic_vector(127 downto 0);
-
     signal m1, m2         : std_logic_vector(127 downto 0);
-
     signal x1             : std_logic_vector(127 downto 0);
-
 begin
     Sub1 : SubCells_128
     port map(
