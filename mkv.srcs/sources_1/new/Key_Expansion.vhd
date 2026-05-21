@@ -142,15 +142,15 @@ begin
                     keyk0_next <= xor_key_reg;
                     keyk1_next <= o_data1;
                 end if;
-                done_m      <= '1';
+                done_m      <= '0';
                 state_next  <= UPDATE_KEY;
             when UPDATE_KEY =>
-                done_m      <= '0';
                 k1_next     <= xor_key_reg;
                 k0_next     <= o_data1;
                 state_next  <= NEXT_ROUND;
                 done_next <= '1';
             when NEXT_ROUND =>
+                done_m      <= '1';
                 done_next   <= '0';
                 if round_cnt_reg = 9 then
                     state_next <= FINISH;

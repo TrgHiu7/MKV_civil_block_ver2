@@ -1,7 +1,7 @@
 Vivado Simulator v2022.2
 Copyright 1986-1999, 2001-2022 Xilinx, Inc. All Rights Reserved.
-Running: C:/Xilinx/Vivado/2022.2/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot tb_encrypt_behav xil_defaultlib.tb_encrypt -log elaborate.log 
-Using 2 slave threads.
+Running: /home/tronghieu/tools/Xilinx/Vivado/2022.2/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -L xil_defaultlib -L secureip --snapshot tb_encrypt_behav xil_defaultlib.tb_encrypt -log elaborate.log 
+Using 8 slave threads.
 Starting static elaboration
 Completed static elaboration
 Starting simulation data flow analysis
