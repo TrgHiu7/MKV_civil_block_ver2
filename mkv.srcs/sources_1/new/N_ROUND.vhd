@@ -58,6 +58,6 @@ begin
     Mix1 : MixWords     port map(data_in  => s2, data_out => s3);
     s4    <=  s3 xor keyk1;
     Sub2 : SubCells_128 port map(data_in  => s4, data_out => s5);
-    Mix2 : MixWords     port map(data_in  => s5, data_out => data_out);
+    Mix2 : XWords       port map(data_in  => s5, data_out => data_out);
 end Behavioral;
 

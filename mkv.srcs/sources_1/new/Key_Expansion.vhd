@@ -28,6 +28,7 @@ entity Key_Expansion is
         start       : in  std_logic;
         key_master  : in  std_logic_vector(255 downto 0);
         
+        done_m      : out std_logic;
         done        : out std_logic;
         keyk0_out   : out std_logic_vector(127 downto 0);
         keyk1_out   : out std_logic_vector(127 downto 0);
@@ -133,7 +134,6 @@ begin
                     state_next <= MAIN_PROCESS;
                 end if;                
             when MAIN_PROCESS =>
-                done_next <= '0';
                 xor_key_next    <= o_data1 xor o_data0;
                 if round_cnt_reg = 1 then
                     keyk0_next <= key_master(255 downto 128);
@@ -142,13 +142,16 @@ begin
                     keyk0_next <= xor_key_reg;
                     keyk1_next <= o_data1;
                 end if;
+                done_m      <= '1';
                 state_next  <= UPDATE_KEY;
             when UPDATE_KEY =>
+                done_m      <= '0';
                 k1_next     <= xor_key_reg;
                 k0_next     <= o_data1;
-                done_next   <= '1';
                 state_next  <= NEXT_ROUND;
+                done_next <= '1';
             when NEXT_ROUND =>
+                done_next   <= '0';
                 if round_cnt_reg = 9 then
                     state_next <= FINISH;
                 else
