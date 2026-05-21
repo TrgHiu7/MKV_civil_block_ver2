@@ -1,9 +1,9 @@
 Time resolution is 1 ps
 Note: ====================================
-Time: 375 ns  Iteration: 0  Process: /tb_encrypt/stim_proc  File: /home/tronghieu/vivado-workspace/HW/mkv/mkv/mkv.srcs/sim_1/new/tb_encrypt.vhd
+Time: 365 ns  Iteration: 0  Process: /tb_encrypt/stim_proc  File: D:/BAITAP/fpga_arty100/mkv/mkv.srcs/sim_1/new/tb_encrypt.vhd
 Note: ENCRYPTION DONE
-Time: 375 ns  Iteration: 0  Process: /tb_encrypt/stim_proc  File: /home/tronghieu/vivado-workspace/HW/mkv/mkv/mkv.srcs/sim_1/new/tb_encrypt.vhd
+Time: 365 ns  Iteration: 0  Process: /tb_encrypt/stim_proc  File: D:/BAITAP/fpga_arty100/mkv/mkv.srcs/sim_1/new/tb_encrypt.vhd
 Note: Ciphertext generated.
-Time: 375 ns  Iteration: 0  Process: /tb_encrypt/stim_proc  File: /home/tronghieu/vivado-workspace/HW/mkv/mkv/mkv.srcs/sim_1/new/tb_encrypt.vhd
+Time: 365 ns  Iteration: 0  Process: /tb_encrypt/stim_proc  File: D:/BAITAP/fpga_arty100/mkv/mkv.srcs/sim_1/new/tb_encrypt.vhd
 Note: ====================================
-Time: 375 ns  Iteration: 0  Process: /tb_encrypt/stim_proc  File: /home/tronghieu/vivado-workspace/HW/mkv/mkv/mkv.srcs/sim_1/new/tb_encrypt.vhd
+Time: 365 ns  Iteration: 0  Process: /tb_encrypt/stim_proc  File: D:/BAITAP/fpga_arty100/mkv/mkv.srcs/sim_1/new/tb_encrypt.vhd

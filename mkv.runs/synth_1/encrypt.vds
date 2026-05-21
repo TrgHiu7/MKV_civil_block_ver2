@@ -1,14 +1,15 @@
-
-*** Running vivado
-    with args -log encrypt.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source encrypt.tcl
-
-
-
-****** Vivado v2022.2 (64-bit)
-  **** SW Build 3671981 on Fri Oct 14 05:00:03 MDT 2022
-  **** IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
-    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
-
+#-----------------------------------------------------------
+# Vivado v2022.2 (64-bit)
+# SW Build 3671981 on Fri Oct 14 05:00:03 MDT 2022
+# IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
+# Start of session at: Fri May 22 01:27:58 2026
+# Process ID: 25392
+# Current directory: D:/BAITAP/fpga_arty100/mkv/mkv.runs/synth_1
+# Command line: vivado.exe -log encrypt.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source encrypt.tcl
+# Log file: D:/BAITAP/fpga_arty100/mkv/mkv.runs/synth_1/encrypt.vds
+# Journal file: D:/BAITAP/fpga_arty100/mkv/mkv.runs/synth_1\vivado.jou
+# Running On: DESKTOP-VUP21B1, OS: Windows, CPU Frequency: 3693 MHz, CPU Physical cores: 12, Host memory: 33997 MB
+#-----------------------------------------------------------
 source encrypt.tcl -notrace
 Command: read_checkpoint -auto_incremental -incremental D:/BAITAP/fpga_arty100/mkv/mkv.srcs/utils_1/imports/synth_1/Key_Expansion.dcp
 INFO: [Vivado 12-5825] Read reference checkpoint from D:/BAITAP/fpga_arty100/mkv/mkv.srcs/utils_1/imports/synth_1/Key_Expansion.dcp for incremental synthesis

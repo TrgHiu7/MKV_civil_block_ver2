@@ -4,17 +4,13 @@
 // Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 //
 
-echo "This script was generated under a different operating system."
-echo "Please update the PATH variable below, before executing this script"
-exit
-
 var WshShell = new ActiveXObject( "WScript.Shell" );
 var ProcEnv = WshShell.Environment( "Process" );
 var PathVal = ProcEnv("PATH");
 if ( PathVal.length == 0 ) {
-  PathVal = "/home/tronghieu/tools/Xilinx/Vivado/2022.2/ids_lite/ISE/bin/lin64;/home/tronghieu/tools/Xilinx/Vivado/2022.2/bin;";
+  PathVal = "C:/Xilinx/Vitis/2022.2/bin;C:/Xilinx/Vivado/2022.2/ids_lite/ISE/bin/nt64;C:/Xilinx/Vivado/2022.2/ids_lite/ISE/lib/nt64;C:/Xilinx/Vivado/2022.2/bin;";
 } else {
-  PathVal = "/home/tronghieu/tools/Xilinx/Vivado/2022.2/ids_lite/ISE/bin/lin64;/home/tronghieu/tools/Xilinx/Vivado/2022.2/bin;" + PathVal;
+  PathVal = "C:/Xilinx/Vitis/2022.2/bin;C:/Xilinx/Vivado/2022.2/ids_lite/ISE/bin/nt64;C:/Xilinx/Vivado/2022.2/ids_lite/ISE/lib/nt64;C:/Xilinx/Vivado/2022.2/bin;" + PathVal;
 }
 
 ProcEnv("PATH") = PathVal;
@@ -27,7 +23,7 @@ eval( EAInclude(ISEJScriptLib) );
 
 
 ISEStep( "vivado",
-         "-log Key_Expansion.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source Key_Expansion.tcl" );
+         "-log encrypt.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source encrypt.tcl" );
 
 
 
