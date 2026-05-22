@@ -61,7 +61,7 @@ architecture Behavioral of Key_Expansion is
     type state_type is (IDLE, MAIN_PROCESS, UPDATE_KEY, NEXT_ROUND, FINISH);
     signal state_reg, state_next : state_type;
 
-    signal round_reg, round_next : integer range 0 to 9 := 0;
+    signal round_reg, round_next : unsigned(3 downto 0) := (others => '0');
 
     signal k0_reg, k0_next : std_logic_vector(127 downto 0) := (others => '0');
     signal k1_reg, k1_next : std_logic_vector(127 downto 0) := (others => '0');
@@ -77,10 +77,10 @@ begin
     GKEY1: Gen_Key port map (data_in => i_data1, data_out => o_data1);
 
     i_data0 <= (k0_reg xor const_func(1, 0))           when ((state_reg = MAIN_PROCESS or state_reg = UPDATE_KEY) and round_reg = 1) else
-               (k0_reg xor const_func(1, round_reg - 1)) when (state_reg = MAIN_PROCESS or state_reg = UPDATE_KEY) else
+               (k0_reg xor const_func(1, to_integer(round_reg) - 1)) when (state_reg = MAIN_PROCESS or state_reg = UPDATE_KEY) else
                (others => '0');               
     i_data1 <= (k1_reg xor const_func(0, 0))           when ((state_reg = MAIN_PROCESS or state_reg = UPDATE_KEY) and round_reg = 1) else
-               (k1_reg xor const_func(0, round_reg - 1)) when (state_reg = MAIN_PROCESS or state_reg = UPDATE_KEY) else
+               (k1_reg xor const_func(0, to_integer(round_reg) - 1)) when (state_reg = MAIN_PROCESS or state_reg = UPDATE_KEY) else
                (others => '0');
 
     done        <= done_reg;
@@ -91,7 +91,7 @@ begin
     begin
         if rst = '1' then
             state_reg     <= IDLE;
-            round_reg     <= 0;
+            round_reg     <= (others => '0');
             k0_reg        <= (others => '0');
             k1_reg        <= (others => '0');
             keyk0_reg     <= (others => '0');
@@ -122,14 +122,14 @@ begin
         case state_reg is
             when IDLE =>
                 if start = '1' then
-                    round_next <= 1;
+                    round_next <= "0001";
                     k0_next <= key_master(255 downto 128);
                     k1_next <= key_master(127 downto 0);
                     state_next <= MAIN_PROCESS;
                 end if;                
             when MAIN_PROCESS =>
                 xor_key_next    <= o_data1 xor o_data0;
-                if round_reg = 1 then
+                if round_reg = "0001" then
                     keyk0_next <= key_master(255 downto 128);                   
                 else
                     keyk0_next <= xor_key_reg;
@@ -142,7 +142,7 @@ begin
                 k0_next     <= o_data1;
                 state_next  <= NEXT_ROUND;
             when NEXT_ROUND =>
-                if round_reg = 9 then
+                if round_reg = "1001" then
                     state_next <= FINISH;
                 else
                     round_next <= round_reg + 1;
