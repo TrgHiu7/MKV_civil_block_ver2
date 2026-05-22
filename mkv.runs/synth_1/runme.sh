@@ -6,10 +6,14 @@
 # Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 # 
 
+echo "This script was generated under a different operating system."
+echo "Please update the PATH and LD_LIBRARY_PATH variables below, before executing this script"
+exit
+
 if [ -z "$PATH" ]; then
-  PATH=/home/tronghieu/tools/Xilinx/Vivado/2022.2/ids_lite/ISE/bin/lin64:/home/tronghieu/tools/Xilinx/Vivado/2022.2/bin
+  PATH=C:/Xilinx/Vitis/2022.2/bin;C:/Xilinx/Vivado/2022.2/ids_lite/ISE/bin/nt64;C:/Xilinx/Vivado/2022.2/ids_lite/ISE/lib/nt64:C:/Xilinx/Vivado/2022.2/bin
 else
-  PATH=/home/tronghieu/tools/Xilinx/Vivado/2022.2/ids_lite/ISE/bin/lin64:/home/tronghieu/tools/Xilinx/Vivado/2022.2/bin:$PATH
+  PATH=C:/Xilinx/Vitis/2022.2/bin;C:/Xilinx/Vivado/2022.2/ids_lite/ISE/bin/nt64;C:/Xilinx/Vivado/2022.2/ids_lite/ISE/lib/nt64:C:/Xilinx/Vivado/2022.2/bin:$PATH
 fi
 export PATH
 
@@ -20,7 +24,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='/home/tronghieu/vivado-workspace/HW/mkv/mkv/mkv.runs/synth_1'
+HD_PWD='D:/BAITAP/fpga_arty100/mkv/mkv.runs/synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
@@ -36,4 +40,4 @@ EAStep()
      fi
 }
 
-EAStep vivado -log N_ROUND.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source N_ROUND.tcl
+EAStep vivado -log Key_Expansion.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source Key_Expansion.tcl

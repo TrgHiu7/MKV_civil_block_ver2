@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1779411631" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/Key_Expansion.dcp">
-  <File Type="VDS-TIMING-PB" Name="N_ROUND_timing_summary_synth.pb"/>
-  <File Type="VDS-TIMINGSUMMARY" Name="N_ROUND_timing_summary_synth.rpt"/>
-  <File Type="RDS-DCP" Name="N_ROUND.dcp"/>
-  <File Type="RDS-UTIL-PB" Name="N_ROUND_utilization_synth.pb"/>
-  <File Type="RDS-UTIL" Name="N_ROUND_utilization_synth.rpt"/>
-  <File Type="RDS-PROPCONSTRS" Name="N_ROUND_drc_synth.rpt"/>
-  <File Type="RDS-RDS" Name="N_ROUND.vds"/>
-  <File Type="REPORTS-TCL" Name="N_ROUND_reports.tcl"/>
-  <File Type="PA-TCL" Name="N_ROUND.tcl"/>
+<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1779432476" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/Key_Expansion.dcp">
+  <File Type="PA-TCL" Name="Key_Expansion.tcl"/>
+  <File Type="RDS-PROPCONSTRS" Name="Key_Expansion_drc_synth.rpt"/>
+  <File Type="REPORTS-TCL" Name="Key_Expansion_reports.tcl"/>
+  <File Type="RDS-RDS" Name="Key_Expansion.vds"/>
+  <File Type="RDS-UTIL" Name="Key_Expansion_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="Key_Expansion_utilization_synth.pb"/>
+  <File Type="RDS-DCP" Name="Key_Expansion.dcp"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="Key_Expansion_timing_summary_synth.rpt"/>
+  <File Type="VDS-TIMING-PB" Name="Key_Expansion_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/new/Gen_Key.vhd">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PSRCDIR/sources_1/new/MixWords.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -35,20 +41,13 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/N_ROUND.vhd">
-      <FileInfo>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PSRCDIR/sources_1/new/Gen_Key.vhd">
-      <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
     <File Path="$PSRCDIR/sources_1/new/Key_Expansion.vhd">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/N_ROUND.vhd">
       <FileInfo>
         <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -85,7 +84,7 @@
     </File>
     <Config>
       <Option Name="DesignMode" Val="RTL"/>
-      <Option Name="TopModule" Val="N_ROUND"/>
+      <Option Name="TopModule" Val="Key_Expansion"/>
     </Config>
   </FileSet>
   <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
