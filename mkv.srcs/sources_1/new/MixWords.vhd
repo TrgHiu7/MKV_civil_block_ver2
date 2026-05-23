@@ -70,5 +70,4 @@ begin
             data_out(103 - 32*i downto 96 - 32*i)  <= y3;
         end block;
     end generate gen_cols;
-
 end Behavioral;

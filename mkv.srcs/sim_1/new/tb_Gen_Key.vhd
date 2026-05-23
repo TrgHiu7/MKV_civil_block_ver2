@@ -10,16 +10,25 @@ architecture Behavioral of tb_Gen_Key is
     ----------------------------------------------------------------
     -- DUT Signals
     ----------------------------------------------------------------
+    signal clk      : std_logic := '0';
     signal data_in  : std_logic_vector(127 downto 0);
     signal data_out : std_logic_vector(127 downto 0);
+    constant clk_period : time := 10 ns;
 
 begin
-
+    clk_process :process
+    begin
+        clk <= '0';
+        wait for clk_period/2;
+        clk <= '1';
+        wait for clk_period/2;
+    end process;
     ----------------------------------------------------------------
     -- DUT
     ----------------------------------------------------------------
     DUT : entity work.Gen_Key
     port map(
+        clk      => clk,
         data_in  => data_in,
         data_out => data_out
     );

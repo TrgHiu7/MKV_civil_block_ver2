@@ -7,10 +7,7 @@
 -- Project Name: mkv
 -- Target Devices: arty100
 -- Tool Versions: 2022.2
--- Description: Bi?n ??i SubCells x? lý trên toàn b? tr?ng thái X ? Vl b?ng cách áp d?ng h?p th? 8 bit s vào t?ng byte
--- Chú thích:   Các giá tr? c?a các b?ng này ???c bi?u di?n d??i d?ng th?p l?c phân (hex), trong ?ó giá tr? ??u ra c?a h?p
---              th? là giá tr? ???c xác ??nh t?i v? trí giao nhau gi?a c?t ???c xác ??nh b?i 4-bit tr?ng s? th?p và hàng ???c
---              xác ??nh b?i 4-bit tr?ng s? cao c?a ??u vào. Ví d?, s(0x24) = 0x1C và inv_s(0x82) = 0xB4.
+-- Description: 
 -- Dependencies: 
 -- Revision:
 -- Revision 0.01 - File Created

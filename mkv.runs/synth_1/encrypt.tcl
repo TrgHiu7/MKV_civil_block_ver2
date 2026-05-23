@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "D:/BAITAP/fpga_arty100/mkv/mkv.runs/synth_1/Key_Expansion.tcl"
+  variable script "/home/tronghieu/vivado-workspace/HW/mkv/mkv/mkv.runs/synth_1/encrypt.tcl"
   variable category "vivado_synth"
 }
 
@@ -70,6 +70,7 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_msg_config -id {Common 17-41} -limit 10000000
 set_msg_config  -id {Simulation 11-1}  -suppress 
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a100tcsg324-1
@@ -77,21 +78,23 @@ create_project -in_memory -part xc7a100tcsg324-1
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
-set_property webtalk.parent_dir D:/BAITAP/fpga_arty100/mkv/mkv.cache/wt [current_project]
-set_property parent.project_path D:/BAITAP/fpga_arty100/mkv/mkv.xpr [current_project]
+set_property webtalk.parent_dir /home/tronghieu/vivado-workspace/HW/mkv/mkv/mkv.cache/wt [current_project]
+set_property parent.project_path /home/tronghieu/vivado-workspace/HW/mkv/mkv/mkv.xpr [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language VHDL [current_project]
-set_property ip_output_repo d:/BAITAP/fpga_arty100/mkv/mkv.cache/ip [current_project]
+set_property ip_output_repo /home/tronghieu/vivado-workspace/HW/mkv/mkv/mkv.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_vhdl -library xil_defaultlib {
-  D:/BAITAP/fpga_arty100/mkv/mkv.srcs/sources_1/new/Gen_Key.vhd
-  D:/BAITAP/fpga_arty100/mkv/mkv.srcs/sources_1/new/MixWords.vhd
-  D:/BAITAP/fpga_arty100/mkv/mkv.srcs/sources_1/new/SubCells.vhd
-  D:/BAITAP/fpga_arty100/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd
-  D:/BAITAP/fpga_arty100/mkv/mkv.srcs/sources_1/new/XWords.vhd
-  D:/BAITAP/fpga_arty100/mkv/mkv.srcs/sources_1/new/Key_Expansion.vhd
+  /home/tronghieu/vivado-workspace/HW/mkv/mkv/mkv.srcs/sources_1/new/Gen_Key.vhd
+  /home/tronghieu/vivado-workspace/HW/mkv/mkv/mkv.srcs/sources_1/new/Key_Expansion.vhd
+  /home/tronghieu/vivado-workspace/HW/mkv/mkv/mkv.srcs/sources_1/new/MixWords.vhd
+  /home/tronghieu/vivado-workspace/HW/mkv/mkv/mkv.srcs/sources_1/new/N_ROUND.vhd
+  /home/tronghieu/vivado-workspace/HW/mkv/mkv/mkv.srcs/sources_1/new/SubCells.vhd
+  /home/tronghieu/vivado-workspace/HW/mkv/mkv/mkv.srcs/sources_1/new/Subcells_128.vhd
+  /home/tronghieu/vivado-workspace/HW/mkv/mkv/mkv.srcs/sources_1/new/XWords.vhd
+  /home/tronghieu/vivado-workspace/HW/mkv/mkv/mkv.srcs/sources_1/new/encrypt.vhd
 }
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -102,16 +105,16 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc D:/BAITAP/fpga_arty100/mkv/mkv.srcs/constrs_1/new/323.xdc
-set_property used_in_implementation false [get_files D:/BAITAP/fpga_arty100/mkv/mkv.srcs/constrs_1/new/323.xdc]
+read_xdc /home/tronghieu/vivado-workspace/HW/mkv/mkv/mkv.srcs/constrs_1/new/323.xdc
+set_property used_in_implementation false [get_files /home/tronghieu/vivado-workspace/HW/mkv/mkv/mkv.srcs/constrs_1/new/323.xdc]
 
 set_param ips.enableIPCacheLiteLoad 1
 
-read_checkpoint -auto_incremental -incremental D:/BAITAP/fpga_arty100/mkv/mkv.srcs/utils_1/imports/synth_1/Key_Expansion.dcp
+read_checkpoint -auto_incremental -incremental /home/tronghieu/vivado-workspace/HW/mkv/mkv/mkv.srcs/utils_1/imports/synth_1/Key_Expansion.dcp
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }
-synth_design -top Key_Expansion -part xc7a100tcsg324-1 -mode out_of_context
+synth_design -top encrypt -part xc7a100tcsg324-1 -mode out_of_context
 OPTRACE "synth_design" END { }
 if { [get_msg_config -count -severity {CRITICAL WARNING}] > 0 } {
  send_msg_id runtcl-6 info "Synthesis results are not added to the cache due to CRITICAL_WARNING"
@@ -121,10 +124,10 @@ if { [get_msg_config -count -severity {CRITICAL WARNING}] > 0 } {
 OPTRACE "write_checkpoint" START { CHECKPOINT }
 # disable binary constraint mode for synth run checkpoints
 set_param constraints.enableBinaryConstraints false
-write_checkpoint -force -noxdef Key_Expansion.dcp
+write_checkpoint -force -noxdef encrypt.dcp
 OPTRACE "write_checkpoint" END { }
 OPTRACE "synth reports" START { REPORT }
-create_report "synth_1_synth_report_utilization_0" "report_utilization -file Key_Expansion_utilization_synth.rpt -pb Key_Expansion_utilization_synth.pb"
+create_report "synth_1_synth_report_utilization_0" "report_utilization -file encrypt_utilization_synth.rpt -pb encrypt_utilization_synth.pb"
 OPTRACE "synth reports" END { }
 file delete __synthesis_is_running__
 close [open __synthesis_is_complete__ w]
