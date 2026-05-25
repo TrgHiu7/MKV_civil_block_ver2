@@ -12,8 +12,8 @@
 ---    encrypt
 --     [01 02 01 03]
 --     [03 07 01 04]
---     [04 0B 03 0C]
---     [0C 1E 06 14]        
+--     [04 0B 03 0D]
+--     [0D 1E 06 14]        
 --     decrypt
 --     [14 06 18 0B]
 --     [0B 02 0D 05]
@@ -59,6 +59,11 @@ begin
             x2 <= data_in(111 - 32*i downto 104 - 32*i);
             x3 <= data_in(103 - 32*i downto 96 - 32*i);
 
+            --     encrypt
+            --     [01 02 01 03]
+            --     [03 07 01 04]
+            --     [04 0B 03 0D]
+            --     [0D 1E 06 14]  
             y0 <= x0 xor x2 xor x3 xor (xtime(x1 xor x3));
             y1 <= x1 xor x3 xor y0 xor (xtime(x2 xor y0));
             y2 <= x2 xor y0 xor y1 xor (xtime(x3 xor y1));

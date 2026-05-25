@@ -1,1 +1,1 @@
---incr --debug "typical" --relax --mt "8" -L "xil_defaultlib" -L "secureip" --snapshot "MixWords_tb_behav" "xil_defaultlib.MixWords_tb" -log "elaborate.log" 
+--incr --debug "typical" --relax --mt "2" -L "xil_defaultlib" -L "secureip" --snapshot "MixWords_tb_behav" "xil_defaultlib.MixWords_tb" -log "elaborate.log" 

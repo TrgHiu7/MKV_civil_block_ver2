@@ -1,4 +1,0 @@
-INFO: [VRFC 10-163] Analyzing VHDL file "/home/tronghieu/vivado-workspace/HW/mkv/mkv/mkv.srcs/sources_1/new/invMixWords.vhd" into library xil_defaultlib
-INFO: [VRFC 10-3107] analyzing entity 'invMixWords'
-INFO: [VRFC 10-163] Analyzing VHDL file "/home/tronghieu/vivado-workspace/HW/mkv/mkv/mkv.srcs/sim_1/new/tb_invMix.vhd" into library xil_defaultlib
-INFO: [VRFC 10-3107] analyzing entity 'tb_invMix'

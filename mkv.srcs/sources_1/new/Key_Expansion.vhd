@@ -135,22 +135,25 @@ begin
 						keyk0_reg <= k1_reg;
 					end if;
 					keyk1_reg <= o_data_reg1;					
-					done 		<= '1';
 					state <= UPDATE_K;                
 				when UPDATE_K =>
-					k0_reg <= o_data_reg1;
-					k1_reg <= o_data_reg1 xor o_data_reg0;
-					state <= NEXT_ROUND;
+				    if round = "1001" then
+				    else
+				        done 		<= '1';
+					end if;
+                        k0_reg <= o_data_reg1;
+                        k1_reg <= o_data_reg1 xor o_data_reg0;
+                        state <= NEXT_ROUND;
 				when NEXT_ROUND =>        
 					if round = "1001" then
 						state <= FINISH;
-						key_post  <= o_data_reg1 xor o_data_reg0;
 						done	<= '1';
+						key_post  <= o_data_reg1 xor o_data_reg0;						
 					else
 						round <= round + 1;
 						state <= INIT_K0;
 					end if;
-				when FINISH =>
+				when FINISH =>                    
 					if start = '0' then
 						state <= IDLE;
 					end if;

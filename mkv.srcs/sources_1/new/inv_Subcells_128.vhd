@@ -37,8 +37,8 @@ begin
     begin
         SBOX_INST : invSubCells
         port map(
-            data_in  => data_in(i*8+7 downto i*8),
-            data_out => data_out(i*8+7 downto i*8)
+            data_in  => data_in(127 - i*8 downto 120 - i*8),
+            data_out => data_out(127 - i*8 downto 120 - i*8)
         );
     end generate;
 end Behavioral;

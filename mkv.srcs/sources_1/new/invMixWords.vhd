@@ -58,10 +58,15 @@ begin
             x2 <= data_in(111 - 32*i downto 104 - 32*i);
             x3 <= data_in(103 - 32*i downto 96 - 32*i);
 
-            y3 <= x1 xor x2 xor x3 xor (xtime(x0 xor x2));
-            y2 <= x0 xor x1 xor y3 xor (xtime(x0 xor xtime(x2)));
-            y1 <= x2 xor y2 xor y3 xor (xtime(x2 xor x3 xor xtime(x0)));
-            y0 <= y2 xor y1 xor x1 xor (xtime(x1 xor xtime(x0 xor x2 xor x3)));
+            --     decrypt
+            --     [14 06 18 0B]
+            --     [0B 02 0D 05]
+            --     [05 01 07 02]
+            --     [02 01 03 01]
+            y3 <= x1 xor x2 xor x3 xor xtime(x0 xor x2);
+            y2 <= x0 xor x1 xor x2 xor xtime(x1 xor y3);
+            y1 <= x0 xor x2 xor x3 xor xtime(x2 xor y2);
+            y0 <= x3 xor xtime(x0 xor x1 xor x2 xor y1);
             
             data_out(127 - 32*i downto 120 - 32*i) <= y0;
             data_out(119 - 32*i downto 112 - 32*i) <= y1;
