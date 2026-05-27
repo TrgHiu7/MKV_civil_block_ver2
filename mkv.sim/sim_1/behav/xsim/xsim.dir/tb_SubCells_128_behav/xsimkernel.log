@@ -1,7 +1,0 @@
-Running: xsim.dir/tb_SubCells_128_behav/xsimk -simmode gui -wdb tb_SubCells_128_behav.wdb -simrunnum 0 -socket 47447
-Design successfully loaded
-Design Loading Memory Usage: 28032 KB (Peak: 28544 KB)
-Design Loading CPU Usage: 10 ms
-Simulation completed
-Simulation Memory Usage: 113868 KB (Peak: 167300 KB)
-Simulation CPU Usage: 10 ms

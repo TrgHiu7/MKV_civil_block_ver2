@@ -1,7 +1,0 @@
-Running: xsim.dir/tb_Key_Expansion_behav/xsimk -simmode gui -wdb tb_Key_Expansion_behav.wdb -simrunnum 0 -socket 45601
-Design successfully loaded
-Design Loading Memory Usage: 28316 KB (Peak: 28576 KB)
-Design Loading CPU Usage: 20 ms
-Simulation completed
-Simulation Memory Usage: 110052 KB (Peak: 167584 KB)
-Simulation CPU Usage: 20 ms
