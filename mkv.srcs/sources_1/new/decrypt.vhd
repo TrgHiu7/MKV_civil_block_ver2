@@ -102,7 +102,7 @@ begin
         if rst = '1' then
             state       <= IDLE;
             round       <= (others => '0');
-            start_keygen <= '0';
+            start_keygen<= '0';
             done		<= '0';
             plaintext   <= (others => '0');
             i_data_reg  <= (others => '0');
@@ -124,7 +124,7 @@ begin
                     mem_keyk0(to_integer(i)) <= o_keyk0;
                     mem_keyk1(to_integer(i)) <= o_keyk1;  
                     if i = 8 then 
-                        mem_keypost <= o_keypost;  
+                        mem_keypost <= o_keypost;
                         round <= "0001";                        
                         state <= INIT;
                     else
@@ -133,8 +133,8 @@ begin
                 end if;
               when INIT =>
                 i_data_reg  <= ciphertext xor mem_keypost;
-                i_k0_reg    <= mem_keyk0(to_integer(i));
-                i_k1_reg    <= mem_keyk1(to_integer(i));
+                i_k0_reg    <= o_keyk0;
+                i_k1_reg    <= o_keyk1;
                 round <= round + 1;
                 state <= ROUND_CORE;
               when ROUND_CORE =>
@@ -146,8 +146,8 @@ begin
                     i <= i - 1;
                     round <= round + 1;
                     i_data_reg  <= o_data;
-                    i_k0_reg    <= mem_keyk0(to_integer(i-1));
-                    i_k1_reg    <= mem_keyk1(to_integer(i-1));
+                    i_k0_reg    <= mem_keyk0(to_integer(i));
+                    i_k1_reg    <= mem_keyk1(to_integer(i));
                     state       <= ROUND_CORE;
                 end if;
             when FINISH =>

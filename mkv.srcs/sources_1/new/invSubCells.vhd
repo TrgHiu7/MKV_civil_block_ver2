@@ -37,7 +37,7 @@ architecture Behavioral of invSubCells is
         x"AC", x"0F", x"B4", x"26", x"6D", x"53", x"3E", x"92", x"4B", x"18", x"D9", x"FF", x"75", x"C1", x"8A", x"E7",
         x"45", x"02", x"13", x"AB", x"D1", x"2C", x"FD", x"B8", x"7A", x"56", x"C2", x"69", x"87", x"94", x"EE", x"3F",
         x"F8", x"0C", x"79", x"34", x"57", x"E2", x"B5", x"4D", x"63", x"81", x"2E", x"1A", x"D6", x"AF", x"CC", x"9B",
-        x"23", x"05", x"91", x"58", x"FE", x"14", x"EA", x"C9", x"A6", x"B2", x"6F", x"37", x"4C", x"30", x"7B", x"85",
+        x"23", x"05", x"91", x"58", x"FE", x"14", x"EA", x"C9", x"A6", x"B2", x"6F", x"37", x"4C", x"DD", x"7B", x"85",
         x"8F", x"0A", x"25", x"7E", x"93", x"47", x"D4", x"5B", x"ED", x"AA", x"B6", x"C8", x"39", x"1C", x"F1", x"62",
         x"32", x"04", x"4F", x"E1", x"15", x"89", x"9C", x"AE", x"F4", x"7D", x"5A", x"BB", x"68", x"27", x"D3", x"C6",
         x"54", x"03", x"CD", x"12", x"3A", x"B1", x"8B", x"DF", x"28", x"99", x"F7", x"E5", x"A3", x"6E", x"46", x"7C",

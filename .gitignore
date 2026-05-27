@@ -1,5 +1,25 @@
-.Xil/
-*.jou
+# Vivado / Xilinx generated files
+
+# Simulation
+*.wdb
+*.vcd
 *.log
+*.jou
+*.pb
+
+# Vivado generated folders
+.sim/
+.runs/
+.cache/
+.gen/
+.hw/
+.ip_user_files/
+.Xil/
+
+# XSim
+xsim.dir/
+
+# Temporary / backup
 *.str
-*.backup*
+*.tmp
+*.backup

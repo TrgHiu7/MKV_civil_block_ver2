@@ -57,10 +57,10 @@ architecture Behavioral of encrypt is
             data_out    : out std_logic_vector(127 downto 0)
         );
     end component;
-    type state_type is (IDLE, INIT, ROUND, CHECK, FINISH);
-    signal state_reg, state_next : state_type;
+    type state_type is (IDLE, INIT, ROUND_CORE, CHECK, FINISH);
+    signal state : state_type := IDLE;
 
-    signal round_reg, round_next : integer range 0 to 10 := 0;
+    signal round	: unsigned(3 downto 0) := (others => '0');
 
     signal key_valid : std_logic;
 
@@ -68,12 +68,9 @@ architecture Behavioral of encrypt is
     signal o_keyk1   : std_logic_vector(127 downto 0);
     signal o_keypost : std_logic_vector(127 downto 0);
 
-    signal i_data_next, i_data_reg : std_logic_vector(127 downto 0);
+    signal i_data_reg : std_logic_vector(127 downto 0);
     signal o_data : std_logic_vector(127 downto 0);
 
-    signal cipher_reg, cipher_next : std_logic_vector(127 downto 0);
-
-    signal done_reg, done_next : std_logic;
 begin
     KEYGEN : Key_Expansion
     port map(
@@ -87,7 +84,7 @@ begin
         keyk1_out   => o_keyk1,
         key_post    => o_keypost
     );
-    ROUND_CORE : N_ROUND
+    ROUND_C : N_ROUND
     port map(
         data_in    => i_data_reg,
         keyk0      => o_keyk0,
@@ -98,64 +95,47 @@ begin
     process(clk, rst)
     begin
         if rst = '1' then
-            state_reg       <= IDLE;
-            round_reg       <= 0;
-            i_data_reg      <= (others => '0');
-            cipher_reg      <= (others => '0');
-            done_reg        <= '0';
+            state       <= IDLE;
+            round       <= (others => '0');
+            i_data_reg  <= (others => '0');
+            ciphertext  <= (others => '0');
+            done        <= '0';
         elsif rising_edge(clk) then
-            state_reg       <= state_next;
-            round_reg       <= round_next;
-            i_data_reg      <= i_data_next;
-            cipher_reg      <= cipher_next;
-            done_reg        <= done_next;
-        end if;
-    end process;
-    
-    process(state_reg, round_reg, start, key_valid,
-            plaintext, i_data_reg, o_data, o_keypost, cipher_reg)
-    begin
-        state_next      <= state_reg;
-        round_next      <= round_reg;
-        i_data_next     <= i_data_reg;
-        cipher_next     <= cipher_reg;
-        done_next       <= '0';
-        case state_reg is            
-            when IDLE =>
-                if start = '1' then
-                    state_next <= INIT;
-                end if;
-            when INIT =>
-                if key_valid = '1' then
-                    i_data_next  <= plaintext;
-                    state_next  <= ROUND;
-                end if;
-            when ROUND =>
-                if key_valid = '1' then
-                    if round_reg = 8 then
-                        round_next <= round_reg + 1;                        
-                    else
-                        i_data_next <= o_data;
-                        round_next <= round_reg + 1;                        
+            done       <= '0';
+            case state is            
+                when IDLE =>
+                    round <= (others => '0');
+                    if start = '1' then
+                        state <= INIT;
                     end if;
-                    state_next <= CHECK;
-                end if;
-            when CHECK =>
-                if round_reg = 9 then
-                    cipher_next <= o_data xor o_keypost;
-                    done_next   <= '1';
-                    state_next <= FINISH;
-                else
-                    state_next <= ROUND;
-                end if;       
-            when FINISH =>
-                if start = '0' then
-                    state_next  <= IDLE;
-                    done_next   <= '0';
-                    round_next  <= 0;
-                end if;
-        end case;
-    end process;
-    ciphertext <= cipher_reg;
-    done <= done_reg;
+                when INIT =>
+                    if key_valid = '1' then
+                        i_data_reg  <= plaintext;
+                        round <= (others => '0');
+                        state  <= ROUND_CORE;
+                    end if;
+                when ROUND_CORE =>
+                    if key_valid = '1' then
+                        if round = "1000" then                       
+                        else
+                            i_data_reg <= o_data;                       
+                        end if;
+                        round <= round + 1;
+                        state <= CHECK;
+                    end if;
+                when CHECK =>
+                    if round = "1000" then
+                        ciphertext <= o_data xor o_keypost;
+                        done   <= '1';
+                        state <= FINISH;
+                    else                        
+                        state <= ROUND_CORE;
+                    end if;       
+                when FINISH =>
+                    if start = '0' then
+                        state  <= IDLE;
+                    end if;
+            end case;
+        end if;
+    end process;    
 end Behavioral;
