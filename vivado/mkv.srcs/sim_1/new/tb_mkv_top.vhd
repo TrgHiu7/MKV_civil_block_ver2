@@ -107,10 +107,40 @@ begin
 
         report "TEST 1 : ENCRYPT";
 
-        key_master <= x"000102030405060708090A0B0C0D0E0F" &
-                      x"101112131415161718191A1B1C1D1E1F";
+        key_master <= x"0102030405060708090A0B0C0D0E0F11" &
+                      x"12131415161718191A1B1C1D1E1F2223";
 
-        data_in <= x"00112233445566778899AABBCCDDEEFF";
+        data_in <= x"112233445566778899AABBCCDDEEFF00";
+
+        i_mode <= '0';
+
+        wait for 20 ns;
+
+        assert i_ready = '0'
+        report "ERROR: i_ready should be 0 after input loaded"
+        severity error;
+
+        i_valid <= '1';
+        wait until rising_edge(clk);
+        i_valid <= '0';
+
+        wait until o_ready = '1';
+        wait for 90 ns;
+        o_valid <= '1';
+        wait for 90 ns;
+        o_valid <= '0';
+
+        wait for 20 ns;
+        ----------------------------------------------------------------------
+        -- TEST z : ENCRYPT
+        ----------------------------------------------------------------------
+
+        report "TEST z : ENCRYPT";
+
+        key_master <= x"1E1F22231A1B1C1D1617181912131415" &
+                      x"0D0E0F11090A0B0C0506070801020304";
+
+        data_in <= x"DDEEFF0099AABBCC5566778811223344";
 
         i_mode <= '1';
 
@@ -131,7 +161,6 @@ begin
         o_valid <= '0';
 
         wait for 20 ns;
-
         ----------------------------------------------------------------------
         -- TEST 2 : DECRYPT
         ----------------------------------------------------------------------

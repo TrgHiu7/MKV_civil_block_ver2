@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1779555142" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/Key_Expansion.dcp">
-  <File Type="PA-TCL" Name="encrypt.tcl"/>
-  <File Type="REPORTS-TCL" Name="encrypt_reports.tcl"/>
-  <File Type="RDS-RDS" Name="encrypt.vds"/>
-  <File Type="RDS-UTIL" Name="encrypt_utilization_synth.rpt"/>
-  <File Type="RDS-UTIL-PB" Name="encrypt_utilization_synth.pb"/>
-  <File Type="RDS-DCP" Name="encrypt.dcp"/>
+<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1780333097" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/Key_Expansion.dcp">
+  <File Type="VDS-TIMING-PB" Name="mkv_top_timing_summary_synth.pb"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="mkv_top_timing_summary_synth.rpt"/>
+  <File Type="RDS-DCP" Name="mkv_top.dcp"/>
+  <File Type="RDS-UTIL-PB" Name="mkv_top_utilization_synth.pb"/>
+  <File Type="RDS-UTIL" Name="mkv_top_utilization_synth.rpt"/>
+  <File Type="RDS-PROPCONSTRS" Name="mkv_top_drc_synth.rpt"/>
+  <File Type="RDS-RDS" Name="mkv_top.vds"/>
+  <File Type="REPORTS-TCL" Name="mkv_top_reports.tcl"/>
+  <File Type="PA-TCL" Name="mkv_top.tcl"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PSRCDIR/sources_1/new/Gen_Key.vhd">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/INV_N_ROUND.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -50,7 +59,19 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
+    <File Path="$PSRCDIR/sources_1/new/decrypt.vhd">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PSRCDIR/sources_1/new/encrypt.vhd">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/invMixWords.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -58,28 +79,25 @@
     </File>
     <File Path="$PSRCDIR/sources_1/new/invSubCells.vhd">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/invMixWords.vhd">
+    <File Path="$PSRCDIR/sources_1/new/inv_Subcells_128.vhd">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/decrypt.vhd">
+    <File Path="$PSRCDIR/sources_1/new/mkv_top.vhd">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
     <Config>
       <Option Name="DesignMode" Val="RTL"/>
-      <Option Name="TopModule" Val="encrypt"/>
+      <Option Name="TopModule" Val="mkv_top"/>
     </Config>
   </FileSet>
   <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">

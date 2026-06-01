@@ -20,7 +20,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='/home/tronghieu/vivado-workspace/HW/mkv/mkv/mkv.runs/synth_1'
+HD_PWD='/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.runs/synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
@@ -36,4 +36,4 @@ EAStep()
      fi
 }
 
-EAStep vivado -log encrypt.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source encrypt.tcl
+EAStep vivado -log mkv_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source mkv_top.tcl

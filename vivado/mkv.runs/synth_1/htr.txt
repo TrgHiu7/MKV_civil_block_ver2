@@ -6,4 +6,4 @@
 # Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 #
 
-vivado -log encrypt.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source encrypt.tcl
+vivado -log mkv_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source mkv_top.tcl
