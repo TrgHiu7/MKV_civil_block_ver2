@@ -1,0 +1,531 @@
+#-----------------------------------------------------------
+# Vivado v2022.2 (64-bit)
+# SW Build 3671981 on Fri Oct 14 04:59:54 MDT 2022
+# IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
+# Start of session at: Thu Jun 18 18:10:20 2026
+# Process ID: 25858
+# Current directory: /home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.runs/synth_1
+# Command line: vivado -log MKV_CRYPTO_TOP.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source MKV_CRYPTO_TOP.tcl
+# Log file: /home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.runs/synth_1/MKV_CRYPTO_TOP.vds
+# Journal file: /home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.runs/synth_1/vivado.jou
+# Running On: tronghieu-LOQ-15IAX9, OS: Linux, CPU Frequency: 2734.765 MHz, CPU Physical cores: 8, Host memory: 29119 MB
+#-----------------------------------------------------------
+source MKV_CRYPTO_TOP.tcl -notrace
+Command: read_checkpoint -auto_incremental -incremental /home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/utils_1/imports/synth_1/Key_Expansion.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from /home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/utils_1/imports/synth_1/Key_Expansion.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+Command: synth_design -top MKV_CRYPTO_TOP -part xc7a100tcsg324-1 -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 25884
+INFO: [Synth 8-11241] undeclared symbol 'REGCCE', assumed default net type 'wire' [/home/tronghieu/tools/Xilinx/Vivado/2022.2/data/verilog/src/unimacro/BRAM_SINGLE_MACRO.v:2170]
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1996.938 ; gain = 372.770 ; free physical = 16396 ; free virtual = 28270
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1336.334; parent = 1154.722; children = 181.612
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3013.020; parent = 1999.910; children = 1013.109
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'MKV_CRYPTO_TOP' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/MKV_CRYPTO_TOP.vhd:266]
+INFO: [Synth 8-3491] module 'Key_Expansion' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Key_Expansion.vhd:24' bound to instance 'KEYGEN' of component 'Key_Expansion' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/MKV_CRYPTO_TOP.vhd:356]
+INFO: [Synth 8-638] synthesizing module 'Key_Expansion' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Key_Expansion.vhd:42]
+INFO: [Synth 8-3491] module 'Gen_Key' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Gen_Key.vhd:23' bound to instance 'GKEY' of component 'Gen_Key' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Key_Expansion.vhd:78]
+INFO: [Synth 8-638] synthesizing module 'Gen_Key' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Gen_Key.vhd:31]
+INFO: [Synth 8-3491] module 'SubCells_128' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:18' bound to instance 'Sub1' of component 'SubCells_128' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Gen_Key.vhd:56]
+INFO: [Synth 8-638] synthesizing module 'SubCells_128' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:24]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/SubCells.vhd:20' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:34]
+INFO: [Synth 8-638] synthesizing module 'SubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/SubCells.vhd:26]
+INFO: [Synth 8-256] done synthesizing module 'SubCells' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/SubCells.vhd:26]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/SubCells.vhd:20' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:34]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/SubCells.vhd:20' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:34]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/SubCells.vhd:20' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:34]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/SubCells.vhd:20' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:34]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/SubCells.vhd:20' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:34]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/SubCells.vhd:20' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:34]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/SubCells.vhd:20' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:34]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/SubCells.vhd:20' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:34]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/SubCells.vhd:20' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:34]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/SubCells.vhd:20' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:34]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/SubCells.vhd:20' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:34]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/SubCells.vhd:20' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:34]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/SubCells.vhd:20' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:34]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/SubCells.vhd:20' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:34]
+INFO: [Synth 8-3491] module 'SubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/SubCells.vhd:20' bound to instance 'SBOX_INST' of component 'SubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:34]
+INFO: [Synth 8-256] done synthesizing module 'SubCells_128' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:24]
+INFO: [Synth 8-3491] module 'MixWords' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/MixWords.vhd:31' bound to instance 'Mix1' of component 'MixWords' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Gen_Key.vhd:57]
+INFO: [Synth 8-638] synthesizing module 'MixWords' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/MixWords.vhd:38]
+INFO: [Synth 8-256] done synthesizing module 'MixWords' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/MixWords.vhd:38]
+INFO: [Synth 8-3491] module 'SubCells_128' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:18' bound to instance 'Sub2' of component 'SubCells_128' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Gen_Key.vhd:58]
+INFO: [Synth 8-3491] module 'XWords' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/XWords.vhd:19' bound to instance 'XW1' of component 'XWords' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Gen_Key.vhd:59]
+INFO: [Synth 8-638] synthesizing module 'XWords' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/XWords.vhd:25]
+INFO: [Synth 8-256] done synthesizing module 'XWords' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/XWords.vhd:25]
+INFO: [Synth 8-3491] module 'SubCells_128' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:18' bound to instance 'Sub3' of component 'SubCells_128' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Gen_Key.vhd:66]
+INFO: [Synth 8-3491] module 'MixWords' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/MixWords.vhd:31' bound to instance 'Mix2' of component 'MixWords' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Gen_Key.vhd:67]
+INFO: [Synth 8-3491] module 'SubCells_128' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:18' bound to instance 'Sub4' of component 'SubCells_128' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Gen_Key.vhd:68]
+INFO: [Synth 8-3491] module 'XWords' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/XWords.vhd:19' bound to instance 'XW2' of component 'XWords' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Gen_Key.vhd:69]
+INFO: [Synth 8-256] done synthesizing module 'Gen_Key' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Gen_Key.vhd:31]
+INFO: [Synth 8-256] done synthesizing module 'Key_Expansion' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Key_Expansion.vhd:42]
+INFO: [Synth 8-3491] module 'encrypt' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/encrypt.vhd:24' bound to instance 'ENC_CORE' of component 'encrypt' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/MKV_CRYPTO_TOP.vhd:370]
+INFO: [Synth 8-638] synthesizing module 'encrypt' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/encrypt.vhd:41]
+INFO: [Synth 8-3491] module 'N_ROUND' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/N_ROUND.vhd:23' bound to instance 'ROUND_CORE' of component 'N_ROUND' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/encrypt.vhd:58]
+INFO: [Synth 8-638] synthesizing module 'N_ROUND' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/N_ROUND.vhd:32]
+INFO: [Synth 8-3491] module 'SubCells_128' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:18' bound to instance 'Sub1' of component 'SubCells_128' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/N_ROUND.vhd:57]
+INFO: [Synth 8-3491] module 'MixWords' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/MixWords.vhd:31' bound to instance 'Mix1' of component 'MixWords' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/N_ROUND.vhd:58]
+INFO: [Synth 8-3491] module 'SubCells_128' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:18' bound to instance 'Sub2' of component 'SubCells_128' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/N_ROUND.vhd:60]
+INFO: [Synth 8-3491] module 'XWords' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/XWords.vhd:19' bound to instance 'Mix2' of component 'XWords' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/N_ROUND.vhd:61]
+INFO: [Synth 8-256] done synthesizing module 'N_ROUND' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/N_ROUND.vhd:32]
+INFO: [Synth 8-256] done synthesizing module 'encrypt' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/encrypt.vhd:41]
+INFO: [Synth 8-3491] module 'decrypt' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/decrypt.vhd:5' bound to instance 'DEC_CORE' of component 'decrypt' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/MKV_CRYPTO_TOP.vhd:384]
+INFO: [Synth 8-638] synthesizing module 'decrypt' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/decrypt.vhd:23]
+INFO: [Synth 8-3491] module 'INV_N_ROUND' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/INV_N_ROUND.vhd:23' bound to instance 'ROUND_CORE' of component 'INV_N_ROUND' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/decrypt.vhd:44]
+INFO: [Synth 8-638] synthesizing module 'INV_N_ROUND' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/INV_N_ROUND.vhd:32]
+INFO: [Synth 8-3491] module 'XWords' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/XWords.vhd:19' bound to instance 'Sub1' of component 'XWords' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/INV_N_ROUND.vhd:53]
+INFO: [Synth 8-3491] module 'inv_Subcells_128' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/inv_Subcells_128.vhd:22' bound to instance 'Mix1' of component 'inv_SubCells_128' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/INV_N_ROUND.vhd:54]
+INFO: [Synth 8-638] synthesizing module 'inv_Subcells_128' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/inv_Subcells_128.vhd:28]
+INFO: [Synth 8-3491] module 'invSubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invSubCells.vhd:20' bound to instance 'SBOX_INST' of component 'invSubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/inv_Subcells_128.vhd:38]
+INFO: [Synth 8-638] synthesizing module 'invSubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invSubCells.vhd:26]
+INFO: [Synth 8-256] done synthesizing module 'invSubCells' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invSubCells.vhd:26]
+INFO: [Synth 8-3491] module 'invSubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invSubCells.vhd:20' bound to instance 'SBOX_INST' of component 'invSubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/inv_Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'invSubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invSubCells.vhd:20' bound to instance 'SBOX_INST' of component 'invSubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/inv_Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'invSubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invSubCells.vhd:20' bound to instance 'SBOX_INST' of component 'invSubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/inv_Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'invSubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invSubCells.vhd:20' bound to instance 'SBOX_INST' of component 'invSubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/inv_Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'invSubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invSubCells.vhd:20' bound to instance 'SBOX_INST' of component 'invSubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/inv_Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'invSubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invSubCells.vhd:20' bound to instance 'SBOX_INST' of component 'invSubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/inv_Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'invSubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invSubCells.vhd:20' bound to instance 'SBOX_INST' of component 'invSubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/inv_Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'invSubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invSubCells.vhd:20' bound to instance 'SBOX_INST' of component 'invSubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/inv_Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'invSubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invSubCells.vhd:20' bound to instance 'SBOX_INST' of component 'invSubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/inv_Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'invSubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invSubCells.vhd:20' bound to instance 'SBOX_INST' of component 'invSubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/inv_Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'invSubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invSubCells.vhd:20' bound to instance 'SBOX_INST' of component 'invSubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/inv_Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'invSubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invSubCells.vhd:20' bound to instance 'SBOX_INST' of component 'invSubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/inv_Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'invSubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invSubCells.vhd:20' bound to instance 'SBOX_INST' of component 'invSubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/inv_Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'invSubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invSubCells.vhd:20' bound to instance 'SBOX_INST' of component 'invSubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/inv_Subcells_128.vhd:38]
+INFO: [Synth 8-3491] module 'invSubCells' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invSubCells.vhd:20' bound to instance 'SBOX_INST' of component 'invSubCells' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/inv_Subcells_128.vhd:38]
+INFO: [Synth 8-256] done synthesizing module 'inv_Subcells_128' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/inv_Subcells_128.vhd:28]
+INFO: [Synth 8-3491] module 'invMixWords' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invMixWords.vhd:31' bound to instance 'Sub2' of component 'invMixWords' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/INV_N_ROUND.vhd:56]
+INFO: [Synth 8-638] synthesizing module 'invMixWords' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invMixWords.vhd:37]
+INFO: [Synth 8-256] done synthesizing module 'invMixWords' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invMixWords.vhd:37]
+INFO: [Synth 8-3491] module 'inv_Subcells_128' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/inv_Subcells_128.vhd:22' bound to instance 'Mix2' of component 'inv_SubCells_128' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/INV_N_ROUND.vhd:57]
+INFO: [Synth 8-256] done synthesizing module 'INV_N_ROUND' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/INV_N_ROUND.vhd:32]
+INFO: [Synth 8-256] done synthesizing module 'decrypt' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/decrypt.vhd:23]
+INFO: [Synth 8-256] done synthesizing module 'MKV_CRYPTO_TOP' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/MKV_CRYPTO_TOP.vhd:266]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2074.875 ; gain = 450.707 ; free physical = 16414 ; free virtual = 28289
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1336.334; parent = 1154.722; children = 181.612
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3087.988; parent = 2074.879; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2092.688 ; gain = 468.520 ; free physical = 16414 ; free virtual = 28289
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1336.334; parent = 1154.722; children = 181.612
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3105.801; parent = 2092.691; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2092.688 ; gain = 468.520 ; free physical = 16414 ; free virtual = 28289
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1336.334; parent = 1154.722; children = 181.612
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3105.801; parent = 2092.691; children = 1013.109
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.05 . Memory (MB): peak = 2092.688 ; gain = 0.000 ; free physical = 16413 ; free virtual = 28289
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/constrs_1/new/323.xdc]
+Finished Parsing XDC File [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/constrs_1/new/323.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2255.438 ; gain = 0.000 ; free physical = 16398 ; free virtual = 28273
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.1 ; elapsed = 00:00:00.04 . Memory (MB): peak = 2255.438 ; gain = 0.000 ; free physical = 16398 ; free virtual = 28273
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+INFO: [Synth 8-11241] undeclared symbol 'REGCCE', assumed default net type 'wire' [/home/tronghieu/tools/Xilinx/Vivado/2022.2/data/verilog/src/unimacro/BRAM_SINGLE_MACRO.v:2170]
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2255.438 ; gain = 631.270 ; free physical = 16518 ; free virtual = 28393
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1336.334; parent = 1154.722; children = 181.612
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3236.535; parent = 2223.426; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a100tcsg324-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2255.438 ; gain = 631.270 ; free physical = 16518 ; free virtual = 28393
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1336.334; parent = 1154.722; children = 181.612
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3236.535; parent = 2223.426; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2255.438 ; gain = 631.270 ; free physical = 16518 ; free virtual = 28393
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1336.334; parent = 1154.722; children = 181.612
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3236.535; parent = 2223.426; children = 1013.109
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'encrypt'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'decrypt'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'MKV_CRYPTO_TOP'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    idle |                              000 |                              000
+                    load |                              001 |                              001
+                   round |                              010 |                              010
+                next_key |                              011 |                              011
+                  finish |                              100 |                              100
+                  iSTATE |                              101 |                              111
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'encrypt'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    idle |                              000 |                              000
+                    load |                              001 |                              001
+                   round |                              010 |                              010
+                next_key |                              011 |                              011
+                  finish |                              100 |                              100
+                  iSTATE |                              101 |                              111
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'decrypt'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    idle |                              000 |                              000
+                wait_key |                              001 |                              001
+                    load |                              010 |                              010
+                  finish |                              011 |                              100
+                  iSTATE |                              100 |                              111
+                  update |                              101 |                              011
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'MKV_CRYPTO_TOP'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2255.438 ; gain = 631.270 ; free physical = 16519 ; free virtual = 28396
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1336.334; parent = 1154.722; children = 181.612
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3236.535; parent = 2223.426; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input    4 Bit       Adders := 6     
++---XORs : 
+	   2 Input    128 Bit         XORs := 11    
+	   2 Input     32 Bit         XORs := 24    
+	   2 Input      8 Bit         XORs := 142   
+	   4 Input      8 Bit         XORs := 14    
+	   3 Input      8 Bit         XORs := 42    
++---Registers : 
+	              128 Bit    Registers := 34    
+	                4 Bit    Registers := 6     
+	                1 Bit    Registers := 10    
++---Muxes : 
+	  11 Input  128 Bit        Muxes := 3     
+	   2 Input  128 Bit        Muxes := 8     
+	   6 Input  128 Bit        Muxes := 4     
+	   2 Input    8 Bit        Muxes := 64    
+	  11 Input    4 Bit        Muxes := 1     
+	   2 Input    4 Bit        Muxes := 1     
+	   6 Input    4 Bit        Muxes := 3     
+	   5 Input    3 Bit        Muxes := 3     
+	   2 Input    3 Bit        Muxes := 6     
+	  11 Input    1 Bit        Muxes := 9     
+	   2 Input    1 Bit        Muxes := 18    
+	   6 Input    1 Bit        Muxes := 16    
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 240 (col length:80)
+BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:48 ; elapsed = 00:01:51 . Memory (MB): peak = 2292.250 ; gain = 668.082 ; free physical = 16446 ; free virtual = 28336
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1575.737; parent = 1394.170; children = 181.612
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3305.363; parent = 2292.254; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+ROM: Preliminary Mapping Report
++-------------+--------------------------------------------------------+---------------+----------------+
+|Module Name  | RTL Object                                             | Depth x Width | Implemented As | 
++-------------+--------------------------------------------------------+---------------+----------------+
+|SubCells     | sbox_mkv[0]                                            | 256x8         | LUT            | 
+|invSubCells  | inv_sbox_mkv[0]                                        | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[1].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[2].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[3].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[4].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[5].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[6].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[7].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[8].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[9].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[10].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[11].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[12].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[13].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[14].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[15].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[5].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[6].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[7].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[8].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[9].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[10].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[11].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[12].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[13].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[14].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[15].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[2].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[3].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[4].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[5].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[6].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[7].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[8].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[9].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[10].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[11].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[12].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[13].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[14].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[15].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[1].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[2].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[3].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[4].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[5].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[6].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[7].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[8].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[9].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[10].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[11].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[12].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[13].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[14].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|SubCells_128 | gen_sbox[15].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub1/gen_sbox[0].SBOX_INST/sbox_mkv[0]      | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub1/gen_sbox[1].SBOX_INST/sbox_mkv[0]      | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub1/gen_sbox[2].SBOX_INST/sbox_mkv[0]      | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub1/gen_sbox[3].SBOX_INST/sbox_mkv[0]      | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub1/gen_sbox[4].SBOX_INST/sbox_mkv[0]      | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub1/gen_sbox[5].SBOX_INST/sbox_mkv[0]      | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub1/gen_sbox[6].SBOX_INST/sbox_mkv[0]      | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub1/gen_sbox[7].SBOX_INST/sbox_mkv[0]      | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub1/gen_sbox[8].SBOX_INST/sbox_mkv[0]      | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub1/gen_sbox[9].SBOX_INST/sbox_mkv[0]      | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub1/gen_sbox[10].SBOX_INST/sbox_mkv[0]     | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub1/gen_sbox[11].SBOX_INST/sbox_mkv[0]     | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub1/gen_sbox[12].SBOX_INST/sbox_mkv[0]     | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub1/gen_sbox[13].SBOX_INST/sbox_mkv[0]     | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub1/gen_sbox[14].SBOX_INST/sbox_mkv[0]     | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub1/gen_sbox[15].SBOX_INST/sbox_mkv[0]     | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub2/gen_sbox[0].SBOX_INST/sbox_mkv[0]      | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub2/gen_sbox[1].SBOX_INST/sbox_mkv[0]      | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub2/gen_sbox[2].SBOX_INST/sbox_mkv[0]      | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub2/gen_sbox[3].SBOX_INST/sbox_mkv[0]      | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub2/gen_sbox[4].SBOX_INST/sbox_mkv[0]      | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub2/gen_sbox[5].SBOX_INST/sbox_mkv[0]      | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub2/gen_sbox[6].SBOX_INST/sbox_mkv[0]      | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub2/gen_sbox[7].SBOX_INST/sbox_mkv[0]      | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub2/gen_sbox[8].SBOX_INST/sbox_mkv[0]      | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub2/gen_sbox[9].SBOX_INST/sbox_mkv[0]      | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub2/gen_sbox[10].SBOX_INST/sbox_mkv[0]     | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub2/gen_sbox[11].SBOX_INST/sbox_mkv[0]     | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub2/gen_sbox[12].SBOX_INST/sbox_mkv[0]     | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub2/gen_sbox[13].SBOX_INST/sbox_mkv[0]     | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub2/gen_sbox[14].SBOX_INST/sbox_mkv[0]     | 256x8         | LUT            | 
+|encrypt      | ROUND_CORE/Sub2/gen_sbox[15].SBOX_INST/sbox_mkv[0]     | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix1/gen_sbox[15].SBOX_INST/inv_sbox_mkv[0] | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix1/gen_sbox[14].SBOX_INST/inv_sbox_mkv[0] | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix1/gen_sbox[13].SBOX_INST/inv_sbox_mkv[0] | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix1/gen_sbox[12].SBOX_INST/inv_sbox_mkv[0] | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix1/gen_sbox[11].SBOX_INST/inv_sbox_mkv[0] | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix1/gen_sbox[10].SBOX_INST/inv_sbox_mkv[0] | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix1/gen_sbox[9].SBOX_INST/inv_sbox_mkv[0]  | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix1/gen_sbox[8].SBOX_INST/inv_sbox_mkv[0]  | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix1/gen_sbox[7].SBOX_INST/inv_sbox_mkv[0]  | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix1/gen_sbox[6].SBOX_INST/inv_sbox_mkv[0]  | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix1/gen_sbox[5].SBOX_INST/inv_sbox_mkv[0]  | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix1/gen_sbox[4].SBOX_INST/inv_sbox_mkv[0]  | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix1/gen_sbox[3].SBOX_INST/inv_sbox_mkv[0]  | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix1/gen_sbox[2].SBOX_INST/inv_sbox_mkv[0]  | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix1/gen_sbox[1].SBOX_INST/inv_sbox_mkv[0]  | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix1/gen_sbox[0].SBOX_INST/inv_sbox_mkv[0]  | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix2/gen_sbox[15].SBOX_INST/inv_sbox_mkv[0] | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix2/gen_sbox[14].SBOX_INST/inv_sbox_mkv[0] | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix2/gen_sbox[13].SBOX_INST/inv_sbox_mkv[0] | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix2/gen_sbox[12].SBOX_INST/inv_sbox_mkv[0] | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix2/gen_sbox[11].SBOX_INST/inv_sbox_mkv[0] | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix2/gen_sbox[10].SBOX_INST/inv_sbox_mkv[0] | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix2/gen_sbox[9].SBOX_INST/inv_sbox_mkv[0]  | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix2/gen_sbox[8].SBOX_INST/inv_sbox_mkv[0]  | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix2/gen_sbox[7].SBOX_INST/inv_sbox_mkv[0]  | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix2/gen_sbox[6].SBOX_INST/inv_sbox_mkv[0]  | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix2/gen_sbox[5].SBOX_INST/inv_sbox_mkv[0]  | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix2/gen_sbox[4].SBOX_INST/inv_sbox_mkv[0]  | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix2/gen_sbox[3].SBOX_INST/inv_sbox_mkv[0]  | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix2/gen_sbox[2].SBOX_INST/inv_sbox_mkv[0]  | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix2/gen_sbox[1].SBOX_INST/inv_sbox_mkv[0]  | 256x8         | LUT            | 
+|decrypt      | ROUND_CORE/Mix2/gen_sbox[0].SBOX_INST/inv_sbox_mkv[0]  | 256x8         | LUT            | 
++-------------+--------------------------------------------------------+---------------+----------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:51 ; elapsed = 00:01:54 . Memory (MB): peak = 2292.250 ; gain = 668.082 ; free physical = 16401 ; free virtual = 28292
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1575.737; parent = 1394.170; children = 181.612
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3305.363; parent = 2292.254; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:01:56 ; elapsed = 00:01:59 . Memory (MB): peak = 2292.250 ; gain = 668.082 ; free physical = 16329 ; free virtual = 28219
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1575.737; parent = 1394.170; children = 181.612
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3305.363; parent = 2292.254; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:01:58 ; elapsed = 00:02:02 . Memory (MB): peak = 2292.250 ; gain = 668.082 ; free physical = 16335 ; free virtual = 28226
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1575.737; parent = 1394.170; children = 181.612
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3305.363; parent = 2292.254; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:02:01 ; elapsed = 00:02:04 . Memory (MB): peak = 2292.250 ; gain = 668.082 ; free physical = 16344 ; free virtual = 28235
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1575.737; parent = 1394.170; children = 181.612
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3305.363; parent = 2292.254; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:02:01 ; elapsed = 00:02:04 . Memory (MB): peak = 2292.250 ; gain = 668.082 ; free physical = 16344 ; free virtual = 28235
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1575.737; parent = 1394.170; children = 181.612
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3305.363; parent = 2292.254; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:02:01 ; elapsed = 00:02:05 . Memory (MB): peak = 2292.250 ; gain = 668.082 ; free physical = 16344 ; free virtual = 28235
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1575.737; parent = 1394.170; children = 181.612
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3305.363; parent = 2292.254; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:02:01 ; elapsed = 00:02:05 . Memory (MB): peak = 2292.250 ; gain = 668.082 ; free physical = 16351 ; free virtual = 28241
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1575.737; parent = 1394.170; children = 181.612
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3305.363; parent = 2292.254; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:02:02 ; elapsed = 00:02:05 . Memory (MB): peak = 2292.250 ; gain = 668.082 ; free physical = 16351 ; free virtual = 28242
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1575.737; parent = 1394.170; children = 181.612
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3305.363; parent = 2292.254; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:02:02 ; elapsed = 00:02:05 . Memory (MB): peak = 2292.250 ; gain = 668.082 ; free physical = 16351 ; free virtual = 28242
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1575.737; parent = 1394.170; children = 181.612
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3305.363; parent = 2292.254; children = 1013.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+------+------+
+|      |Cell  |Count |
++------+------+------+
+|1     |LUT1  |     1|
+|2     |LUT2  |   455|
+|3     |LUT3  |   843|
+|4     |LUT4  |   425|
+|5     |LUT5  |   655|
+|6     |LUT6  |  6509|
+|7     |MUXF7 |  2100|
+|8     |MUXF8 |   720|
+|9     |FDCE  |  4286|
+|10    |FDRE  |   128|
++------+------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:02:02 ; elapsed = 00:02:05 . Memory (MB): peak = 2292.250 ; gain = 668.082 ; free physical = 16351 ; free virtual = 28242
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1575.737; parent = 1394.170; children = 181.612
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3305.363; parent = 2292.254; children = 1013.109
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 1 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:02:00 ; elapsed = 00:02:04 . Memory (MB): peak = 2292.250 ; gain = 505.332 ; free physical = 16407 ; free virtual = 28298
+Synthesis Optimization Complete : Time (s): cpu = 00:02:02 ; elapsed = 00:02:05 . Memory (MB): peak = 2292.258 ; gain = 668.082 ; free physical = 16407 ; free virtual = 28298
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.1 ; elapsed = 00:00:00.1 . Memory (MB): peak = 2292.258 ; gain = 0.000 ; free physical = 16521 ; free virtual = 28412
+INFO: [Netlist 29-17] Analyzing 2820 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2316.262 ; gain = 0.000 ; free physical = 16481 ; free virtual = 28371
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete, checksum: eca73a81
+INFO: [Common 17-83] Releasing license: Synthesis
+110 Infos, 1 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:02:08 ; elapsed = 00:02:10 . Memory (MB): peak = 2316.262 ; gain = 1019.164 ; free physical = 16715 ; free virtual = 28605
+INFO: [Common 17-1381] The checkpoint '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.runs/synth_1/MKV_CRYPTO_TOP.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file MKV_CRYPTO_TOP_utilization_synth.rpt -pb MKV_CRYPTO_TOP_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Thu Jun 18 18:12:36 2026...

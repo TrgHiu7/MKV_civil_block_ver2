@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.runs/synth_1/mkv_top.tcl"
+  variable script "/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.runs/synth_1/MKV_CRYPTO_TOP.tcl"
   variable category "vivado_synth"
 }
 
@@ -70,9 +70,6 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
-set_param checkpoint.writeSynthRtdsInDcp 1
-set_msg_config -id {Synth 8-256} -limit 10000
-set_msg_config -id {Synth 8-638} -limit 10000
 set_msg_config  -id {Simulation 11-1}  -suppress 
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a100tcsg324-1
@@ -102,7 +99,7 @@ read_vhdl -library xil_defaultlib {
   /home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invMixWords.vhd
   /home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invSubCells.vhd
   /home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/inv_Subcells_128.vhd
-  /home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/mkv_top.vhd
+  /home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/MKV_CRYPTO_TOP.vhd
 }
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -122,7 +119,7 @@ read_checkpoint -auto_incremental -incremental /home/tronghieu/vivado-workspace/
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }
-synth_design -top mkv_top -part xc7a100tcsg324-1 -mode out_of_context
+synth_design -top MKV_CRYPTO_TOP -part xc7a100tcsg324-1 -mode out_of_context
 OPTRACE "synth_design" END { }
 if { [get_msg_config -count -severity {CRITICAL WARNING}] > 0 } {
  send_msg_id runtcl-6 info "Synthesis results are not added to the cache due to CRITICAL_WARNING"
@@ -132,10 +129,10 @@ if { [get_msg_config -count -severity {CRITICAL WARNING}] > 0 } {
 OPTRACE "write_checkpoint" START { CHECKPOINT }
 # disable binary constraint mode for synth run checkpoints
 set_param constraints.enableBinaryConstraints false
-write_checkpoint -force -noxdef mkv_top.dcp
+write_checkpoint -force -noxdef MKV_CRYPTO_TOP.dcp
 OPTRACE "write_checkpoint" END { }
 OPTRACE "synth reports" START { REPORT }
-create_report "synth_1_synth_report_utilization_0" "report_utilization -file mkv_top_utilization_synth.rpt -pb mkv_top_utilization_synth.pb"
+create_report "synth_1_synth_report_utilization_0" "report_utilization -file MKV_CRYPTO_TOP_utilization_synth.rpt -pb MKV_CRYPTO_TOP_utilization_synth.pb"
 OPTRACE "synth reports" END { }
 file delete __synthesis_is_running__
 close [open __synthesis_is_complete__ w]

@@ -1,0 +1,483 @@
+--    ----------------------------------------------------------------------------------
+--    -- Company: 
+--    -- Engineer: 
+--    -- 
+--    -- Create Date: 06/15/2026 01:10:58 PM
+--    -- Design Name: 
+--    -- Module Name: MKV_CRYPTO_TOP - Behavioral
+--    -- Project Name: 
+--    -- Target Devices: 
+--    -- Tool Versions: 
+--    -- Description: 
+--    -- 
+--    -- Dependencies: 
+--    -- 
+--    -- Revision:
+--    -- Revision 0.01 - File Created
+--    -- Additional Comments:
+--    -- 
+--    ----------------------------------------------------------------------------------
+--    library IEEE;
+--    use IEEE.STD_LOGIC_1164.ALL;
+--    use IEEE.NUMERIC_STD.ALL;
+    
+--    entity MKV_CRYPTO_TOP is
+--      Port (clk         : in  std_logic;
+--            rst         : in  std_logic;
+            
+--            start       : in  std_logic;
+--            key_master  : in  std_logic_vector(255 downto 0);        
+            
+--            sel_crypt   : in  std_logic; --0: enc      1:dec
+--            data_in     : in  std_logic_vector(127 downto 0);
+            
+--            done        : out std_logic;
+--            data_out    : out std_logic_vector(127 downto 0)
+--            );
+--    end MKV_CRYPTO_TOP;
+    
+--    architecture Behavioral of MKV_CRYPTO_TOP is
+--        component Key_Expansion
+--            Port (
+--                clk         : in  std_logic;
+--                rst         : in  std_logic;
+--                start       : in  std_logic;
+                
+--                key_master  : in  std_logic_vector(255 downto 0);
+                
+--                keyk0_out   : out std_logic_vector(127 downto 0);
+--                keyk1_out   : out std_logic_vector(127 downto 0);
+--                key_post    : out std_logic_vector(127 downto 0);
+                
+--                key_index   : out std_logic_vector(3 downto 0);
+--                valid       : out std_logic;
+--                done        : out std_logic
+--            );
+--        end component;
+--        component encrypt
+--              Port (
+--                clk         : in  std_logic;
+--                rst         : in  std_logic;
+--                start       : in  std_logic;
+--                plaintext   : in  std_logic_vector(127 downto 0);
+        
+--                keyk0       : in  std_logic_vector(127 downto 0);
+--                keyk1       : in  std_logic_vector(127 downto 0);
+--                key_post    : in  std_logic_vector(127 downto 0);
+                
+--                next_round  : out std_logic;    
+--                done        : out std_logic;
+--                ciphertext  : out std_logic_vector(127 downto 0)
+--            );
+--        end component;
+--        component decrypt
+--            Port (
+--                clk         : in  std_logic;
+--                rst         : in  std_logic;
+--                start       : in  std_logic;
+        
+--                ciphertext  : in  std_logic_vector(127 downto 0);
+        
+--                keyk0       : in  std_logic_vector(127 downto 0);
+--                keyk1       : in  std_logic_vector(127 downto 0);
+--                key_post    : in  std_logic_vector(127 downto 0);
+        
+--                next_round  : out std_logic;
+--                done        : out std_logic;
+--                plaintext   : out std_logic_vector(127 downto 0)
+--            );
+--        end component;
+--        signal start_enc, start_dec, enc_done, dec_done  : std_logic := '0';
+        
+--        type key_array is array(0 to 8) of std_logic_vector(127 downto 0);    
+--        signal mem_keyk0 : key_array;
+--        signal mem_keyk1 : key_array;
+--        signal mem_keypost : std_logic_vector(127 downto 0);
+        
+--        signal key_index   : std_logic_vector(3 downto 0);
+--        signal valid_key   : std_logic;
+--        signal done_key    : std_logic;
+        
+--        signal keyk0_out   : std_logic_vector(127 downto 0);
+--        signal keyk1_out   : std_logic_vector(127 downto 0);
+--        signal key_post    : std_logic_vector(127 downto 0);
+        
+--        signal key_ready : std_logic;
+--        signal enc_round : std_logic_vector(3 downto 0);
+        
+--        signal keyk0_mem   : std_logic_vector(127 downto 0);
+--        signal keyk1_mem   : std_logic_vector(127 downto 0);
+--        signal key_post_mem, data_out_reg, dec_data: std_logic_vector(127 downto 0);
+        
+--        type state_type is (IDLE, WAIT_KEY, LOAD, UPDATE, FINISH);
+--        signal state : state_type := IDLE;
+        
+--        signal dec_key_ready : std_logic;
+--        signal i : std_logic_vector(3 downto 0) := "0000";
+--        signal start_key : std_logic;
+--        signal sel_crypt_reg: std_logic;
+        
+--        signal is_key_expanded : std_logic := '0';
+--    begin
+--        start_key <= start and not is_key_expanded;
+--        KEYGEN : Key_Expansion
+--        port map(
+--            clk         => clk,
+--            rst         => rst,
+--            start       => start_key,
+            
+--            key_master  => key_master,        
+            
+--            keyk0_out   => keyk0_out,
+--            keyk1_out   => keyk1_out,
+--            key_post    => key_post,
+            
+--            key_index   => key_index,
+--            valid       => valid_key,
+--            done        => done_key
+--        );
+--        ENC_CORE : encrypt
+--        port map(
+--            clk         => clk,
+--            rst         => rst,
+--            start       => start_enc,
+--            plaintext   => data_in,
+    
+--            keyk0       => keyk0_mem,
+--            keyk1       => keyk1_mem,
+--            key_post    => mem_keypost,
+            
+--            next_round  => key_ready,
+--            done        => enc_done,
+--            ciphertext  => data_out_reg
+--        );
+--        DEC_CORE : decrypt
+--        port map(
+--            clk         => clk,
+--            rst         => rst,
+--            start       => start_dec,
+--            ciphertext   => data_in,
+    
+--            keyk0       => keyk0_mem,
+--            keyk1       => keyk1_mem,
+--            key_post    => mem_keypost,
+            
+--            next_round  => dec_key_ready,
+--            done        => dec_done,
+--            plaintext   => dec_data
+--        );
+--        process(clk, rst)
+--        begin
+--            if rst = '1' then  
+--                i           <= "0000";
+--                start_enc   <= '0';
+--                start_dec   <= '0';    
+--                state <= IDLE;
+--                keyk0_mem <= (others=>'0');
+--                keyk1_mem <= (others=>'0');
+--                key_post_mem <= (others=>'0');
+--                mem_keypost <= (others => '0');   
+--                sel_crypt_reg <= '0'; 
+--                is_key_expanded <= '0';
+--                for j in 0 to 8 loop
+--                    mem_keyk0(j) <= (others => '0');
+--                    mem_keyk1(j) <= (others => '0');
+--                end loop;   
+--            elsif rising_edge(clk) then
+--                sel_crypt_reg <= sel_crypt;
+--                if valid_key = '1' then    
+--                    mem_keyk0(to_integer(unsigned(key_index))) <= keyk0_out;
+--                    mem_keyk1(to_integer(unsigned(key_index))) <= keyk1_out;    
+--                end if;
+--                if done_key = '1' then    
+--                    mem_keypost <= key_post;   
+--                    is_key_expanded <= '1'; 
+--                end if;
+--                case state is
+--                    when IDLE =>
+--                        if start = '1' then
+--                            state <= WAIT_KEY;
+--                            i           <= "0000";
+--                        end if;
+--                    when WAIT_KEY =>
+--                        if is_key_expanded = '1' then    
+--                            if sel_crypt_reg = '1' then
+--                                start_dec <= '1';
+--                                start_enc <= '0';
+--                                keyk0_mem <= mem_keyk0(8);
+--                                keyk1_mem <= mem_keyk1(8);
+--                            else
+--                                start_dec <= '0';
+--                                start_enc <= '1';
+--                                keyk0_mem   <= mem_keyk0(0);
+--                                keyk1_mem   <= mem_keyk1(0);      
+--                            end if;                                              
+--                            state <= LOAD;
+--                        end if;
+--                    when LOAD =>
+--                        start_enc <= '0';
+--                        start_dec <= '0';                    
+--                        if i = "1000" then
+--                            state <= FINISH;
+--                        elsif ((sel_crypt_reg='0' and key_ready='1') or
+--                               (sel_crypt_reg='1' and dec_key_ready='1')) then
+--                            if sel_crypt_reg='0' then
+--                                keyk0_mem <= mem_keyk0(to_integer(unsigned(i))+1);
+--                                keyk1_mem <= mem_keyk1(to_integer(unsigned(i))+1);
+--                            else
+--                                keyk0_mem <= mem_keyk0(8 - to_integer(unsigned(i))-1);
+--                                keyk1_mem <= mem_keyk1(8 - to_integer(unsigned(i))-1);
+--                            end if;
+--                            i <= std_logic_vector(unsigned(i) + 1);
+--                            state <= UPDATE;
+--                        end if;
+--                    when UPDATE => 
+--                        state <= LOAD;
+--                    when FINISH =>
+--                        if start = '0' then
+--                            state <= IDLE;
+--                        end if;
+--                end case;
+--            end if;
+--        end process;
+--        done <= enc_done when sel_crypt_reg='0' else dec_done;    
+--        data_out <= data_out_reg when sel_crypt_reg='0' else dec_data;
+--    end Behavioral;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity MKV_CRYPTO_TOP is
+    Port (
+        clk         : in  std_logic;
+        rst         : in  std_logic;
+        
+        start       : in  std_logic;
+        key_master  : in  std_logic_vector(255 downto 0);        
+        
+        sel_crypt   : in  std_logic; --0: enc      1:dec
+        data_in     : in  std_logic_vector(127 downto 0);
+        
+        done        : out std_logic;
+        data_out    : out std_logic_vector(127 downto 0)
+    );
+end MKV_CRYPTO_TOP;
+
+architecture Behavioral of MKV_CRYPTO_TOP is
+    component Key_Expansion
+        Port (
+            clk         : in  std_logic;
+            rst         : in  std_logic;
+            start       : in  std_logic;
+            
+            key_master  : in  std_logic_vector(255 downto 0);
+            
+            keyk0_out   : out std_logic_vector(127 downto 0);
+            keyk1_out   : out std_logic_vector(127 downto 0);
+            key_post    : out std_logic_vector(127 downto 0);
+            
+            key_index   : out std_logic_vector(3 downto 0);
+            valid       : out std_logic;
+            done        : out std_logic
+        );
+    end component;
+    
+    component encrypt
+        Port (
+            clk         : in  std_logic;
+            rst         : in  std_logic;
+            start       : in  std_logic;
+            plaintext   : in  std_logic_vector(127 downto 0);
+    
+            keyk0       : in  std_logic_vector(127 downto 0);
+            keyk1       : in  std_logic_vector(127 downto 0);
+            key_post    : in  std_logic_vector(127 downto 0);
+            
+            next_round  : out std_logic;    
+            done        : out std_logic;
+            ciphertext  : out std_logic_vector(127 downto 0)
+        );
+    end component;
+    
+    component decrypt
+        Port (
+            clk         : in  std_logic;
+            rst         : in  std_logic;
+            start       : in  std_logic;
+    
+            ciphertext  : in  std_logic_vector(127 downto 0);
+    
+            keyk0       : in  std_logic_vector(127 downto 0);
+            keyk1       : in  std_logic_vector(127 downto 0);
+            key_post    : in  std_logic_vector(127 downto 0);
+    
+            next_round  : out std_logic;
+            done        : out std_logic;
+            plaintext   : out std_logic_vector(127 downto 0)
+        );
+    end component;
+    
+    signal start_enc, start_dec, enc_done, dec_done  : std_logic := '0';
+    
+    type key_array is array(0 to 8) of std_logic_vector(127 downto 0);    
+    signal mem_keyk0 : key_array;
+    signal mem_keyk1 : key_array;
+    signal mem_keypost : std_logic_vector(127 downto 0);
+    
+    signal key_index   : std_logic_vector(3 downto 0);
+    signal valid_key   : std_logic;
+    signal done_key    : std_logic;
+    
+    signal keyk0_out   : std_logic_vector(127 downto 0);
+    signal keyk1_out   : std_logic_vector(127 downto 0);
+    signal key_post    : std_logic_vector(127 downto 0);
+    
+    signal key_ready : std_logic;
+    signal enc_round : std_logic_vector(3 downto 0);
+    
+    signal keyk0_mem   : std_logic_vector(127 downto 0);
+    signal keyk1_mem   : std_logic_vector(127 downto 0);
+    signal key_post_mem, data_out_reg, dec_data: std_logic_vector(127 downto 0);
+    
+    type state_type is (IDLE, WAIT_KEY, LOAD, UPDATE, FINISH);
+    signal state : state_type := IDLE;
+    
+    signal dec_key_ready : std_logic;
+    signal i : std_logic_vector(3 downto 0) := "0000";
+    signal start_key : std_logic;
+    signal sel_crypt_reg: std_logic;
+    
+    signal is_key_expanded : std_logic := '0';
+    
+begin
+
+    start_key <= start and not is_key_expanded;
+    
+    KEYGEN : Key_Expansion
+    port map(
+        clk         => clk,
+        rst         => rst,
+        start       => start_key,
+        key_master  => key_master,        
+        keyk0_out   => keyk0_out,
+        keyk1_out   => keyk1_out,
+        key_post    => key_post,
+        key_index   => key_index,
+        valid       => valid_key,
+        done        => done_key
+    );
+    
+    ENC_CORE : encrypt
+    port map(
+        clk         => clk,
+        rst         => rst,
+        start       => start_enc,
+        plaintext   => data_in,
+        keyk0       => keyk0_mem,
+        keyk1       => keyk1_mem,
+        key_post    => mem_keypost,
+        next_round  => key_ready,
+        done        => enc_done,
+        ciphertext  => data_out_reg
+    );
+    
+    DEC_CORE : decrypt
+    port map(
+        clk         => clk,
+        rst         => rst,
+        start       => start_dec,
+        ciphertext  => data_in,
+        keyk0       => keyk0_mem,
+        keyk1       => keyk1_mem,
+        key_post    => mem_keypost,
+        next_round  => dec_key_ready,
+        done        => dec_done,
+        plaintext   => dec_data
+    );
+    
+    process(clk, rst)
+    begin
+        if rst = '1' then  
+            i           <= "0000";
+            start_enc   <= '0';
+            start_dec   <= '0';    
+            state <= IDLE;
+            keyk0_mem <= (others=>'0');
+            keyk1_mem <= (others=>'0');
+            key_post_mem <= (others=>'0');
+            mem_keypost <= (others => '0');   
+            sel_crypt_reg <= '0'; 
+            is_key_expanded <= '0';
+            for j in 0 to 8 loop
+                mem_keyk0(j) <= (others => '0');
+                mem_keyk1(j) <= (others => '0');
+            end loop;   
+        elsif rising_edge(clk) then
+            sel_crypt_reg <= sel_crypt;
+            
+            if valid_key = '1' then    
+                mem_keyk0(to_integer(unsigned(key_index))) <= keyk0_out;
+                mem_keyk1(to_integer(unsigned(key_index))) <= keyk1_out;    
+            end if;
+            
+            if done_key = '1' then    
+                mem_keypost <= key_post;   
+                is_key_expanded <= '1'; 
+            end if;
+            
+            case state is
+                when IDLE =>
+                    if start = '1' then
+                        state <= WAIT_KEY;
+                        i     <= "0000";
+                    end if;
+                    
+                when WAIT_KEY =>
+                    if is_key_expanded='1' then    
+                        if sel_crypt_reg = '1' then
+                            start_dec <= '1';
+                            start_enc <= '0';
+                            keyk0_mem <= mem_keyk0(8);
+                            keyk1_mem <= mem_keyk1(8);
+                        else
+                            start_dec <= '0';
+                            start_enc <= '1';
+                            keyk0_mem   <= mem_keyk0(0);
+                            keyk1_mem   <= mem_keyk1(0);      
+                        end if;                                              
+                        state <= LOAD;
+                    end if;
+                    
+                when LOAD =>
+                    start_enc <= '0';
+                    start_dec <= '0';                    
+                    if i = "1000" then
+                        state <= FINISH;
+                    elsif ((sel_crypt_reg='0' and key_ready='1') or
+                           (sel_crypt_reg='1' and dec_key_ready='1')) then
+                        if sel_crypt_reg='0' then
+                            keyk0_mem <= mem_keyk0(to_integer(unsigned(i))+1);
+                            keyk1_mem <= mem_keyk1(to_integer(unsigned(i))+1);
+                        else
+                            keyk0_mem <= mem_keyk0(8 - to_integer(unsigned(i))-1);
+                            keyk1_mem <= mem_keyk1(8 - to_integer(unsigned(i))-1);
+                        end if;
+                        i <= std_logic_vector(unsigned(i) + 1);
+                        state <= UPDATE;
+                    end if;
+                    
+                when UPDATE => 
+                    state <= LOAD;
+                    
+                when FINISH =>
+                    if start = '0' then
+                        state <= IDLE;
+                    end if;
+            end case;
+        end if;
+    end process;
+    
+    done <= enc_done when sel_crypt_reg='0' else dec_done;    
+    data_out <= data_out_reg when sel_crypt_reg='0' else dec_data;
+    
+end Behavioral;

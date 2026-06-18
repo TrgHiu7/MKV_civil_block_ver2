@@ -36,4 +36,4 @@ EAStep()
      fi
 }
 
-EAStep vivado -log mkv_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source mkv_top.tcl
+EAStep vivado -log MKV_CRYPTO_TOP.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source MKV_CRYPTO_TOP.tcl

@@ -26,12 +26,16 @@ entity Key_Expansion is
         clk         : in  std_logic;
         rst         : in  std_logic;
         start       : in  std_logic;
+        
         key_master  : in  std_logic_vector(255 downto 0);
         
         keyk0_out   : out std_logic_vector(127 downto 0);
         keyk1_out   : out std_logic_vector(127 downto 0);
-        key_post     : out std_logic_vector(127 downto 0);
-		done           : out std_logic
+        key_post    : out std_logic_vector(127 downto 0);
+        
+        key_index   : out std_logic_vector(3 downto 0);
+        valid       : out std_logic;
+		done        : out std_logic
     );
 end Key_Expansion;
 
@@ -59,7 +63,7 @@ architecture Behavioral of Key_Expansion is
         return p_last;
     end function;
 
-    type state_type is (IDLE, INIT_K0, WAIT_K0, SAVE_K0, INIT_K1, WAIT_K1, SAVE_K1, KEY_OUT, UPDATE_K, NEXT_ROUND, FINISH);
+    type state_type is (IDLE, INIT_K0, WAIT_K0, SAVE_K0, INIT_K1, WAIT_K1, SAVE_K1, UPDATE_K, NEXT_ROUND, FINISH);
     signal state	: state_type := IDLE;
 	
     signal round	: unsigned(3 downto 0) := (others => '0');
@@ -67,11 +71,9 @@ architecture Behavioral of Key_Expansion is
     signal k0_reg : std_logic_vector(127 downto 0) := (others => '0');
     signal k1_reg : std_logic_vector(127 downto 0) := (others => '0');
 	
-    signal keyk0_reg	: std_logic_vector(127 downto 0) := (others => '0');
-    signal keyk1_reg	: std_logic_vector(127 downto 0) := (others => '0');
-	
     signal i_data_reg	: std_logic_vector(127 downto 0) := (others => '0'); 
     signal o_data_reg0, o_data_reg1, o_data	:    std_logic_vector(127 downto 0) := (others => '0');
+        
 begin
     GKEY : Gen_Key port map(clk => clk, data_in  => i_data_reg, data_out => o_data);
     process(clk, rst)
@@ -79,23 +81,19 @@ begin
         if rst = '1' then
             state			<= IDLE;
             round		<= (others => '0');
-			done			<= '0';
-			
-			keyk0_out	<= (others => '0');
-			keyk1_out	<= (others => '0');
-			key_post	<= (others => '0');
-			
+			done			<= '0';			
             k0_reg <= (others => '0');
             k1_reg <= (others => '0');			
-            keyk0_reg <= (others => '0');
-            keyk1_reg <= (others => '0');
 			i_data_reg<= (others => '0');
             o_data_reg0 <= (others => '0');
-            o_data_reg1 <= (others => '0');            
+            o_data_reg1 <= (others => '0');   
+            keyk0_out <= (others => '0');
+            keyk1_out <= (others => '0');
+            key_post  <= (others => '0');
+            key_index <= (others => '0');
+            valid     <= '0';      
         elsif rising_edge(clk) then
-			done			<= '0';
-			keyk0_out <= keyk0_reg;
-            keyk1_out <= keyk1_reg;
+			valid        <= '0';
 			case state is
 				when IDLE =>
 					if start = '1' then
@@ -127,32 +125,31 @@ begin
 					state <= SAVE_K1;	
 				when SAVE_K1 =>					
 					o_data_reg1 	<= o_data;
-					state <= KEY_OUT;
-				when KEY_OUT =>
-					if round = "0001" then
-						keyk0_reg <= key_master(255 downto 128);
-					else
-						keyk0_reg <= k1_reg;
-					end if;
-					if round = "1001" then					   
-						key_post  <= o_data_reg1 xor o_data_reg0;
-				    end if;
-					done	<= '1';
-					keyk1_reg <= o_data_reg1;					
-					state <= UPDATE_K;                
-				when UPDATE_K => 
-				                 
-                        state <= NEXT_ROUND;
+					state <= UPDATE_K;             
+				when UPDATE_K =>
+                    key_index <= std_logic_vector(round - 1);                
+                    if round = "0001" then
+                        keyk0_out <= key_master(255 downto 128);
+                    else
+                        keyk0_out <= k1_reg;
+                    end if;                
+                    keyk1_out <= o_data_reg1;                
+                    if round = "1001" then
+                        key_post <= o_data_reg1 xor o_data_reg0;
+                    end if;                
+                    valid <= '1';                
+                    state <= NEXT_ROUND;
 				when NEXT_ROUND =>
 				    k0_reg <= o_data_reg1;
-                    k1_reg <= o_data_reg1 xor o_data_reg0;                    
-					if round = "1001" then					   
-						state <= FINISH;					
-					else
-						round <= round + 1;
-						state <= INIT_K0;
-					end if;
-				when FINISH =>                    
+                    k1_reg <= o_data_reg1 xor o_data_reg0;                
+                    if round = "1001" then
+                        done <= '1';
+                        state <= FINISH;
+                    else
+                        round <= round + 1;
+                        state <= INIT_K0;
+                    end if;
+				when FINISH =>
 					if start = '0' then
 						state <= IDLE;
 					end if;

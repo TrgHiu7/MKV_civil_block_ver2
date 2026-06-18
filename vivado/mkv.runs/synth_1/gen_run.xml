@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1780333097" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/Key_Expansion.dcp">
-  <File Type="VDS-TIMING-PB" Name="mkv_top_timing_summary_synth.pb"/>
-  <File Type="VDS-TIMINGSUMMARY" Name="mkv_top_timing_summary_synth.rpt"/>
-  <File Type="RDS-DCP" Name="mkv_top.dcp"/>
-  <File Type="RDS-UTIL-PB" Name="mkv_top_utilization_synth.pb"/>
-  <File Type="RDS-UTIL" Name="mkv_top_utilization_synth.rpt"/>
-  <File Type="RDS-PROPCONSTRS" Name="mkv_top_drc_synth.rpt"/>
-  <File Type="RDS-RDS" Name="mkv_top.vds"/>
-  <File Type="REPORTS-TCL" Name="mkv_top_reports.tcl"/>
-  <File Type="PA-TCL" Name="mkv_top.tcl"/>
+<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1781781018" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/Key_Expansion.dcp">
+  <File Type="VDS-TIMING-PB" Name="MKV_CRYPTO_TOP_timing_summary_synth.pb"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="MKV_CRYPTO_TOP_timing_summary_synth.rpt"/>
+  <File Type="RDS-DCP" Name="MKV_CRYPTO_TOP.dcp"/>
+  <File Type="RDS-UTIL-PB" Name="MKV_CRYPTO_TOP_utilization_synth.pb"/>
+  <File Type="RDS-UTIL" Name="MKV_CRYPTO_TOP_utilization_synth.rpt"/>
+  <File Type="RDS-PROPCONSTRS" Name="MKV_CRYPTO_TOP_drc_synth.rpt"/>
+  <File Type="RDS-RDS" Name="MKV_CRYPTO_TOP.vds"/>
+  <File Type="REPORTS-TCL" Name="MKV_CRYPTO_TOP_reports.tcl"/>
+  <File Type="PA-TCL" Name="MKV_CRYPTO_TOP.tcl"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PSRCDIR/sources_1/new/Gen_Key.vhd">
@@ -89,7 +89,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/mkv_top.vhd">
+    <File Path="$PSRCDIR/sources_1/new/MKV_CRYPTO_TOP.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -97,7 +97,7 @@
     </File>
     <Config>
       <Option Name="DesignMode" Val="RTL"/>
-      <Option Name="TopModule" Val="mkv_top"/>
+      <Option Name="TopModule" Val="MKV_CRYPTO_TOP"/>
     </Config>
   </FileSet>
   <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
