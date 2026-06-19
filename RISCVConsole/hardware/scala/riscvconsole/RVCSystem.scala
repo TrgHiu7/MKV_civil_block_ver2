@@ -20,9 +20,8 @@ import riscvconsole.devices.xilinx.artya7ddr._
 import riscvconsole.devices.xilinx.nexys4ddr._
 import testchipip._
 //import riscvconsole.devices.keccak._
-//import riscvconsole.devices.ed25519scala._
 import riscvconsole.devices.mkv._
-
+//import riscvconsole.devices.pointmultied25519._
 case class SRAMConfig
 (
   address: BigInt,
@@ -44,8 +43,8 @@ class RVCSystem(implicit p: Parameters) extends RVCSubsystem
   with CanHaveMasterAXI4MemPort
   with CanHavePeripheryTLSerial
   //with HasPeripheryKECCAK
-  //with HasPeripheryPointMultiCore
   with HasPeripheryMKV
+//  with HasPeripheryPointMultiED25519
 {
   val spiDevs = p(PeripherySPIKey).map { ps =>
     SPIAttachParams(ps).attachTo(this)
@@ -102,8 +101,6 @@ class RVCSystemModuleImp[+L <: RVCSystem](_outer: L) extends RVCSubsystemModuleI
   with HasPeripheryCodecModuleImp
   with HasPeripheryFFTModuleImp
   with HasRTCModuleImp
-  //with HasPeripheryMKVModuleImp
-  //with HasPeripheryPointMultiCoreModuleImp
   //with HasPeripheryKECCAKModuleImp
 {
   val spi  = outer.spiNodes.zipWithIndex.map  { case(n,i) => n.makeIO()(ValName(s"spi_$i")).asInstanceOf[SPIPortIO] }

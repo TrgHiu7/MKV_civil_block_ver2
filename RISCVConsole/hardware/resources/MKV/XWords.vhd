@@ -7,8 +7,7 @@
 -- Project Name: mkv
 -- Target Devices: arty100
 -- Tool Versions: 2022.2
--- Description: Bi?n ??i này c?p nh?t tr?ng thái ??u vào X = x0 ||x1 || x2 || x3 b?ng cách
---              c?ng XOR các tr?ng thái con v?i nhau ?? nh?n giá tr? cho tr?ng thái ti?p theo Y = y0 || y1 || y2 || y3.
+-- Description: 
 -- Dependencies: 
 -- Revision:
 -- Revision 0.01 - File Created

@@ -1,21 +1,17 @@
 ----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
--- 
+-- Company: Hoc vien ky thuat mat ma
+-- Engineer: Tran Trong Hieu
 -- Create Date: 05/16/2026 11:03:01 AM
--- Design Name: 
--- Module Name: Subcells_128 - Behavioral
--- Project Name: 
--- Target Devices: 
--- Tool Versions: 
+-- Design Name: SubCells
+-- Module Name: SubCells - Behavioral
+-- Project Name: mkv
+-- Target Devices: arty100
+-- Tool Versions: 2022.2
 -- Description: 
--- 
 -- Dependencies: 
--- 
 -- Revision:
 -- Revision 0.01 - File Created
 -- Additional Comments:
--- 
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;

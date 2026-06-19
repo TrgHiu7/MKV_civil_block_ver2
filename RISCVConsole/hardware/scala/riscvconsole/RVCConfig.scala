@@ -11,8 +11,8 @@ import riscvconsole.devices.fft._
 import riscvconsole.devices.xilinx.artya7ddr.ArtyA7MIGMem
 import riscvconsole.devices.xilinx.nexys4ddr.Nexys4DDRMIGMem
 //import riscvconsole.devices.keccak._
-//import riscvconsole.devices.ed25519scala._
 import riscvconsole.devices.mkv._
+//import riscvconsole.devices.pointmultied25519._
 
 class RVCPeripheralsConfig(gpio: Int = 14) extends Config((site, here, up) => {
   case sifive.blocks.devices.uart.PeripheryUARTKey => Seq(
@@ -90,6 +90,15 @@ class WithMKV extends Config((site, here, up) => {
     )
   )
 })
+
+//class WithPointMultiED25519 extends Config((site, here, up) => {
+//  case PeripheryPointMultiED25519Key => Seq(
+//    PointMultiED25519AttachParams(
+//      device = PointMultiED25519Params(address = BigInt("10007000", 16))
+//    )
+//  )
+//})
+
 class RemoveDebugClockGating extends Config((site, here, up) => {
   case DebugModuleKey => up(DebugModuleKey).map{ debug =>
     debug.copy(clockGate = false)
@@ -146,9 +155,10 @@ class DE2Config extends Config(
 class ArtyA7Config extends Config(
   new WithArtyA7MIGMem ++
     //new WithKECCAK ++
-    //new WithPointMultiCore(0x10007000) ++
     new WithMKV ++
-	new RVCPeripheralsConfig(8) ++
+//    new WithPointMultiED25519 ++
+    
+    new RVCPeripheralsConfig(8) ++
     new SetFrequency(50000000) ++
     new RemoveDebugClockGating ++
     new freechips.rocketchip.subsystem.WithRV32 ++
