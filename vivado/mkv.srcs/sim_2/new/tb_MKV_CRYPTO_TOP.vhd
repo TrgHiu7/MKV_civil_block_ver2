@@ -15,7 +15,8 @@ architecture Behavioral of tb_MKV_CRYPTO_TOP is
             rst             : in  std_logic;
             start           : in  std_logic;
             key_master      : in  std_logic_vector(255 downto 0);
-            done_key_debug  : out std_logic;
+            key_init        : in  std_logic;
+            key_expand_done : out std_logic;
             sel_crypt       : in  std_logic;
             data_in         : in  std_logic_vector(127 downto 0);
             done            : out std_logic;
@@ -33,7 +34,7 @@ architecture Behavioral of tb_MKV_CRYPTO_TOP is
     signal key_master : std_logic_vector(255 downto 0) := (others=>'0');
     signal data_in    : std_logic_vector(127 downto 0) := (others=>'0');
 
-    signal done, done_key_debug : std_logic;
+    signal done, key_expand_done, key_init : std_logic;
     signal data_out : std_logic_vector(127 downto 0);
 
     constant CLK_PERIOD : time := 10 ns;
@@ -68,7 +69,8 @@ begin
         rst            => rst,
         start          => start,
         key_master     => key_master,
-        done_key_debug => done_key_debug,
+        key_init       => key_init,
+        key_expand_done => key_expand_done,
         sel_crypt      => sel_crypt,
         data_in        => data_in,
         done           => done,
@@ -90,14 +92,14 @@ begin
                 key_cycle_cnt <= 0;
                 key_meas_en   <= '0';
 
-            elsif start = '1' and key_meas_en = '0' then
+            elsif key_init = '1' and key_meas_en = '0' then
                 key_cycle_cnt <= 0;
                 key_meas_en   <= '1';
 
             elsif key_meas_en = '1' then
                 key_cycle_cnt <= key_cycle_cnt + 1;
 
-                if done_key_debug = '1' then
+                if key_expand_done = '1' then
                     key_meas_en <= '0';
                 end if;
             end if;
@@ -137,6 +139,7 @@ begin
         -- RESET
         ------------------------------------------------------------------
         rst <= '1';
+        key_init <= '0';
         wait for 30 ns;
         rst <= '0';
         wait for 20 ns;
@@ -151,17 +154,20 @@ begin
 
         sel_crypt <= '1';
         data_in   <= x"8a6f9bbc745bfee7005f04054dd1ff8e";
-
         wait for 20 ns;
-
+        
+        key_init <= '1';
         start <= '1';
         wait until rising_edge(clk);
         start <= '0';
+        wait for 60 ns;
+        key_init <= '0';
+        wait until key_expand_done = '1';
 
-        wait until done_key_debug = '1';
-
-        report "KEY LATENCY = " & integer'image(key_cycle_cnt) & " cycles";
-
+        report LF &
+            "KEY MASTER = 0x" & slv_to_hex(key_master) & LF &
+            "KEY LATENCY = " & integer'image(key_cycle_cnt) & " cycles"
+        severity note;
         wait until done = '1';
 
         report LF &
@@ -169,7 +175,7 @@ begin
             "DECRYPT LATENCY = " & integer'image(crypt_cycle_cnt-key_cycle_cnt+1) & " cycles"
         severity note;
         
-        wait for 50 ns;
+        wait for 50 ns;       
         ------------------------------------------------------------------
         -- ENCRYPT
         ------------------------------------------------------------------
@@ -188,25 +194,44 @@ begin
         
         wait for 50 ns;
         ------------------------------------------------------------------
+        -- LOAD NEW KEY
+        ------------------------------------------------------------------
+        report "=== LOAD NEW KEY ===";
+        
+        key_master <= x"FFEEDDCCBBAA99887766554433221100" &
+                      x"00112233445566778899AABBCCDDEEFF";
+        
+        wait for 20 ns;
+        
+        key_init <= '1';
+        wait until key_expand_done = '0';
+        wait until key_expand_done = '1';
+        report LF &
+            "NEW KEY EXPANSION DONE" & LF &
+            "KEY MASTER = 0x" & slv_to_hex(key_master) & LF &
+            "KEY LATENCY = " & integer'image(key_cycle_cnt) & " cycles"
+        severity note;
+        wait for 50 ns;
+        ------------------------------------------------------------------
         -- ENCRYPT
         ------------------------------------------------------------------
         report "=== ENCRYPT ===";
-        sel_crypt <= '1';
+        sel_crypt <= '0';
         data_in   <= x"5472616E2054726F6E67204869657500";
         wait for 20 ns;
         start <= '1';
         wait until rising_edge(clk);
         start <= '0';
         wait until done = '1';
-        report "ENCRYPT OUTPUT = 0x" & slv_to_hex(data_out);
-        report "ENCRYPT LATENCY = " & integer'image(crypt_cycle_cnt) & " cycles";
-        
-        wait for 50 ns;
+        report LF &
+            "ENCRYPT OUTPUT = 0x" & slv_to_hex(data_out) & LF &
+            "ENCRYPT LATENCY = " & integer'image(crypt_cycle_cnt) & " cycles"
+        severity note;
         ------------------------------------------------------------------
         -- DECRYPT
         ------------------------------------------------------------------
         report "=== DECRYPT ===";
-        sel_crypt <= '0';
+        sel_crypt <= '1';
         data_in   <= data_out;
         wait for 20 ns;
         start <= '1';
@@ -217,6 +242,8 @@ begin
             "DECRYPT OUTPUT = 0x" & slv_to_hex(data_out) & LF &
             "DECRYPT LATENCY = " & integer'image(crypt_cycle_cnt) & " cycles"
         severity note;
+        
+        wait for 50 ns;
         
         report "=== SIM DONE ===";
 

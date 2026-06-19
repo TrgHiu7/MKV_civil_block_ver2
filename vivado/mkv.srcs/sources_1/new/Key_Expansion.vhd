@@ -94,6 +94,7 @@ begin
             valid     <= '0';      
         elsif rising_edge(clk) then
 			valid        <= '0';
+			done		 <= '0';	
 			case state is
 				when IDLE =>
 					if start = '1' then
