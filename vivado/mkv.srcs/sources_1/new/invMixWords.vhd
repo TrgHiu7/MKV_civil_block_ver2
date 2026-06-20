@@ -48,10 +48,13 @@ architecture Behavioral of invMixWords is
         return temp;
     end function;
 begin
+    -- MKV chuan: nghich dao cua MixWords. Ap ma tran iM roi XOAY PHAI output
+    -- theo k=i (tuong duong matrmultcol2(X, iM, k=i) trong code C).
     gen_cols: for i in 0 to 3 generate
         concurrency_block: block
+            type byte_arr is array(0 to 3) of std_logic_vector(7 downto 0);
             signal x0, x1, x2, x3 : std_logic_vector(7 downto 0);
-            signal y0, y1, y2, y3 : std_logic_vector(7 downto 0);
+            signal yv : byte_arr;   -- ket qua iM truoc khi xoay
         begin
             x0 <= data_in(127 - 32*i downto 120 - 32*i);
             x1 <= data_in(119 - 32*i downto 112 - 32*i);
@@ -63,15 +66,16 @@ begin
             --     [0B 02 0D 05]
             --     [05 01 07 02]
             --     [02 01 03 01]
-            y3 <= x1 xor x2 xor x3 xor xtime(x0 xor x2);
-            y2 <= x0 xor x1 xor x2 xor xtime(x1 xor y3);
-            y1 <= x0 xor x2 xor x3 xor xtime(x2 xor y2);
-            y0 <= x3 xor xtime(x0 xor x1 xor x2 xor y1);
-            
-            data_out(127 - 32*i downto 120 - 32*i) <= y0;
-            data_out(119 - 32*i downto 112 - 32*i) <= y1;
-            data_out(111 - 32*i downto 104 - 32*i) <= y2;
-            data_out(103 - 32*i downto 96 - 32*i)  <= y3;
+            yv(3) <= x1 xor x2 xor x3 xor xtime(x0 xor x2);
+            yv(2) <= x0 xor x1 xor x2 xor xtime(x1 xor yv(3));
+            yv(1) <= x0 xor x2 xor x3 xor xtime(x2 xor yv(2));
+            yv(0) <= x3 xor xtime(x0 xor x1 xor x2 xor yv(1));
+
+            -- Xoay phai output theo k=i: out(j) = yv((j - i) mod 4)
+            data_out(127 - 32*i downto 120 - 32*i) <= yv((0 - i) mod 4);
+            data_out(119 - 32*i downto 112 - 32*i) <= yv((1 - i) mod 4);
+            data_out(111 - 32*i downto 104 - 32*i) <= yv((2 - i) mod 4);
+            data_out(103 - 32*i downto 96 - 32*i)  <= yv((3 - i) mod 4);
         end block;
     end generate gen_cols;
 end Behavioral;

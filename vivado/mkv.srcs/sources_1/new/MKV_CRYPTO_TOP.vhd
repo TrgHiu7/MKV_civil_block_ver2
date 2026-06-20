@@ -28,6 +28,7 @@ entity MKV_CRYPTO_TOP is
         
         start           : in  std_logic;                        --start latency / reset latency
         key_master      : in  std_logic_vector(255 downto 0);
+        keylen          : in  std_logic_vector(1 downto 0);      --00=128, 01=192, 10=256
         key_init        : in  std_logic;
         key_expand_done : out std_logic;                        --done key -> latency key, start enc/dec
         
@@ -46,6 +47,7 @@ architecture Behavioral of MKV_CRYPTO_TOP is
             rst         : in  std_logic;
             start       : in  std_logic;
             
+            keylen      : in  std_logic_vector(1 downto 0);
             key_master  : in  std_logic_vector(255 downto 0);
             
             keyk0_out   : out std_logic_vector(127 downto 0);
@@ -63,6 +65,7 @@ architecture Behavioral of MKV_CRYPTO_TOP is
             clk         : in  std_logic;
             rst         : in  std_logic;
             start       : in  std_logic;
+            keylen      : in  std_logic_vector(1 downto 0);
             plaintext   : in  std_logic_vector(127 downto 0);
     
             keyk0       : in  std_logic_vector(127 downto 0);
@@ -80,6 +83,7 @@ architecture Behavioral of MKV_CRYPTO_TOP is
             clk         : in  std_logic;
             rst         : in  std_logic;
             start       : in  std_logic;
+            keylen      : in  std_logic_vector(1 downto 0);
     
             ciphertext  : in  std_logic_vector(127 downto 0);
     
@@ -124,12 +128,18 @@ architecture Behavioral of MKV_CRYPTO_TOP is
     signal key_expand_done_reg : std_logic := '0';
     signal start_key           : std_logic := '0';
     signal key_init_d          : std_logic := '0';  
+    -- Chi so khoa vong cao nhat (R-1): 128->6, 192->7, 256->8
+    signal last_idx            : unsigned(3 downto 0);
 begin
+    last_idx <= to_unsigned(6,4) when keylen = "00" else
+                to_unsigned(7,4) when keylen = "01" else
+                to_unsigned(8,4);
     KEYGEN : Key_Expansion
     port map(
         clk         => clk,
         rst         => rst,
         start       => start_key,
+        keylen      => keylen,
         key_master  => key_master,        
         keyk0_out   => keyk0_out,
         keyk1_out   => keyk1_out,
@@ -143,6 +153,7 @@ begin
         clk         => clk,
         rst         => rst,
         start       => start_enc,
+        keylen      => keylen,
         plaintext   => data_in,
         keyk0       => keyk0_mem,
         keyk1       => keyk1_mem,
@@ -156,6 +167,7 @@ begin
         clk         => clk,
         rst         => rst,
         start       => start_dec,
+        keylen      => keylen,
         ciphertext  => data_in,
         keyk0       => keyk0_mem,
         keyk1       => keyk1_mem,
@@ -213,8 +225,8 @@ begin
                         if sel_crypt_reg = '1' then
                             start_dec <= '1';
                             start_enc <= '0';
-                            keyk0_mem <= mem_keyk0(8);
-                            keyk1_mem <= mem_keyk1(8);
+                            keyk0_mem <= mem_keyk0(to_integer(last_idx));
+                            keyk1_mem <= mem_keyk1(to_integer(last_idx));
                         else
                             start_dec <= '0';
                             start_enc <= '1';
@@ -226,7 +238,7 @@ begin
                 when LOAD =>
                     start_enc <= '0';
                     start_dec <= '0';                    
-                    if i = "1000" then
+                    if unsigned(i) = last_idx then
                         state <= FINISH;
                     elsif ((sel_crypt_reg='0' and key_ready='1') or
                            (sel_crypt_reg='1' and dec_key_ready='1')) then
@@ -234,8 +246,8 @@ begin
                             keyk0_mem <= mem_keyk0(to_integer(unsigned(i))+1);
                             keyk1_mem <= mem_keyk1(to_integer(unsigned(i))+1);
                         else
-                            keyk0_mem <= mem_keyk0(8 - to_integer(unsigned(i))-1);
-                            keyk1_mem <= mem_keyk1(8 - to_integer(unsigned(i))-1);
+                            keyk0_mem <= mem_keyk0(to_integer(last_idx) - to_integer(unsigned(i))-1);
+                            keyk1_mem <= mem_keyk1(to_integer(last_idx) - to_integer(unsigned(i))-1);
                         end if;
                         i <= std_logic_vector(unsigned(i) + 1);
                         state <= UPDATE;
