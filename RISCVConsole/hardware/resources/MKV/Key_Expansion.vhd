@@ -27,6 +27,7 @@ entity Key_Expansion is
         rst         : in  std_logic;
         start       : in  std_logic;
         
+        keylen      : in  std_logic_vector(1 downto 0);   -- 00=128, 01=192, 10=256
         key_master  : in  std_logic_vector(255 downto 0);
         
         keyk0_out   : out std_logic_vector(127 downto 0);
@@ -48,25 +49,33 @@ architecture Behavioral of Key_Expansion is
         );
     end component;
 
+    -- Hang so vong cua MKV (theo code C: Const_0/Const_1, 16 byte).
+    -- k=1 : nhanh trai (block1) dung Const_0, counter = 2r+1
+    -- k=0 : nhanh phai (block2) dung Const_1, counter = 2r+2
+    -- counter chi XOR vao byte thap nhat (giong CL[15]^=2i+1, CR[15]^=2i+2).
+    constant C0_CONST : std_logic_vector(127 downto 0) := x"9302ee911a2ad98cad13e7948ad8b3b2";
+    constant C1_CONST : std_logic_vector(127 downto 0) := x"d4da00f33f11fd8822166bb9cd187c55";
+
     function const_func(k, r : integer) return std_logic_vector is
-        variable p_last : std_logic_vector(127 downto 0);
-        variable p      : std_logic_vector(7 downto 0);
+        variable base : std_logic_vector(127 downto 0);
+        variable cnt  : std_logic_vector(7 downto 0);
     begin
-        if k = 0 then
-            p := std_logic_vector(to_unsigned(2*r + 2, 8));
-        elsif k = 1 then
-            p := std_logic_vector(to_unsigned(2*r + 1, 8));
+        if k = 1 then
+            base := C0_CONST;
+            cnt  := std_logic_vector(to_unsigned(2*r + 1, 8));
         else
-            p := (others => '0');
+            base := C1_CONST;
+            cnt  := std_logic_vector(to_unsigned(2*r + 2, 8));
         end if;
-        p_last := (119 downto 0 => '0') & p;
-        return p_last;
+        base(7 downto 0) := base(7 downto 0) xor cnt;
+        return base;
     end function;
 
     type state_type is (IDLE, INIT_K0, WAIT_K0, SAVE_K0, INIT_K1, WAIT_K1, SAVE_K1, UPDATE_K, NEXT_ROUND, FINISH);
     signal state	: state_type := IDLE;
 	
     signal round	: unsigned(3 downto 0) := (others => '0');
+    signal last_round : unsigned(3 downto 0) := "1001";   -- 7/8/9 tuy keylen
 	
     signal k0_reg : std_logic_vector(127 downto 0) := (others => '0');
     signal k1_reg : std_logic_vector(127 downto 0) := (others => '0');
@@ -94,20 +103,31 @@ begin
             valid     <= '0';      
         elsif rising_edge(clk) then
 			valid        <= '0';
+			done		 <= '0';	
 			case state is
 				when IDLE =>
 					if start = '1' then
 						round 	<= "0001";
 						k0_reg 	<= key_master(255 downto 128);
-						k1_reg 	<= key_master(127 downto 0);
+						-- Khoi tao Block2 (k1) theo do dai khoa (giong setInitialKeyState128 trong code C)
+						case keylen is
+							when "00" =>   -- 128: k1 = K[0:15] xor 0xFF..FF; 7 vong
+								k1_reg     <= key_master(255 downto 128) xor (127 downto 0 => '1');
+								last_round <= "0111";
+							when "01" =>   -- 192: k1 = K[16:23] || (K[8:15] xor 0xFF..); 8 vong
+								k1_reg     <= key_master(127 downto 64) &
+								              (key_master(191 downto 128) xor (63 downto 0 => '1'));
+								last_round <= "1000";
+							when others => -- 256 (10): k1 = K[16:31]; 9 vong
+								k1_reg     <= key_master(127 downto 0);
+								last_round <= "1001";
+						end case;
 						state <= INIT_K0;
 					end if;
 				when INIT_K0 =>
-					if round = "0001" then
-						i_data_reg <= key_master(255 downto 128) xor std_logic_vector(to_unsigned(1, 128));
-					else
-						i_data_reg <= k0_reg xor const_func(1, to_integer(round)-1);
-					end if;					
+					-- k0_reg da = master_hi tai round 1 (nap o IDLE), nen dung
+					-- const_func cho moi round (counter 2r+1, hang so Const_0).
+					i_data_reg <= k0_reg xor const_func(1, to_integer(round)-1);
 					state <= WAIT_K0;
 				when WAIT_K0 =>                    
                     state <= SAVE_K0;
@@ -115,11 +135,9 @@ begin
                     o_data_reg0 	<= o_data;
 					state <= INIT_K1;
 				when INIT_K1 =>
-					if round = "0001" then
-						i_data_reg <= key_master(127 downto 0) xor std_logic_vector(to_unsigned(2, 128));
-					else
-						i_data_reg <= k1_reg xor const_func(0, to_integer(round)-1);
-					end if;										
+					-- k1_reg da = master_lo tai round 1 (nap o IDLE), nen dung
+					-- const_func cho moi round (counter 2r+2, hang so Const_1).
+					i_data_reg <= k1_reg xor const_func(0, to_integer(round)-1);
 					state <= WAIT_K1;
 				when WAIT_K1 =>	
 					state <= SAVE_K1;	
@@ -134,7 +152,7 @@ begin
                         keyk0_out <= k1_reg;
                     end if;                
                     keyk1_out <= o_data_reg1;                
-                    if round = "1001" then
+                    if round = last_round then
                         key_post <= o_data_reg1 xor o_data_reg0;
                     end if;                
                     valid <= '1';                
@@ -142,7 +160,7 @@ begin
 				when NEXT_ROUND =>
 				    k0_reg <= o_data_reg1;
                     k1_reg <= o_data_reg1 xor o_data_reg0;                
-                    if round = "1001" then
+                    if round = last_round then
                         done <= '1';
                         state <= FINISH;
                     else

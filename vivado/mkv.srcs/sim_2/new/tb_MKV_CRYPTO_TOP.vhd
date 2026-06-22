@@ -86,7 +86,7 @@ begin
     clk <= not clk after CLK_PERIOD/2;
 
     ------------------------------------------------------------------
-    -- KEY LATENCY COUNTER
+    -- KEY LATENCY COUNTER (Tối ưu độ chính xác)
     ------------------------------------------------------------------
     process(clk)
     begin
@@ -94,23 +94,24 @@ begin
             if rst = '1' then
                 key_cycle_cnt <= 0;
                 key_meas_en   <= '0';
-
-            elsif key_init = '1' and key_meas_en = '0' then
-                key_cycle_cnt <= 0;
-                key_meas_en   <= '1';
-
-            elsif key_meas_en = '1' then
-                key_cycle_cnt <= key_cycle_cnt + 1;
-
-                if key_expand_done = '1' then
-                    key_meas_en <= '0';
+            else
+                if key_init = '1' then
+                    key_cycle_cnt <= 0;
+                    key_meas_en   <= '1';
+                elsif key_meas_en = '1' then
+                    -- Chỉ ngừng đếm khi done bật lên và key_init đã nhả
+                    if key_expand_done = '1' and key_init = '0' then
+                        key_meas_en <= '0';
+                    else
+                        key_cycle_cnt <= key_cycle_cnt + 1;
+                    end if;
                 end if;
             end if;
         end if;
     end process;
 
     ------------------------------------------------------------------
-    -- CRYPTO LATENCY COUNTER
+    -- CRYPTO LATENCY COUNTER (Tối ưu độ chính xác)
     ------------------------------------------------------------------
     process(clk)
     begin
@@ -118,16 +119,17 @@ begin
             if rst = '1' then
                 crypt_cycle_cnt <= 0;
                 crypt_meas_en   <= '0';
-
-            elsif start = '1' and crypt_meas_en = '0' then
-                crypt_cycle_cnt <= 0;
-                crypt_meas_en   <= '1';
-
-            elsif crypt_meas_en = '1' then
-                crypt_cycle_cnt <= crypt_cycle_cnt + 1;
-
-                if done = '1' then
-                    crypt_meas_en <= '0';
+            else
+                if start = '1' then
+                    crypt_cycle_cnt <= 0;
+                    crypt_meas_en   <= '1';
+                elsif crypt_meas_en = '1' then
+                    -- Chỉ ngừng đếm khi done bật lên và start đã nhả
+                    if done = '1' and start = '0' then
+                        crypt_meas_en <= '0';
+                    else
+                        crypt_cycle_cnt <= crypt_cycle_cnt + 1;
+                    end if;
                 end if;
             end if;
         end if;
@@ -162,8 +164,7 @@ begin
         report "==================================================" severity note;
 
         keylen <= "00";
-        key_master <= x"000102030405060708090A0B0C0D0E0F" &
-            x"00000000000000000000000000000000";
+        key_master <= x"000102030405060708090A0B0C0D0E0F" & x"00000000000000000000000000000000";
         sel_crypt <= '0';
         data_in   <= x"FFEEDDCCBBAA99887766554433221100";
 
@@ -174,7 +175,7 @@ begin
         wait until rising_edge(clk);
         key_init <= '0';
 
-        wait until key_expand_done = '1';
+        wait until rising_edge(clk) and key_expand_done = '1'; -- [SỬA Ở ĐÂY: Thêm rising_edge]
         report LF &
             "TEST 1 - KEY MASTER  = 0x" & slv_to_hex(key_master) & LF &
             "TEST 1 - KEY LATENCY = " & integer'image(key_cycle_cnt) & " cycles"
@@ -189,7 +190,7 @@ begin
         wait until rising_edge(clk);
         start <= '0';
 
-        wait until done = '1';
+        wait until rising_edge(clk) and done = '1'; -- [SỬA Ở ĐÂY: Thêm rising_edge]
         v_cipher := data_out;
 
         report LF &
@@ -207,7 +208,7 @@ begin
         wait until rising_edge(clk);
         start <= '0';
 
-        wait until done = '1';
+        wait until rising_edge(clk) and done = '1'; -- [SỬA Ở ĐÂY: Thêm rising_edge]
         report LF &
             "TEST 1 - DECRYPT OUTPUT  = 0x" & slv_to_hex(data_out) & LF &
             "TEST 1 - DECRYPT LATENCY = " & integer'image(crypt_cycle_cnt) & " cycles"
@@ -223,8 +224,7 @@ begin
         report "==================================================" severity note;
 
         keylen <= "01";
-        key_master <= x"000102030405060708090A0B0C0D0E0F" &
-            x"10111213141516170000000000000000";
+        key_master <= x"000102030405060708090A0B0C0D0E0F" & x"10111213141516170000000000000000";
         sel_crypt <= '0';
         data_in   <= x"FFEEDDCCBBAA99887766554433221100";
 
@@ -235,7 +235,7 @@ begin
         wait until rising_edge(clk);
         key_init <= '0';
 
-        wait until key_expand_done = '1';
+        wait until rising_edge(clk) and key_expand_done = '1';
         report LF &
             "TEST 2 - KEY MASTER  = 0x" & slv_to_hex(key_master) & LF &
             "TEST 2 - KEY LATENCY = " & integer'image(key_cycle_cnt) & " cycles"
@@ -250,7 +250,7 @@ begin
         wait until rising_edge(clk);
         start <= '0';
 
-        wait until done = '1';
+        wait until rising_edge(clk) and done = '1';
         v_cipher := data_out;
 
         report LF &
@@ -268,7 +268,7 @@ begin
         wait until rising_edge(clk);
         start <= '0';
 
-        wait until done = '1';
+        wait until rising_edge(clk) and done = '1';
         report LF &
             "TEST 2 - DECRYPT OUTPUT  = 0x" & slv_to_hex(data_out) & LF &
             "TEST 2 - DECRYPT LATENCY = " & integer'image(crypt_cycle_cnt) & " cycles"
@@ -284,11 +284,9 @@ begin
         report "==================================================" severity note;
 
         keylen <= "10";
-        key_master <= x"000102030405060708090A0B0C0D0E0F" &
-            x"101112131415161718191A1B1C1D1E1F";
+        key_master <= x"0102030405060708090A0B0C0D0E0F11" & x"12131415161718191A1B1C1D1E1F2223";
         sel_crypt <= '0';
-        data_in   <= x"FFEEDDCCBBAA99887766554433221100";
-
+        data_in   <= x"112233445566778899AABBCCDDEEFF00";
         wait for 20 ns;
 
         -- Key expansion
@@ -296,7 +294,7 @@ begin
         wait until rising_edge(clk);
         key_init <= '0';
 
-        wait until key_expand_done = '1';
+        wait until rising_edge(clk) and key_expand_done = '1';
         report LF &
             "TEST 3 - KEY MASTER  = 0x" & slv_to_hex(key_master) & LF &
             "TEST 3 - KEY LATENCY = " & integer'image(key_cycle_cnt) & " cycles"
@@ -311,7 +309,7 @@ begin
         wait until rising_edge(clk);
         start <= '0';
 
-        wait until done = '1';
+        wait until rising_edge(clk) and done = '1';
         v_cipher := data_out;
 
         report LF &
@@ -329,7 +327,7 @@ begin
         wait until rising_edge(clk);
         start <= '0';
 
-        wait until done = '1';
+        wait until rising_edge(clk) and done = '1';
         report LF &
             "TEST 3 - DECRYPT OUTPUT  = 0x" & slv_to_hex(data_out) & LF &
             "TEST 3 - DECRYPT LATENCY = " & integer'image(crypt_cycle_cnt) & " cycles"
@@ -341,6 +339,7 @@ begin
         report "SIM DONE" severity note;
         report "==================================================" severity note;
 
+        std.env.stop; -- Dừng mô phỏng tự động khi hoàn thành
         wait;
     end process;
 

@@ -11,18 +11,21 @@ import freechips.rocketchip.tilelink._
 
 class MKV_CRYPTO_TOP extends BlackBox with HasBlackBoxResource {
   val io = IO(new Bundle {
-    val clk   = Input(Clock())
-    val rst   = Input(Bool())   // active-high
+    val clk             = Input(Clock())
+    val rst             = Input(Bool())   // active-high
 
-    val start = Input(Bool())
-    val key_master  = Input(UInt(256.W))
-    val done_key_debug = Output(Bool())
+    val start           = Input(Bool())
+    val key_master      = Input(UInt(256.W))
+    val keylen          = Input(UInt(2.W))
+    val key_init        = Input(Bool())
 
-    val sel_crypt = Input(Bool())
-    val data_in = Input(UInt(128.W))
+    val key_expand_done = Output(Bool())
 
-    val done = Output(Bool())
-    val data_out   = Output(UInt(128.W))
+    val sel_crypt       = Input(Bool())
+    val data_in         = Input(UInt(128.W))
+
+    val done            = Output(Bool())
+    val data_out        = Output(UInt(128.W))
   })
   addResource("/MKV/MKV_CRYPTO_TOP.vhd")
   addResource("/MKV/encrypt.vhd")
@@ -42,12 +45,16 @@ class MKV_CRYPTO_TOP extends BlackBox with HasBlackBoxResource {
 case class MKVParams(address: BigInt)
 
 object MKVCtrlRegs {
-  val trigger   = 0x00 //rst
-  val status    = 0x04 //done_key_debug, done
-  val start     = 0x08 //start, sel_crypt
-  val data_in   = 0x10
-  val key_in    = 0x20
-  val data_out  = 0x40
+  val i_rst     = 0x00
+  val i_keyinit = 0x04
+  val i_start   = 0x08
+  val i_selcrypt= 0x0C
+  val i_keylen  = 0x10
+  val o_keydone = 0x14
+  val o_done    = 0x18
+  val data_in   = 0x20
+  val key_in    = 0x30
+  val data_out  = 0x50
 }
 
 abstract class MKVmod(busBytes: Int, val c: MKVParams)(implicit p: Parameters)
@@ -80,22 +87,25 @@ abstract class MKVmod(busBytes: Int, val c: MKVParams)(implicit p: Parameters)
                           key_in3, key_in2, key_in1, key_in0)
     val data_inCat  = Cat(data_in3, data_in2, data_in1, data_in0)
 
-    val rst       = RegInit(false.B)
-    val trig1     = RegInit(false.B)
-    val trig2     = RegInit(false.B)
+    val trigrst         = RegInit(false.B)
+    val trigkeyinit     = RegInit(false.B)
+    val trigstart       = RegInit(false.B)
+    val trigselcrypt   = RegInit(false.B)
+    val trigkeylen      = RegInit(0.U(2.W))
     //mapping inputs
-    mod.io.clk     := clock
-    mod.io.rst     := reset.asBool || rst
-    mod.io.start   := trig1
-    mod.io.key_master  := key_inCat
-    mod.io.sel_crypt  := trig2
-    mod.io.data_in := data_inCat
-    //declare outputs
-    val done_o = Wire(Bool())
-    val done_key_o = Wire(Bool())
+    mod.io.clk            := clock
+    mod.io.rst            := reset.asBool || trigrst
+    mod.io.start          := trigstart
+    mod.io.key_init       := trigkeyinit
+    mod.io.keylen         := trigkeylen
+    mod.io.key_master     := key_inCat
+    mod.io.sel_crypt      := trigselcrypt
+    mod.io.data_in        := data_inCat
     //mapping outputs
-    done_o      := mod.io.done
-    done_key_o      := mod.io.done_key_debug
+    val trigdone = Wire(Bool())
+    val trigkeydone = Wire(Bool())
+    trigdone       := mod.io.done
+    trigkeydone   := mod.io.key_expand_done
     val data_out0 = mod.io.data_out(31, 0)
     val data_out1 = mod.io.data_out(63, 32)
     val data_out2 = mod.io.data_out(95, 64)
@@ -103,24 +113,26 @@ abstract class MKVmod(busBytes: Int, val c: MKVParams)(implicit p: Parameters)
 
     // map to register
     val mapping = Seq(
-      MKVCtrlRegs.trigger -> Seq(
-        RegField(1, rst, RegFieldDesc("rst","MKV_resetat1",reset = Some(0)))
+      MKVCtrlRegs.i_rst -> Seq(
+        RegField(1, trigrst, RegFieldDesc("rst","MKV_resetat1",reset = Some(0)))
       ),
-      MKVCtrlRegs.status  -> Seq(
-        RegField.r(1, done_o,
-          RegFieldDesc("check_output", "done_crypt", volatile = true)
-        ),
-        RegField.r(1, done_key_o,
-          RegFieldDesc("check_done_key", "done_key", volatile = true)
-        )
+      MKVCtrlRegs.i_start -> Seq(
+        RegField(1, trigstart, RegFieldDesc("start", "Start MKV"))
       ),
-      MKVCtrlRegs.start -> Seq(
-        RegField(1, trig1,
-          RegFieldDesc("start_key_expansion", "start_key")
-        ),
-        RegField(1, trig2,
-          RegFieldDesc("select_crypto_mode", "encrypt_or_decrypt")
-        )
+      MKVCtrlRegs.i_keyinit -> Seq(
+        RegField(1, trigkeyinit, RegFieldDesc("key_init", "Initialize key schedule"))
+      ),
+      MKVCtrlRegs.i_keylen -> Seq(
+        RegField(2, trigkeylen, RegFieldDesc("keylen", "Key length"))
+      ),
+      MKVCtrlRegs.i_selcrypt -> Seq(
+        RegField(1, trigselcrypt, RegFieldDesc("sel_crypt", "0=encrypt 1=decrypt"))
+      ),
+      MKVCtrlRegs.o_keydone -> Seq(
+        RegField.r(1, trigkeydone, RegFieldDesc("key_done", "Key expansion done", volatile = true))
+      ),
+      MKVCtrlRegs.o_done -> Seq(
+        RegField.r(1, trigdone, RegFieldDesc("done", "Crypto done", volatile = true))
       ),
       MKVCtrlRegs.data_in -> Seq(
         RegField(32, data_in0),
@@ -139,7 +151,6 @@ abstract class MKVmod(busBytes: Int, val c: MKVParams)(implicit p: Parameters)
         RegField(32, key_in7)
       ),
       MKVCtrlRegs.data_out -> Seq(
-
         RegField.r(32, data_out0),
         RegField.r(32, data_out1),
         RegField.r(32, data_out2),

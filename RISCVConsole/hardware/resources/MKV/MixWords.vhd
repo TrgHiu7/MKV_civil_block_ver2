@@ -49,15 +49,26 @@ architecture Behavioral of MixWords is
         return temp;
     end function;
 begin
+    -- MKV chuan: moi tu (word) i nhan voi ma tran M nhung CO XOAY COT theo k=i
+    -- (tuong duong matrmultcol1(X, M, k=i) trong code C). Word 0 khong xoay,
+    -- word 1 xoay trai 1 byte, word 2 xoay trai 2, word 3 xoay trai 3.
     gen_cols: for i in 0 to 3 generate
         concurrency_block: block
-            signal x0, x1, x2, x3 : std_logic_vector(7 downto 0);
+            type byte_arr is array(0 to 3) of std_logic_vector(7 downto 0);
+            signal b  : byte_arr;   -- 4 byte cua word i (b(0) = byte cao nhat)
+            signal x0, x1, x2, x3 : std_logic_vector(7 downto 0);  -- input da xoay
             signal y0, y1, y2, y3 : std_logic_vector(7 downto 0);
         begin
-            x0 <= data_in(127 - 32*i downto 120 - 32*i);
-            x1 <= data_in(119 - 32*i downto 112 - 32*i);
-            x2 <= data_in(111 - 32*i downto 104 - 32*i);
-            x3 <= data_in(103 - 32*i downto 96 - 32*i);
+            b(0) <= data_in(127 - 32*i downto 120 - 32*i);
+            b(1) <= data_in(119 - 32*i downto 112 - 32*i);
+            b(2) <= data_in(111 - 32*i downto 104 - 32*i);
+            b(3) <= data_in(103 - 32*i downto 96 - 32*i);
+
+            -- Xoay trai input theo k=i: x(j) = b((j+i) mod 4)
+            x0 <= b((0 + i) mod 4);
+            x1 <= b((1 + i) mod 4);
+            x2 <= b((2 + i) mod 4);
+            x3 <= b((3 + i) mod 4);
 
             --     encrypt
             --     [01 02 01 03]

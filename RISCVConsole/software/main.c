@@ -322,42 +322,51 @@ uint8_t xtime(uint8_t a)
 }
 void MixWords(uint8_t data[16])
 {
-    uint8_t x0,x1,x2,x3;
-    uint8_t y0,y1,y2,y3;
-    for(int i=0;i<4;i++)
+    uint8_t b[4]; // Lưu 4 byte của cột hiện tại
+    uint8_t x[4]; // 4 byte sau khi đã xoay
+    uint8_t y[4]; // Kết quả tạm
+    
+    for(int i = 0; i < 4; i++) // Vòng lặp theo từng cột (word)
     {
-        x0 = data[4*i+0];
-        x1 = data[4*i+1];
-        x2 = data[4*i+2];
-        x3 = data[4*i+3];
-        y0 = x0 ^ x2 ^ x3 ^ xtime(x1 ^ x3);
-        y1 = x1 ^ x3 ^ y0 ^ xtime(x2 ^ y0);
-        y2 = x2 ^ y0 ^ y1 ^ xtime(x3 ^ y1);
-        y3 = x3 ^ y1 ^ y2 ^ xtime(y0 ^ y2);
-        data[4*i+0] = y0;
-        data[4*i+1] = y1;
-        data[4*i+2] = y2;
-        data[4*i+3] = y3;
+        // 1. Trích xuất 4 byte của cột i
+        for(int j = 0; j < 4; j++) b[j] = data[4*i + j];        
+        // 2. Thực hiện xoay cột (Cyclic shift)
+        // x(j) = b((j + i) mod 4)
+        for(int j = 0; j < 4; j++) {
+            x[j] = b[(j + i) % 4];
+        }        
+        // 3. Tính toán MixWords trên x0, x1, x2, x3
+        y[0] = x[0] ^ x[2] ^ x[3] ^ xtime(x[1] ^ x[3]);
+        y[1] = x[1] ^ x[3] ^ y[0] ^ xtime(x[2] ^ y[0]);
+        y[2] = x[2] ^ y[0] ^ y[1] ^ xtime(x[3] ^ y[1]);
+        y[3] = x[3] ^ y[1] ^ y[2] ^ xtime(y[0] ^ y[2]);        
+        // 4. Gán lại vào data
+        for(int j = 0; j < 4; j++) data[4*i + j] = y[j];
     }
 }
 void InvMixWords(uint8_t data[16])
 {
-    uint8_t x0,x1,x2,x3;
-    uint8_t y0,y1,y2,y3;
-    for(int i=0;i<4;i++)
+    uint8_t b[4]; // Input của cột i
+    uint8_t yv[4]; // Kết quả sau khi nhân ma trận nghịch đảo
+    uint8_t y[4];  // Kết quả cuối cùng sau khi xoay    
+    for(int i = 0; i < 4; i++) // Vòng lặp theo từng cột (word)
     {
-        x0 = data[4*i+0];
-        x1 = data[4*i+1];
-        x2 = data[4*i+2];
-        x3 = data[4*i+3];
-        y3 = x1 ^ x2 ^ x3 ^ xtime(x0 ^ x2);
-        y2 = x0 ^ x1 ^ x2 ^ xtime(x1 ^ y3);
-        y1 = x0 ^ x2 ^ x3 ^ xtime(x2 ^ y2);
-        y0 = x3 ^ xtime(x0 ^ x1 ^ x2 ^ y1);
-        data[4*i+0] = y0;
-        data[4*i+1] = y1;
-        data[4*i+2] = y2;
-        data[4*i+3] = y3;
+        // 1. Trích xuất 4 byte của cột i
+        for(int j = 0; j < 4; j++) b[j] = data[4*i + j];        
+        // 2. Nhân ma trận nghịch đảo (InvMatrix)
+        uint8_t x0 = b[0], x1 = b[1], x2 = b[2], x3 = b[3];
+        yv[3] = x1 ^ x2 ^ x3 ^ xtime(x0 ^ x2);
+        yv[2] = x0 ^ x1 ^ x2 ^ xtime(x1 ^ yv[3]);
+        yv[1] = x0 ^ x2 ^ x3 ^ xtime(x2 ^ yv[2]);
+        yv[0] = x3 ^ xtime(x0 ^ x1 ^ x2 ^ yv[1]);        
+        // 3. Thực hiện xoay phải output theo k=i
+        // out(j) = yv((j - i) mod 4)
+        // Trong C, (j-i) mod 4 có thể âm, nên dùng: ((j - i) % 4 + 4) % 4
+        for(int j = 0; j < 4; j++) {
+            y[j] = yv[((j - i) % 4 + 4) % 4];
+        }        
+        // 4. Gán lại vào data
+        for(int j = 0; j < 4; j++) data[4*i + j] = y[j];
     }
 }
 void XWords(uint8_t state[16])
@@ -406,206 +415,227 @@ void XOR128(uint8_t A[16], uint8_t B[16])
         A[i] ^= B[i];
     }
 }
-void Gen_Key(uint8_t state[16])
-{
-    SubCells(state);
-    MixWords(state);
-    SubCells(state);
-    XWords(state);
-    SubCells(state);
-    MixWords(state);
-    SubCells(state);
-    XWords(state);
+/* DEBUG
+void print_state(uint8_t state[16], const char* step) {
+    kputs(step); kputs(": ");
+    for(int i=0; i<16; i++) {
+        uart_put_hex_1b((void*)uart_reg, state[i]); kputs(" ");
+    }
+    kputs("\r\n");
 }
+void Gen_Key(uint8_t state[16]) {
+    SubCells(state); print_state(state, "SubCells 1");
+    MixWords(state); print_state(state, "MixWords 1");
+    SubCells(state); print_state(state, "SubCells 2");
+    XWords(state);   print_state(state, "XWords 1");
+    SubCells(state); print_state(state, "SubCells 3");
+    MixWords(state); print_state(state, "MixWords 2");
+    SubCells(state); print_state(state, "SubCells 4");
+    XWords(state);   print_state(state, "XWords 2");
+}
+*/
+void Gen_Key(uint8_t state[16]) {
+    SubCells(state); 
+    MixWords(state);
+    SubCells(state); 
+    XWords(state);  
+    SubCells(state); 
+    MixWords(state); 
+    SubCells(state); 
+    XWords(state);  
+}
+static const uint8_t C0_CONST[16] =
+{
+    0x93,0x02,0xee,0x91,
+    0x1a,0x2a,0xd9,0x8c,
+    0xad,0x13,0xe7,0x94,
+    0x8a,0xd8,0xb3,0xb2
+};
+
+static const uint8_t C1_CONST[16] =
+{
+    0xd4,0xda,0x00,0xf3,
+    0x3f,0x11,0xfd,0x88,
+    0x22,0x16,0x6b,0xb9,
+    0xcd,0x18,0x7c,0x55
+};
 uint8_t round_key_k0[9][16];
 uint8_t round_key_k1[9][16];
 uint8_t key_post[16];
 uint8_t done = 0;
-uint64_t Key_Expansion(uint8_t key_master[32],uint8_t start)
-{
+uint64_t Key_Expansion(uint8_t key_master[32], uint8_t keylen, uint8_t start) {
     uint64_t start_cycle = 0;
     uint64_t end_cycle = 0;
 
     start_cycle = get_cycle_count();
-    
+
     uint8_t k0_reg[16];
     uint8_t k1_reg[16];
-    uint8_t keyk0_reg[16];
-    uint8_t keyk1_reg[16];
     uint8_t o_data_reg0[16];
     uint8_t o_data_reg1[16];
-    uint8_t temp[16];    
-    kputs("KEY MASTER: ");
-    kputs("\r\n");
+    uint8_t temp[16];
+
+    kputs("KEY MASTER: \r\n");
     print128_grouped(&key_master[0]);
-    print128_grouped(&key_master[16]);    
-    if(start ==0)
-    {
-      kputs("Waiting for START signal ...\r\n");
-    }else
-    {
-      COPY128(k0_reg,&key_master[0]);
-      COPY128(k1_reg,&key_master[16]);
-      for(int round=1;round<=9;round++)
-      {
-          // K0
-          if(round==1)
-          {
-              COPY128(temp,&key_master[0]);
-              temp[15] ^= 1;
-          }
-          else
-          {
-              COPY128(temp,k0_reg);
-              temp[15] ^= (2*round-1);
-          }
-          Gen_Key(temp);
-          COPY128(o_data_reg0,temp);
-          // K1
-          if(round==1)
-          {
-              COPY128(temp,&key_master[16]);
-              temp[15] ^= 2;
-          }
-          else
-          {
-              COPY128(temp,k1_reg);
-              temp[15] ^= (2*round);
-          }
-          Gen_Key(temp);
-          COPY128(o_data_reg1,temp);
-          // KEY OUT
-          if(round==1)
-          {
-              COPY128(keyk0_reg,&key_master[0]);
-          }
-          else
-          {
-              COPY128(keyk0_reg,k1_reg);
-          }
-          COPY128(keyk1_reg,o_data_reg1);
-          COPY128(round_key_k0[round-1],keyk0_reg);
-          COPY128(round_key_k1[round-1],keyk1_reg);
-          // KEY POST
-          if(round==9)
-          {
-              COPY128(key_post,o_data_reg1);
-              XOR128(key_post, o_data_reg0);
-          }
-          // UPDATE
-          COPY128(k0_reg, o_data_reg1);
-          COPY128(k1_reg, o_data_reg1);
-          XOR128(k1_reg, o_data_reg0);
-      }
-      done = 1;
-      end_cycle = get_cycle_count();
-      kputs("\r\n=========== ROUND KEYS ===========\r\n");
-      for(int i=0;i<9;i++)
-      {
-          kputs("----------------------------------\r\n");
-          kputs("ROUND ");
-          uart_put_dec((void*)uart_reg, i+1);
-          kputs("\r\n");
-          kputs("RK0: ");
-          print128_grouped(round_key_k0[i]);          
-          kputs("RK1: ");
-          print128_grouped(round_key_k1[i]);          
-          if(i == 8)
-          {
-            
-            kputs("\r\nKEY_POST: ");
-            print128_grouped(key_post);
-          }
-      }
-      kputs("\r\n========== KEY EXPANSION ==========\r\n");
-      kputs("STATUS : DONE\r\n");
-      kputs("LATENCY: ");
-      uart_put_dec((void*)uart_reg, (end_cycle - start_cycle));
-      kputs(" cycles\r\n");
-      kputs("-------END KEY EXPANSION-------\r\n");
+    print128_grouped(&key_master[16]);
+
+    if (start == 0) {
+        kputs("Waiting for START signal ...\r\n");
+    } else {
+        // Tương đương IDLE State
+        COPY128(k0_reg, &key_master[0]);
+
+        int last_round;
+        switch (keylen) {
+            case 0:
+                COPY128(k1_reg, &key_master[0]);
+                for (int i = 0; i < 16; i++) k1_reg[i] ^= 0xFF;
+                last_round = 7;
+                break;
+            case 1:
+                memcpy(k1_reg, &key_master[16], 8);
+                for (int i = 0; i < 8; i++) k1_reg[8 + i] = key_master[8 + i] ^ 0xFF;
+                last_round = 8;
+                break;
+            default:
+                COPY128(k1_reg, &key_master[16]);
+                last_round = 9;
+                break;
+        }
+
+        for (int round = 1; round <= last_round; round++) {
+            /* Tương đương INIT_K0 -> WAIT_K0 -> SAVE_K0 */
+            COPY128(temp, k0_reg);
+            XOR128(temp, (uint8_t *)C0_CONST);
+            temp[15] ^= (2 * round - 1);
+            Gen_Key(temp);
+            COPY128(o_data_reg0, temp);
+
+            /* Tương đương INIT_K1 -> WAIT_K1 -> SAVE_K1 */
+            COPY128(temp, k1_reg);
+            XOR128(temp, (uint8_t *)C1_CONST);
+            temp[15] ^= (2 * round);
+            Gen_Key(temp);
+            COPY128(o_data_reg1, temp);
+
+            /* Tương đương UPDATE_K - Xuất Round Keys */
+            if (round == 1) {
+                COPY128(round_key_k0[round - 1], &key_master[0]);
+            } else {
+                COPY128(round_key_k0[round - 1], k1_reg);
+            }
+
+            COPY128(round_key_k1[round - 1], o_data_reg1);
+
+            if (round == last_round) {
+                COPY128(key_post, o_data_reg1);
+                XOR128(key_post, o_data_reg0);
+            }
+
+            /* Tương đương NEXT_ROUND */
+            COPY128(k0_reg, o_data_reg1);
+            COPY128(k1_reg, o_data_reg1);
+            XOR128(k1_reg, o_data_reg0);
+        }
+
+        done = 1;
+        end_cycle = get_cycle_count();
+
+        // Logging kết quả
+        kputs("\r\n=========== ROUND KEYS ===========\r\n");
+        for (int i = 0; i < last_round; i++) {
+            kputs("----------------------------------\r\n");
+            kputs("ROUND ");
+            uart_put_dec((void *)uart_reg, i + 1);
+            kputs("\r\n");
+            kputs("RK0: "); print128_grouped(round_key_k0[i]);
+            kputs("RK1: "); print128_grouped(round_key_k1[i]);
+            if (i == last_round - 1) {
+                kputs("\r\nKEY_POST: "); print128_grouped(key_post);
+            }
+        }
+
+        kputs("\r\n========== KEY EXPANSION ==========\r\n");
+        kputs("STATUS : DONE\r\n");
+        kputs("LATENCY: ");
+        uart_put_dec((void *)uart_reg, (end_cycle - start_cycle));
+        kputs(" cycles\r\n-------END KEY EXPANSION-------\r\n");
     }
+
     return (end_cycle - start_cycle);
-}
-void Round_ENC(
-    uint8_t state[16],
-    uint8_t keyk0[16],
-    uint8_t keyk1[16]
-)
-{
-    XOR128(state, keyk0);
-    SubCells(state);
-    MixWords(state);
-    XOR128(state, keyk1);
-    SubCells(state);
-    XWords(state);
-}
-void Round_DEC(
-    uint8_t state[16],
-    uint8_t keyk0[16],
-    uint8_t keyk1[16]
-)
-{
-    XWords(state);
-    InvSubCells(state);
-    XOR128(state, keyk1);
-    InvMixWords(state);
-    InvSubCells(state);
-    XOR128(state, keyk0);
 }
 uint8_t ciphertext[16];
 uint64_t ENC_CORE(
     uint8_t plaintext[16],
-    uint8_t master_key[32]
+    uint8_t master_key[32],
+    uint8_t keylen
 )
 {
     uint64_t start_cycle = get_cycle_count();
-    uint64_t end_cycle = start_cycle;
+    uint64_t end_cycle;
     uint8_t state[16];
-    COPY128(state,plaintext);
-    if(done ==1)
+    COPY128(state, plaintext);
+    if(done == 1)
     {
-      for(int i=0; i<9; i++)
-      {
-          XOR128(state,round_key_k0[i]);
-          SubCells(state);
-          MixWords(state);
-
-          XOR128(state,round_key_k1[i]);
-          SubCells(state);
-          XWords(state);
-      }
-      XOR128(state,key_post);
-      COPY128(ciphertext,state);
-      end_cycle = get_cycle_count();
-      kputs("\r\n========== ENCRYPT ==========");
-      kputs("\r\nDATA IN (PLAIN TEXT): "); print128_grouped(plaintext);
-      kputs("\r\nDATA OUT (CIPHER TEXT): ");      print128_grouped(ciphertext);
-      kputs("\r\nLATENCY: ");
-      uart_put_dec((void*)uart_reg, (end_cycle - start_cycle));
-      kputs(" cycles\r\n");
-      kputs("-------END ENCRYPT-------\r\n");
+        int last_round;
+        switch(keylen)
+        {
+            case 0: last_round = 7; break;   // MKV-128
+            case 1: last_round = 8; break;   // MKV-192
+            default: last_round = 9; break;  // MKV-256
+        }
+        for(int i=0;i<last_round;i++)
+        {
+            XOR128(state, round_key_k0[i]);
+            SubCells(state);
+            MixWords(state);
+            XOR128(state, round_key_k1[i]);
+            SubCells(state);
+            XWords(state);
+        }
+        XOR128(state, key_post);
+        COPY128(ciphertext, state);
+        end_cycle = get_cycle_count();
+        kputs("\r\n========== ENCRYPT ==========");
+        kputs("\r\nDATA IN (PLAIN TEXT): ");
+        print128_grouped(plaintext);
+        kputs("\r\nDATA OUT (CIPHER TEXT): ");
+        print128_grouped(ciphertext);
+        kputs("\r\nLATENCY: ");
+        uart_put_dec((void*)uart_reg, end_cycle-start_cycle);
+        kputs(" cycles\r\n");
+        kputs("-------END ENCRYPT-------\r\n");
     }
     else
-      kputs("\r\nWaiting for KEY EXPANSION...\r\n");
-      
-    
-    return end_cycle - start_cycle;
+    {
+        end_cycle = get_cycle_count();
+        kputs("\r\nWaiting for KEY EXPANSION...\r\n");
+    }
+    return end_cycle-start_cycle;
 }
 uint64_t DEC_CORE(
     uint8_t ciphertext_in[16],
-    uint8_t master_key[32]
+    uint8_t master_key[32],
+    uint8_t keylen
 )
 {
     uint64_t start_cycle = get_cycle_count();
-    uint64_t end_cycle = start_cycle;
+    uint64_t end_cycle;
     uint8_t state[16];
     COPY128(state, ciphertext_in);
     if(done == 1)
     {
-        XOR128(state, key_post);
-        for(int i = 8; i >= 0; i--)
+        int last_round;
+        switch(keylen)
         {
-            XWords(state); 
+            case 0: last_round = 6; break;
+            case 1: last_round = 7; break;
+            default: last_round = 8; break;
+        }
+        XOR128(state, key_post);
+        for(int i=last_round;i>=0;i--)
+        {
+            XWords(state);
             InvSubCells(state);
             XOR128(state, round_key_k1[i]);
             InvMixWords(state);
@@ -614,112 +644,169 @@ uint64_t DEC_CORE(
         }
         end_cycle = get_cycle_count();
         kputs("\r\n========== DECRYPT ==========");
-        kputs("\r\nDATA IN (CIPHER TEXT): "); print128_grouped(ciphertext_in);
-        kputs("\r\nDATA OUT (PLAIN TEXT): ");      print128_grouped(state);
+        kputs("\r\nDATA IN (CIPHER TEXT): ");
+        print128_grouped(ciphertext_in);
+        kputs("\r\nDATA OUT (PLAIN TEXT): ");
+        print128_grouped(state);
         kputs("\r\nLATENCY: ");
-        uart_put_dec((void*)uart_reg, (end_cycle - start_cycle));
+        uart_put_dec((void*)uart_reg, end_cycle-start_cycle);
         kputs(" cycles\r\n");
         kputs("-------END DECRYPT-------\r\n");
     }
-    else    
-        kputs("\r\nWaiting for KEY EXPANSION...\r\n");    
-    return end_cycle - start_cycle;
+    else
+    {
+        end_cycle = get_cycle_count();
+        kputs("\r\nWaiting for KEY EXPANSION...\r\n");
+    }
+    return end_cycle-start_cycle;
 }
-//---------HARDWARE----------------
-#define trigger   0x00 //rst
-#define status    0x04 //done_key_debug, done
-#define start     0x08 //start, sel_crypt
-#define data_in   0x10
-#define key_in    0x20
-#define data_out  0x40
+//---------HARDWARE----------------x
+#define i_rst      0x00
+#define i_keyinit  0x04
+#define i_start    0x08
+#define i_selcrypt 0x0C
+#define i_keylen   0x10
+#define o_keydone  0x14
+#define o_done     0x18
+#define data_in    0x20
+#define key_in     0x30
+#define data_out   0x50
 unsigned long mkv_reg;
 void mkv_reset() {
-    _REG32(mkv_reg, trigger) = 0x00000001; // Bit rst = 1
-    _REG32(mkv_reg, trigger) = 0x00000000; // Bit rst = 0
+  _REG32(mkv_reg, i_rst) = 0x01;
+  for(volatile int i=0; i<100; i++);
+  _REG32(mkv_reg, i_rst) = 0x00;
+  for(volatile int i=0; i<1000; i++);
+  _REG32(mkv_reg, i_rst) = 0x01;
+  for(volatile int i=0; i<100; i++);
+  _REG32(mkv_reg, i_rst) = 0x00;
+  for(volatile int i=0; i<1000; i++);
 }
-static uint64_t run_key_mkv(
-    uint32_t d0,
-    uint32_t d1,
-    uint32_t d2,
-    uint32_t d3,
-    uint32_t d4,
-    uint32_t d5,
-    uint32_t d6,
-    uint32_t d7)
+static uint64_t run_key(uint32_t keylen, uint32_t d0, uint32_t d1, uint32_t d2, uint32_t d3,
+                                         uint32_t d4, uint32_t d5, uint32_t d6, uint32_t d7)
 {
-    uint64_t start_cycle;
-    uint64_t end_cycle;
+    uint64_t start_cycle, end_cycle;
     mkv_reset();
-    _REG32(mkv_reg, key_in + 0x00) = d0;
-    _REG32(mkv_reg, key_in + 0x04) = d1;
-    _REG32(mkv_reg, key_in + 0x08) = d2;
-    _REG32(mkv_reg, key_in + 0x0C) = d3;
-    _REG32(mkv_reg, key_in + 0x10) = d4;
-    _REG32(mkv_reg, key_in + 0x14) = d5;
-    _REG32(mkv_reg, key_in + 0x18) = d6;
-    _REG32(mkv_reg, key_in + 0x1C) = d7;
+    
+    // Nạp Key Master vào phần cứng
+    _REG32(mkv_reg, key_in + 0x00) = d0; _REG32(mkv_reg, key_in + 0x04) = d1;
+    _REG32(mkv_reg, key_in + 0x08) = d2; _REG32(mkv_reg, key_in + 0x0C) = d3;
+    _REG32(mkv_reg, key_in + 0x10) = d4; _REG32(mkv_reg, key_in + 0x14) = d5;
+    _REG32(mkv_reg, key_in + 0x18) = d6; _REG32(mkv_reg, key_in + 0x1C) = d7;
+    
+    // Chon Key (128/292/256)
+    _REG32(mkv_reg, i_keylen) = keylen; 
 
+    // Kích hoạt Key Init + Start Latency
     start_cycle = get_cycle_count();
+    _REG32(mkv_reg, i_keyinit) = 0x01; 
+    for(volatile int i=0; i<5; i++);
+    _REG32(mkv_reg, i_keyinit) = 0x00; 
 
-    // start key expansion
-    _REG32(mkv_reg, start) = 0x00000001;
-    _REG32(mkv_reg, start) = 0x00000000;
-
-    // wait done_key (bit8)
-    while ((_REG32(mkv_reg, status) & 0x00000002) == 0);
-
+    // Chờ Done_Key = 1 + End Latency
+    while (((_REG32(mkv_reg, o_keydone)) & 0x01) == 0);
     end_cycle = get_cycle_count();
-
+    
+    kputs(" Key Expansion hoàn thành.\r\n");
     return end_cycle - start_cycle;
 }
-static uint64_t run_crypt_mkv(
-    int sel_crypt,
-    uint32_t d0,
-    uint32_t d1,
-    uint32_t d2,
-    uint32_t d3,
-    uint32_t *o0,
-    uint32_t *o1,
-    uint32_t *o2,
-    uint32_t *o3)
+static uint64_t run_crypt(uint32_t sel_crypt, uint32_t d0, uint32_t d1, uint32_t d2, uint32_t d3,
+                                               uint32_t *o0, uint32_t *o1, uint32_t *o2, uint32_t *o3)
 {
-    uint64_t start_cycle;
-    uint64_t end_cycle;
-    uint32_t ctrl = 0;
-    
-    // bit8 = decrypt
-    
-    // DATA
-    _REG32(mkv_reg, data_in + 0x00) = d0;
-    _REG32(mkv_reg, data_in + 0x04) = d1;
-    _REG32(mkv_reg, data_in + 0x08) = d2;
-    _REG32(mkv_reg, data_in + 0x0C) = d3;
-    
-    // chờ key expansion hoàn thành
-    while ((_REG32(mkv_reg, status) & 0x00000002) == 0);
+    uint64_t start_cycle, end_cycle;
 
-    // ===== START LATENCY =====
+    kputs(sel_crypt ? "\r\nQuá trình Giải mã...\r\n" : "\r\nQuá trình Mã hóa...\r\n");
+
+    // Nạp data in
+    _REG32(mkv_reg, data_in + 0x00) = d0; _REG32(mkv_reg, data_in + 0x04) = d1;
+    _REG32(mkv_reg, data_in + 0x08) = d2; _REG32(mkv_reg, data_in + 0x0C) = d3;
+    
+    // Nạp Sel Crypt
+    _REG32(mkv_reg, i_selcrypt) = sel_crypt;
+    
+    // kiểm tra xem done_key = 1 -> Kích hoạt Start Crypt + Start Latency
+    //while (((_REG32(mkv_reg, o_keydone)) & 0x01) == 0);
+    
+    _REG32(mkv_reg, i_start) = 0x01; 
+    _REG32(mkv_reg, i_start) = 0x00;
     start_cycle = get_cycle_count();
-
-    // tạo xung START, giữ nguyên bit8
-    if (sel_crypt == 1) _REG32(mkv_reg, start) = 0x00000003;
-    else  _REG32(mkv_reg, start) = 0x00000001;
-    if (sel_crypt == 1) _REG32(mkv_reg, start) = 0x00000002;
-    else  _REG32(mkv_reg, start) = 0x00000000;
-    // chờ encrypt/decrypt xong (bit0)
-    while ((_REG32(mkv_reg, status) & 0x00000001)|(_REG32(mkv_reg, status) & 0x00000003) == 0);
-
-    // ===== END LATENCY =====
+    kputs("Bắt đầu...\r\n");
+    // Chờ Done = 1 + End Latency
+    while (((_REG32(mkv_reg, o_done)) & 0x01) == 0);
     end_cycle = get_cycle_count();
-
     *o0 = _REG32(mkv_reg, data_out + 0x00);
     *o1 = _REG32(mkv_reg, data_out + 0x04);
     *o2 = _REG32(mkv_reg, data_out + 0x08);
     *o3 = _REG32(mkv_reg, data_out + 0x0C);
 
-    return end_cycle - start_cycle;
+    kputs("Hoàn thành. Kết quả đã đọc.");
+    return (end_cycle - start_cycle);
 }
 
+#define RUN_KEY_TEST(NAME, KEYLEN, K0,K1,K2,K3,K4,K5,K6,K7)            \
+do{                                                                    \
+    kputs("\r\n=================================================\r\n");\
+    kputs(NAME);                                                       \
+    kputs("\r\n=================================================\r\n");\
+    kputs("Master Key = ");                                            \
+    uart_put_hex((void*)uart_reg,K7); kputs(" ");                      \
+    uart_put_hex((void*)uart_reg,K6); kputs(" ");                      \
+    uart_put_hex((void*)uart_reg,K5); kputs(" ");                      \
+    uart_put_hex((void*)uart_reg,K4); kputs(" ");                      \
+    uart_put_hex((void*)uart_reg,K3); kputs(" ");                      \
+    uart_put_hex((void*)uart_reg,K2); kputs(" ");                      \
+    uart_put_hex((void*)uart_reg,K1); kputs(" ");                      \
+    uart_put_hex((void*)uart_reg,K0);                                  \
+    key_latency = run_key(KEYLEN,K0,K1,K2,K3,K4,K5,K6,K7);             \
+    kputs("Key Expansion Latency : ");                                 \
+    uart_put_dec((void*)uart_reg,key_latency);                         \
+    kputs(" cycles\r\n");                                              \
+                                                                       \
+    kputs("\r\nPlaintext = ");                                         \
+    uart_put_hex((void*)uart_reg,0x11223344); kputs(" ");              \
+    uart_put_hex((void*)uart_reg,0x55667788); kputs(" ");              \
+    uart_put_hex((void*)uart_reg,0x99AABBCC); kputs(" ");              \
+    uart_put_hex((void*)uart_reg,0xDDEEFF00);                          \
+    enc_latency = run_crypt(                                           \
+        0,                                                             \
+        0x33221100,                                                    \
+        0x77665544,                                                    \
+        0xBBAA9988,                                                    \
+        0xFFEEDDCC,                                                    \
+        &c0,&c1,&c2,&c3);                                              \
+    kputs("\r\nEncrypt Latency : ");                                   \
+    uart_put_dec((void*)uart_reg,enc_latency);                         \
+    kputs(" cycles\r\n");                                              \
+                                                                       \
+    kputs("Ciphertext = ");                                            \
+    uart_put_hex((void*)uart_reg,c3); kputs(" ");                      \
+    uart_put_hex((void*)uart_reg,c2); kputs(" ");                      \
+    uart_put_hex((void*)uart_reg,c1); kputs(" ");                      \
+    uart_put_hex((void*)uart_reg,c0);                                  \
+                                                                       \
+    dec_latency = run_crypt(                                           \
+        1,                                                             \
+        c0,c1,c2,c3,                                                   \
+        &p0,&p1,&p2,&p3);                                              \
+                                                                       \
+    kputs("\r\nDecrypt Latency : ");                                   \
+    uart_put_dec((void*)uart_reg,dec_latency);                         \
+    kputs(" cycles\r\n");                                              \
+                                                                       \
+    kputs("Recovered Plaintext = ");                                   \
+    uart_put_hex((void*)uart_reg,p3); kputs(" ");                      \
+    uart_put_hex((void*)uart_reg,p2); kputs(" ");                      \
+    uart_put_hex((void*)uart_reg,p1); kputs(" ");                      \
+    uart_put_hex((void*)uart_reg,p0);                                  \
+                                                                       \
+    if(p3==0xFFEEDDCC &&                                               \
+       p2==0xBBAA9988 &&                                               \
+       p1==0x77665544 &&                                               \
+       p0==0x33221100)                                                 \
+        kputs("\r\nResult : PASS");                                    \
+    else                                                               \
+        kputs("\r\nResult : FAIL");                                    \
+}while(0)
 //HART 0 runs main
 int main(int id, unsigned long dtb)
 {
@@ -913,269 +1000,110 @@ int main(int id, unsigned long dtb)
   }
   uint32_t c0,c1,c2,c3;
   uint32_t p0,p1,p2,p3;
-
+  kputs("\r\n========= SOFTWARE TEST =========\r\n");
+  uint64_t key_latency;
   uint64_t enc_latency;
   uint64_t dec_latency;
-  uint64_t key_latency;
-  kputs("\r\n---------SOFTWARE----------------\r\n");
-  uint8_t master_key[32]=
-    {
-        0x01,0x02,0x03,0x04,
-        0x05,0x06,0x07,0x08,
-        0x09,0x0A,0x0B,0x0C,
-        0x0D,0x0E,0x0F,0x11,
-
-        0x12,0x13,0x14,0x15,
-        0x16,0x17,0x18,0x19,
-        0x1A,0x1B,0x1C,0x1D,
-        0x1E,0x1F,0x22,0x23
-    };
-  uint8_t plain_text[16]=
-    {
-        0x11,0x22,0x33,0x44,
-        0x55,0x66,0x77,0x88,
-        0x99,0xAA,0xBB,0xCC,
-        0xDD,0xEE,0xFF,0x00
-    };
-  Key_Expansion(master_key,1);
-  ENC_CORE(plain_text,master_key);
-  DEC_CORE(ciphertext,master_key);
+  uint8_t plaintext[16] =
+  {
+      0xFF,0xEE,0xDD,0xCC,
+      0xBB,0xAA,0x99,0x88,
+      0x77,0x66,0x55,0x44,
+      0x33,0x22,0x11,0x00
+  };
+  /*==========================
+   * TEST 1 : KEY_MASTER-128
+   *=========================*/
+  kputs("\r\n******** TEST 1 : KEY_MASTER-128 ********\r\n");
+  uint8_t key128[32] =
+  {
+      0x00,0x01,0x02,0x03,
+      0x04,0x05,0x06,0x07,
+      0x08,0x09,0x0A,0x0B,
+      0x0C,0x0D,0x0E,0x0F,
+      0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0
+  };
+  done = 0;
+  key_latency = Key_Expansion(key128,0,1);
+  enc_latency = ENC_CORE(plaintext,key128,0);
+  dec_latency = DEC_CORE(ciphertext,key128,0);
+  /*==========================
+   * TEST 2 : KEY_MASTER-192
+   *=========================*/
+  kputs("\r\n******** TEST 2 : KEY_MASTER-192 ********\r\n");
+  uint8_t key192[32] =
+  {
+      0x00,0x01,0x02,0x03,
+      0x04,0x05,0x06,0x07,
+      0x08,0x09,0x0A,0x0B,
+      0x0C,0x0D,0x0E,0x0F,
+      0x10,0x11,0x12,0x13,
+      0x14,0x15,0x16,0x17,
+      0,0,0,0,0,0,0,0
+  };
+  done = 0;
+  key_latency = Key_Expansion(key192,1,1);
+  enc_latency = ENC_CORE(plaintext,key192,1);
+  dec_latency = DEC_CORE(ciphertext,key192,1);
+  /*==========================
+   * TEST 3 : KEY_MASTER-256
+   *=========================*/
+  kputs("\r\n******** TEST 3 : KEY_MASTER-256 ********\r\n");
+  uint8_t key256[32] =
+  {
+      0x00,0x01,0x02,0x03,
+      0x04,0x05,0x06,0x07,
+      0x08,0x09,0x0A,0x0B,
+      0x0C,0x0D,0x0E,0x0F,
+      0x10,0x11,0x12,0x13,
+      0x14,0x15,0x16,0x17,
+      0x18,0x19,0x1A,0x1B,
+      0x1C,0x1D,0x1E,0x1F
+  };
+  done = 0;
+  key_latency = Key_Expansion(key256,2,1);
+  enc_latency = ENC_CORE(plaintext,key256,2);
+  dec_latency = DEC_CORE(ciphertext,key256,2);
+  kputs("\r\n=========== ALL TESTS DONE ===========\r\n");
   kputs("\r\n==================================================\r\n");
   kputs("           HARDWARE CRYPTO TEST BENCH             \r\n");
-  kputs("==================================================\r\n");
-  kputs("\r\n[KEY SET 1]\r\n");
-  kputs("Master Key (256-bit) = ");
-  uart_put_hex((void*)uart_reg, 0x01020304); kputs(" ");
-  uart_put_hex((void*)uart_reg, 0x05060708); kputs(" ");
-  uart_put_hex((void*)uart_reg, 0x090A0B0C); kputs(" ");
-  uart_put_hex((void*)uart_reg, 0x0D0E0F11); kputs(" ");
-  uart_put_hex((void*)uart_reg, 0x12131415); kputs(" ");
-  uart_put_hex((void*)uart_reg, 0x16171819); kputs(" ");
-  uart_put_hex((void*)uart_reg, 0x1A1B1C1D); kputs(" ");
-  uart_put_hex((void*)uart_reg, 0x1E1F2223); kputs(" ");
-  key_latency = run_key_mkv(
-      0x1E1F2223,
-      0x1A1B1C1D,
-      0x16171819,
-      0x12131415,
-      0x0D0E0F11,
-      0x090A0B0C,
-      0x05060708,
-      0x01020304);
-  kputs("\r\nKey Expansion Latency : ");
-  uart_put_dec((void*)uart_reg, key_latency);
-  kputs(" cycles\r\n");
-//test1
-  kputs("\r\n---------------- TEST 1 ----------------\r\n");
-  kputs("Mode : Encrypt -> Decrypt\r\n");
-  kputs("Input Plaintext = ");
-  uart_put_hex((void*)uart_reg,0x11223344); kputs(" ");
-  uart_put_hex((void*)uart_reg,0x55667788); kputs(" ");
-  uart_put_hex((void*)uart_reg,0x99AABBCC); kputs(" ");
-  uart_put_hex((void*)uart_reg,0xDDEEFF00); kputs(" ");
-  enc_latency = run_crypt_mkv(
-    0,          // 0 = Encrypt
-    0xDDEEFF00,
-    0x99AABBCC,
-    0x55667788,
-    0x11223344,
-    &c0,&c1,&c2,&c3);
-  kputs("\r\nEncrypt Latency : ");
-  uart_put_dec((void*)uart_reg, enc_latency);
-  kputs(" cycles\r\n");
-  kputs("=> Output Ciphertext = ");
-  uart_put_hex((void*)uart_reg,c3); kputs(" ");
-  uart_put_hex((void*)uart_reg,c2); kputs(" ");
-  uart_put_hex((void*)uart_reg,c1); kputs(" ");
-  uart_put_hex((void*)uart_reg,c0); kputs(" ");
-  dec_latency = run_crypt_mkv(
-      1,          // 1 = Decrypt
-      c0,c1,c2,c3,
-      &p0,&p1,&p2,&p3);
-  kputs("\r\nDecrypt Latency : ");
-  uart_put_dec((void*)uart_reg, dec_latency);
-  kputs(" cycles\r\n");
-  kputs("=> Recovered Plaintext = ");
-  uart_put_hex((void*)uart_reg,p3); kputs(" ");
-  uart_put_hex((void*)uart_reg,p2); kputs(" ");
-  uart_put_hex((void*)uart_reg,p1); kputs(" ");
-  uart_put_hex((void*)uart_reg,p0); kputs(" ");
-  if (p3==0x11223344 &&
-    p2==0x55667788 &&
-    p1==0x99AABBCC &&
-    p0==0xDDEEFF00)
-  {
-      kputs("\r\nResult : PASS\r\n");
-  }
-  else
-  {
-      kputs("\r\nResult : FAIL\r\n");
-  }
-//test2
-  kputs("\r\n---------------- TEST 2 ----------------\r\n");
-  kputs("Mode : Decrypt -> Encrypt\r\n");
-  kputs("Input Ciphertext =");
-  uart_put_hex((void*)uart_reg,0xFEDCBA98); kputs(" ");
-  uart_put_hex((void*)uart_reg,0x76543210); kputs(" ");
-  uart_put_hex((void*)uart_reg,0xFEDCBA98); kputs(" ");
-  uart_put_hex((void*)uart_reg,0x76543210); kputs(" ");
-  dec_latency = run_crypt_mkv(
-      1,
-      0x76543210,
-      0xFEDCBA98,
-      0x76543210,
-      0xFEDCBA98,
-      &c0,&c1,&c2,&c3);
-  kputs("\r\nDecrypt Latency : ");
-  uart_put_dec((void*)uart_reg, dec_latency);
-  kputs(" cycles\r\n");
-  kputs("=> Output Plaintext = ");
-  uart_put_hex((void*)uart_reg,c3); kputs(" ");
-  uart_put_hex((void*)uart_reg,c2); kputs(" ");
-  uart_put_hex((void*)uart_reg,c1); kputs(" ");
-  uart_put_hex((void*)uart_reg,c0); kputs(" ");
-  enc_latency = run_crypt_mkv(
-      0,
-      c0,c1,c2,c3,
-      &p0,&p1,&p2,&p3);
-  kputs("\r\nEncrypt Latency : ");
-  uart_put_dec((void*)uart_reg, enc_latency);
-  kputs(" cycles\r\n");
-  kputs("=> Recovered Ciphertext = ");
-  uart_put_hex((void*)uart_reg,p3); kputs(" ");
-  uart_put_hex((void*)uart_reg,p2); kputs(" ");
-  uart_put_hex((void*)uart_reg,p1); kputs(" ");
-  uart_put_hex((void*)uart_reg,p0); kputs(" ");
-  if (p3==0xFEDCBA98 &&
-    p2==0x76543210 &&
-    p1==0xFEDCBA98 &&
-    p0==0x76543210)
-  {
-      kputs("\r\nResult : PASS\r\n");
-  }
-  else
-  {
-      kputs("\r\nResult : FAIL\r\n");
-  }
-  /* ==========================================================
-   * Load ANOTHER key once
-   * ========================================================== */
-  kputs("\r\n==================================================\r\n");
-  kputs("                LOAD KEY SET 2                    \r\n");
-  kputs("==================================================\r\n");
-  kputs("Master Key (256-bit) = ");
-  uart_put_hex((void*)uart_reg, 0xFEDCBA98); kputs(" ");
-  uart_put_hex((void*)uart_reg, 0x76543210); kputs(" ");
-  uart_put_hex((void*)uart_reg, 0x99AABBCC); kputs(" ");
-  uart_put_hex((void*)uart_reg, 0xFEDCBA98); kputs(" ");
-  uart_put_hex((void*)uart_reg, 0x11223344); kputs(" ");
-  uart_put_hex((void*)uart_reg, 0x55667788); kputs(" ");
-  uart_put_hex((void*)uart_reg, 0xFEDCBA98); kputs(" ");
-  uart_put_hex((void*)uart_reg, 0x76543210); kputs(" ");
-  key_latency = run_key_mkv(
-      0x76543210,
-      0xFEDCBA98,
-      0x55667788,
-      0x11223344,
-      0xFEDCBA98,
-      0x99AABBCC,
-      0x76543210,
-      0xFEDCBA98);
-  kputs("\r\nKey Expansion Latency : ");
-  uart_put_dec((void*)uart_reg, key_latency);
-  kputs(" cycles\r\n");
-//test1
-  kputs("\r\n---------------- TEST 1 ----------------\r\n");
-  kputs("Mode : Encrypt -> Decrypt\r\n");
-  kputs("Input Plaintext = ");
-  uart_put_hex((void*)uart_reg,0x11223344); kputs(" ");
-  uart_put_hex((void*)uart_reg,0x55667788); kputs(" ");
-  uart_put_hex((void*)uart_reg,0x99AABBCC); kputs(" ");
-  uart_put_hex((void*)uart_reg,0xDDEEFF00); kputs(" ");
-  enc_latency = run_crypt_mkv(
-    0,          // 0 = Encrypt
-    0xDDEEFF00,
-    0x99AABBCC,
-    0x55667788,
-    0x11223344,
-    &c0,&c1,&c2,&c3);
-  kputs("\r\nEncrypt Latency : ");
-  uart_put_dec((void*)uart_reg, enc_latency);
-  kputs(" cycles\r\n");
-  kputs("=> Output Ciphertext = ");
-  uart_put_hex((void*)uart_reg,c3); kputs(" ");
-  uart_put_hex((void*)uart_reg,c2); kputs(" ");
-  uart_put_hex((void*)uart_reg,c1); kputs(" ");
-  uart_put_hex((void*)uart_reg,c0); kputs(" ");
-  dec_latency = run_crypt_mkv(
-      1,          // 1 = Decrypt
-      c0,c1,c2,c3,
-      &p0,&p1,&p2,&p3);
-  kputs("\r\nDecrypt Latency : ");
-  uart_put_dec((void*)uart_reg, dec_latency);
-  kputs(" cycles\r\n");
-  kputs("=> Recovered Plaintext = ");
-  uart_put_hex((void*)uart_reg,p3); kputs(" ");
-  uart_put_hex((void*)uart_reg,p2); kputs(" ");
-  uart_put_hex((void*)uart_reg,p1); kputs(" ");
-  uart_put_hex((void*)uart_reg,p0); kputs(" ");
-  if (p3==0x11223344 &&
-    p2==0x55667788 &&
-    p1==0x99AABBCC &&
-    p0==0xDDEEFF00)
-  {
-      kputs("\r\nResult : PASS\r\n");
-  }
-  else
-  {
-      kputs("\r\nResult : FAIL\r\n");
-  }
-//test2
-  kputs("\r\n---------------- TEST 2 ----------------\r\n");
-  kputs("Mode : Decrypt -> Encrypt\r\n");
-  kputs("Input Ciphertext =");
-  uart_put_hex((void*)uart_reg,0xFEDCBA98); kputs(" ");
-  uart_put_hex((void*)uart_reg,0x76543210); kputs(" ");
-  uart_put_hex((void*)uart_reg,0xFEDCBA98); kputs(" ");
-  uart_put_hex((void*)uart_reg,0x76543210); kputs(" ");
-  dec_latency = run_crypt_mkv(
-      1,
-      0x76543210,
-      0xFEDCBA98,
-      0x76543210,
-      0xFEDCBA98,
-      &c0,&c1,&c2,&c3);
-  kputs("\r\nDecrypt Latency : ");
-  uart_put_dec((void*)uart_reg, dec_latency);
-  kputs(" cycles\r\n");
-  kputs("=> Output Plaintext = ");
-  uart_put_hex((void*)uart_reg,c3); kputs(" ");
-  uart_put_hex((void*)uart_reg,c2); kputs(" ");
-  uart_put_hex((void*)uart_reg,c1); kputs(" ");
-  uart_put_hex((void*)uart_reg,c0); kputs(" ");
-  enc_latency = run_crypt_mkv(
-      0,
-      c0,c1,c2,c3,
-      &p0,&p1,&p2,&p3);
-  kputs("\r\nEncrypt Latency : ");
-  uart_put_dec((void*)uart_reg, enc_latency);
-  kputs(" cycles\r\n");
-  kputs("=> Recovered Ciphertext = ");
-  uart_put_hex((void*)uart_reg,p3); kputs(" ");
-  uart_put_hex((void*)uart_reg,p2); kputs(" ");
-  uart_put_hex((void*)uart_reg,p1); kputs(" ");
-  uart_put_hex((void*)uart_reg,p0); kputs(" ");
-  if (p3==0xFEDCBA98 &&
-    p2==0x76543210 &&
-    p1==0xFEDCBA98 &&
-    p0==0x76543210)
-  {
-      kputs("\r\nResult : PASS\r\n");
-  }
-  else
-  {
-      kputs("\r\nResult : FAIL\r\n");
-  }
+  RUN_KEY_TEST(
+    "KEY SET 1 (MKV-128)",
+    0,
+    0x00000000,
+    0x00000000,
+    0x00000000,
+    0x00000000,
+    0x0C0D0E0F,
+    0x08090A0B,
+    0x04050607,
+    0x00010203
+  );
+  RUN_KEY_TEST(
+    "KEY SET 2 (MKV-192)",
+    1,
+    0x00000000,
+    0x00000000,
+    0x14151617,
+    0x10111213,
+    0x0C0D0E0F,
+    0x08090A0B,
+    0x04050607,
+    0x00010203
+  );
+  RUN_KEY_TEST(
+    "KEY SET 3 (MKV-256)",
+    2,
+    0x1C1D1E1F,
+    0x18191A1B,
+    0x14151617,
+    0x10111213,
+    0x0C0D0E0F,
+    0x08090A0B,
+    0x04050607,
+    0x00010203
+  );
   // If finished, stay in a infinite loop
   while(1);
   //dead code

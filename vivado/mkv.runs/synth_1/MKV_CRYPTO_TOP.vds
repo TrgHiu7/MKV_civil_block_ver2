@@ -2,13 +2,13 @@
 # Vivado v2022.2 (64-bit)
 # SW Build 3671981 on Fri Oct 14 04:59:54 MDT 2022
 # IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
-# Start of session at: Thu Jun 18 18:10:20 2026
-# Process ID: 25858
+# Start of session at: Sun Jun 21 13:00:02 2026
+# Process ID: 29484
 # Current directory: /home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.runs/synth_1
 # Command line: vivado -log MKV_CRYPTO_TOP.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source MKV_CRYPTO_TOP.tcl
 # Log file: /home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.runs/synth_1/MKV_CRYPTO_TOP.vds
 # Journal file: /home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.runs/synth_1/vivado.jou
-# Running On: tronghieu-LOQ-15IAX9, OS: Linux, CPU Frequency: 2734.765 MHz, CPU Physical cores: 8, Host memory: 29119 MB
+# Running On: tronghieu-LOQ-15IAX9, OS: Linux, CPU Frequency: 3700.000 MHz, CPU Physical cores: 8, Host memory: 29119 MB
 #-----------------------------------------------------------
 source MKV_CRYPTO_TOP.tcl -notrace
 Command: read_checkpoint -auto_incremental -incremental /home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/utils_1/imports/synth_1/Key_Expansion.dcp
@@ -23,17 +23,17 @@ INFO: [Designutils 20-5440] No compile time benefit to using incremental synthes
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 25884
+INFO: [Synth 8-7075] Helper process launched with PID 29520
 INFO: [Synth 8-11241] undeclared symbol 'REGCCE', assumed default net type 'wire' [/home/tronghieu/tools/Xilinx/Vivado/2022.2/data/verilog/src/unimacro/BRAM_SINGLE_MACRO.v:2170]
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1996.938 ; gain = 372.770 ; free physical = 16396 ; free virtual = 28270
-Synthesis current peak Physical Memory [PSS] (MB): peak = 1336.334; parent = 1154.722; children = 181.612
-Synthesis current peak Virtual Memory [VSS] (MB): peak = 3013.020; parent = 1999.910; children = 1013.109
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1998.426 ; gain = 373.738 ; free physical = 10851 ; free virtual = 25586
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1405.452; parent = 1201.243; children = 204.209
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3011.535; parent = 1998.430; children = 1013.105
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-638] synthesizing module 'MKV_CRYPTO_TOP' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/MKV_CRYPTO_TOP.vhd:266]
-INFO: [Synth 8-3491] module 'Key_Expansion' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Key_Expansion.vhd:24' bound to instance 'KEYGEN' of component 'Key_Expansion' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/MKV_CRYPTO_TOP.vhd:356]
-INFO: [Synth 8-638] synthesizing module 'Key_Expansion' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Key_Expansion.vhd:42]
-INFO: [Synth 8-3491] module 'Gen_Key' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Gen_Key.vhd:23' bound to instance 'GKEY' of component 'Gen_Key' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Key_Expansion.vhd:78]
+INFO: [Synth 8-638] synthesizing module 'MKV_CRYPTO_TOP' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/MKV_CRYPTO_TOP.vhd:43]
+INFO: [Synth 8-3491] module 'Key_Expansion' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Key_Expansion.vhd:24' bound to instance 'KEYGEN' of component 'Key_Expansion' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/MKV_CRYPTO_TOP.vhd:137]
+INFO: [Synth 8-638] synthesizing module 'Key_Expansion' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Key_Expansion.vhd:43]
+INFO: [Synth 8-3491] module 'Gen_Key' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Gen_Key.vhd:23' bound to instance 'GKEY' of component 'Gen_Key' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Key_Expansion.vhd:87]
 INFO: [Synth 8-638] synthesizing module 'Gen_Key' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Gen_Key.vhd:31]
 INFO: [Synth 8-3491] module 'SubCells_128' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:18' bound to instance 'Sub1' of component 'SubCells_128' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Gen_Key.vhd:56]
 INFO: [Synth 8-638] synthesizing module 'SubCells_128' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:24]
@@ -68,20 +68,20 @@ INFO: [Synth 8-3491] module 'MixWords' declared at '/home/tronghieu/vivado-works
 INFO: [Synth 8-3491] module 'SubCells_128' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:18' bound to instance 'Sub4' of component 'SubCells_128' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Gen_Key.vhd:68]
 INFO: [Synth 8-3491] module 'XWords' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/XWords.vhd:19' bound to instance 'XW2' of component 'XWords' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Gen_Key.vhd:69]
 INFO: [Synth 8-256] done synthesizing module 'Gen_Key' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Gen_Key.vhd:31]
-INFO: [Synth 8-256] done synthesizing module 'Key_Expansion' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Key_Expansion.vhd:42]
-INFO: [Synth 8-3491] module 'encrypt' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/encrypt.vhd:24' bound to instance 'ENC_CORE' of component 'encrypt' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/MKV_CRYPTO_TOP.vhd:370]
-INFO: [Synth 8-638] synthesizing module 'encrypt' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/encrypt.vhd:41]
-INFO: [Synth 8-3491] module 'N_ROUND' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/N_ROUND.vhd:23' bound to instance 'ROUND_CORE' of component 'N_ROUND' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/encrypt.vhd:58]
+INFO: [Synth 8-256] done synthesizing module 'Key_Expansion' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Key_Expansion.vhd:43]
+INFO: [Synth 8-3491] module 'encrypt' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/encrypt.vhd:24' bound to instance 'ENC_CORE' of component 'encrypt' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/MKV_CRYPTO_TOP.vhd:151]
+INFO: [Synth 8-638] synthesizing module 'encrypt' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/encrypt.vhd:42]
+INFO: [Synth 8-3491] module 'N_ROUND' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/N_ROUND.vhd:23' bound to instance 'ROUND_CORE' of component 'N_ROUND' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/encrypt.vhd:70]
 INFO: [Synth 8-638] synthesizing module 'N_ROUND' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/N_ROUND.vhd:32]
 INFO: [Synth 8-3491] module 'SubCells_128' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:18' bound to instance 'Sub1' of component 'SubCells_128' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/N_ROUND.vhd:57]
 INFO: [Synth 8-3491] module 'MixWords' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/MixWords.vhd:31' bound to instance 'Mix1' of component 'MixWords' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/N_ROUND.vhd:58]
 INFO: [Synth 8-3491] module 'SubCells_128' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/Subcells_128.vhd:18' bound to instance 'Sub2' of component 'SubCells_128' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/N_ROUND.vhd:60]
 INFO: [Synth 8-3491] module 'XWords' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/XWords.vhd:19' bound to instance 'Mix2' of component 'XWords' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/N_ROUND.vhd:61]
 INFO: [Synth 8-256] done synthesizing module 'N_ROUND' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/N_ROUND.vhd:32]
-INFO: [Synth 8-256] done synthesizing module 'encrypt' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/encrypt.vhd:41]
-INFO: [Synth 8-3491] module 'decrypt' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/decrypt.vhd:5' bound to instance 'DEC_CORE' of component 'decrypt' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/MKV_CRYPTO_TOP.vhd:384]
-INFO: [Synth 8-638] synthesizing module 'decrypt' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/decrypt.vhd:23]
-INFO: [Synth 8-3491] module 'INV_N_ROUND' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/INV_N_ROUND.vhd:23' bound to instance 'ROUND_CORE' of component 'INV_N_ROUND' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/decrypt.vhd:44]
+INFO: [Synth 8-256] done synthesizing module 'encrypt' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/encrypt.vhd:42]
+INFO: [Synth 8-3491] module 'decrypt' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/decrypt.vhd:5' bound to instance 'DEC_CORE' of component 'decrypt' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/MKV_CRYPTO_TOP.vhd:165]
+INFO: [Synth 8-638] synthesizing module 'decrypt' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/decrypt.vhd:24]
+INFO: [Synth 8-3491] module 'INV_N_ROUND' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/INV_N_ROUND.vhd:23' bound to instance 'ROUND_CORE' of component 'INV_N_ROUND' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/decrypt.vhd:56]
 INFO: [Synth 8-638] synthesizing module 'INV_N_ROUND' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/INV_N_ROUND.vhd:32]
 INFO: [Synth 8-3491] module 'XWords' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/XWords.vhd:19' bound to instance 'Sub1' of component 'XWords' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/INV_N_ROUND.vhd:53]
 INFO: [Synth 8-3491] module 'inv_Subcells_128' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/inv_Subcells_128.vhd:22' bound to instance 'Mix1' of component 'inv_SubCells_128' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/INV_N_ROUND.vhd:54]
@@ -110,27 +110,27 @@ INFO: [Synth 8-638] synthesizing module 'invMixWords' [/home/tronghieu/vivado-wo
 INFO: [Synth 8-256] done synthesizing module 'invMixWords' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/invMixWords.vhd:37]
 INFO: [Synth 8-3491] module 'inv_Subcells_128' declared at '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/inv_Subcells_128.vhd:22' bound to instance 'Mix2' of component 'inv_SubCells_128' [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/INV_N_ROUND.vhd:57]
 INFO: [Synth 8-256] done synthesizing module 'INV_N_ROUND' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/INV_N_ROUND.vhd:32]
-INFO: [Synth 8-256] done synthesizing module 'decrypt' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/decrypt.vhd:23]
-INFO: [Synth 8-256] done synthesizing module 'MKV_CRYPTO_TOP' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/MKV_CRYPTO_TOP.vhd:266]
+INFO: [Synth 8-256] done synthesizing module 'decrypt' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/decrypt.vhd:24]
+INFO: [Synth 8-256] done synthesizing module 'MKV_CRYPTO_TOP' (0#1) [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/sources_1/new/MKV_CRYPTO_TOP.vhd:43]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2074.875 ; gain = 450.707 ; free physical = 16414 ; free virtual = 28289
-Synthesis current peak Physical Memory [PSS] (MB): peak = 1336.334; parent = 1154.722; children = 181.612
-Synthesis current peak Virtual Memory [VSS] (MB): peak = 3087.988; parent = 2074.879; children = 1013.109
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2076.395 ; gain = 451.707 ; free physical = 10762 ; free virtual = 25502
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1405.452; parent = 1201.243; children = 204.209
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3089.504; parent = 2076.398; children = 1013.105
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2092.688 ; gain = 468.520 ; free physical = 16414 ; free virtual = 28289
-Synthesis current peak Physical Memory [PSS] (MB): peak = 1336.334; parent = 1154.722; children = 181.612
-Synthesis current peak Virtual Memory [VSS] (MB): peak = 3105.801; parent = 2092.691; children = 1013.109
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2094.207 ; gain = 469.520 ; free physical = 10762 ; free virtual = 25502
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1405.452; parent = 1201.243; children = 204.209
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3107.316; parent = 2094.211; children = 1013.105
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2092.688 ; gain = 468.520 ; free physical = 16414 ; free virtual = 28289
-Synthesis current peak Physical Memory [PSS] (MB): peak = 1336.334; parent = 1154.722; children = 181.612
-Synthesis current peak Virtual Memory [VSS] (MB): peak = 3105.801; parent = 2092.691; children = 1013.109
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2094.207 ; gain = 469.520 ; free physical = 10762 ; free virtual = 25502
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1405.452; parent = 1201.243; children = 204.209
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3107.316; parent = 2094.211; children = 1013.105
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.05 . Memory (MB): peak = 2092.688 ; gain = 0.000 ; free physical = 16413 ; free virtual = 28289
+Netlist sorting complete. Time (s): cpu = 00:00:00.05 ; elapsed = 00:00:00.05 . Memory (MB): peak = 2094.207 ; gain = 0.000 ; free physical = 10766 ; free virtual = 25504
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
@@ -139,35 +139,35 @@ Parsing XDC File [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv
 Finished Parsing XDC File [/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.srcs/constrs_1/new/323.xdc]
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2255.438 ; gain = 0.000 ; free physical = 16398 ; free virtual = 28273
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2252.957 ; gain = 0.000 ; free physical = 10743 ; free virtual = 25505
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00.1 ; elapsed = 00:00:00.04 . Memory (MB): peak = 2255.438 ; gain = 0.000 ; free physical = 16398 ; free virtual = 28273
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.13 ; elapsed = 00:00:00.05 . Memory (MB): peak = 2252.957 ; gain = 0.000 ; free physical = 10743 ; free virtual = 25505
 INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-11241] undeclared symbol 'REGCCE', assumed default net type 'wire' [/home/tronghieu/tools/Xilinx/Vivado/2022.2/data/verilog/src/unimacro/BRAM_SINGLE_MACRO.v:2170]
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2255.438 ; gain = 631.270 ; free physical = 16518 ; free virtual = 28393
-Synthesis current peak Physical Memory [PSS] (MB): peak = 1336.334; parent = 1154.722; children = 181.612
-Synthesis current peak Virtual Memory [VSS] (MB): peak = 3236.535; parent = 2223.426; children = 1013.109
+Finished Constraint Validation : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2252.957 ; gain = 628.270 ; free physical = 10797 ; free virtual = 25560
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1405.452; parent = 1201.243; children = 204.209
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3234.051; parent = 2220.945; children = 1013.105
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a100tcsg324-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2255.438 ; gain = 631.270 ; free physical = 16518 ; free virtual = 28393
-Synthesis current peak Physical Memory [PSS] (MB): peak = 1336.334; parent = 1154.722; children = 181.612
-Synthesis current peak Virtual Memory [VSS] (MB): peak = 3236.535; parent = 2223.426; children = 1013.109
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2252.957 ; gain = 628.270 ; free physical = 10796 ; free virtual = 25560
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1405.452; parent = 1201.243; children = 204.209
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3234.051; parent = 2220.945; children = 1013.105
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2255.438 ; gain = 631.270 ; free physical = 16518 ; free virtual = 28393
-Synthesis current peak Physical Memory [PSS] (MB): peak = 1336.334; parent = 1154.722; children = 181.612
-Synthesis current peak Virtual Memory [VSS] (MB): peak = 3236.535; parent = 2223.426; children = 1013.109
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2252.957 ; gain = 628.270 ; free physical = 10795 ; free virtual = 25559
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1405.452; parent = 1201.243; children = 204.209
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3234.051; parent = 2220.945; children = 1013.105
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'encrypt'
 INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'decrypt'
@@ -201,44 +201,48 @@ INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 
                 wait_key |                              001 |                              001
                     load |                              010 |                              010
                   finish |                              011 |                              100
-                  iSTATE |                              100 |                              111
-                  update |                              101 |                              011
+                  update |                              100 |                              011
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'MKV_CRYPTO_TOP'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2255.438 ; gain = 631.270 ; free physical = 16519 ; free virtual = 28396
-Synthesis current peak Physical Memory [PSS] (MB): peak = 1336.334; parent = 1154.722; children = 181.612
-Synthesis current peak Virtual Memory [VSS] (MB): peak = 3236.535; parent = 2223.426; children = 1013.109
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 2252.957 ; gain = 628.270 ; free physical = 10795 ; free virtual = 25559
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1405.452; parent = 1201.243; children = 204.209
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3234.051; parent = 2220.945; children = 1013.105
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
 ---------------------------------------------------------------------------------
 Detailed RTL Component Info : 
 +---Adders : 
-	   2 Input    4 Bit       Adders := 6     
+	   2 Input    4 Bit       Adders := 5     
+	   3 Input    4 Bit       Adders := 1     
 +---XORs : 
-	   2 Input    128 Bit         XORs := 11    
+	   2 Input    128 Bit         XORs := 10    
+	   2 Input     64 Bit         XORs := 1     
 	   2 Input     32 Bit         XORs := 24    
-	   2 Input      8 Bit         XORs := 142   
-	   4 Input      8 Bit         XORs := 14    
-	   3 Input      8 Bit         XORs := 42    
+	   2 Input      8 Bit         XORs := 143   
+	   4 Input      8 Bit         XORs := 15    
+	   3 Input      8 Bit         XORs := 41    
 +---Registers : 
 	              128 Bit    Registers := 34    
-	                4 Bit    Registers := 6     
-	                1 Bit    Registers := 10    
+	                4 Bit    Registers := 9     
+	                1 Bit    Registers := 12    
 +---Muxes : 
 	  11 Input  128 Bit        Muxes := 3     
 	   2 Input  128 Bit        Muxes := 8     
-	   6 Input  128 Bit        Muxes := 4     
+	   6 Input  128 Bit        Muxes := 2     
+	   5 Input  128 Bit        Muxes := 2     
 	   2 Input    8 Bit        Muxes := 64    
+	   2 Input    4 Bit        Muxes := 10    
 	  11 Input    4 Bit        Muxes := 1     
-	   2 Input    4 Bit        Muxes := 1     
-	   6 Input    4 Bit        Muxes := 3     
+	   6 Input    4 Bit        Muxes := 2     
+	   5 Input    4 Bit        Muxes := 1     
 	   5 Input    3 Bit        Muxes := 3     
-	   2 Input    3 Bit        Muxes := 6     
-	  11 Input    1 Bit        Muxes := 9     
+	   2 Input    3 Bit        Muxes := 8     
+	  11 Input    1 Bit        Muxes := 10    
+	   6 Input    1 Bit        Muxes := 12    
 	   2 Input    1 Bit        Muxes := 18    
-	   6 Input    1 Bit        Muxes := 16    
+	   5 Input    1 Bit        Muxes := 6     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -256,9 +260,9 @@ Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:48 ; elapsed = 00:01:51 . Memory (MB): peak = 2292.250 ; gain = 668.082 ; free physical = 16446 ; free virtual = 28336
-Synthesis current peak Physical Memory [PSS] (MB): peak = 1575.737; parent = 1394.170; children = 181.612
-Synthesis current peak Virtual Memory [VSS] (MB): peak = 3305.363; parent = 2292.254; children = 1013.109
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:51 ; elapsed = 00:01:55 . Memory (MB): peak = 2360.848 ; gain = 736.160 ; free physical = 11024 ; free virtual = 25795
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1650.678; parent = 1446.532; children = 204.209
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3373.957; parent = 2360.852; children = 1013.105
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -296,30 +300,21 @@ ROM: Preliminary Mapping Report
 |SubCells_128 | gen_sbox[13].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
 |SubCells_128 | gen_sbox[14].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
 |SubCells_128 | gen_sbox[15].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
-|SubCells_128 | gen_sbox[2].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
-|SubCells_128 | gen_sbox[3].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
-|SubCells_128 | gen_sbox[4].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
 |SubCells_128 | gen_sbox[5].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
 |SubCells_128 | gen_sbox[6].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
 |SubCells_128 | gen_sbox[7].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
 |SubCells_128 | gen_sbox[8].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
 |SubCells_128 | gen_sbox[9].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
-|SubCells_128 | gen_sbox[10].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
 |SubCells_128 | gen_sbox[11].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
 |SubCells_128 | gen_sbox[12].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
 |SubCells_128 | gen_sbox[13].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
 |SubCells_128 | gen_sbox[14].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
 |SubCells_128 | gen_sbox[15].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
-|SubCells_128 | gen_sbox[1].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
-|SubCells_128 | gen_sbox[2].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
-|SubCells_128 | gen_sbox[3].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
-|SubCells_128 | gen_sbox[4].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
 |SubCells_128 | gen_sbox[5].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
 |SubCells_128 | gen_sbox[6].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
 |SubCells_128 | gen_sbox[7].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
 |SubCells_128 | gen_sbox[8].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
 |SubCells_128 | gen_sbox[9].SBOX_INST/sbox_mkv[0]                      | 256x8         | LUT            | 
-|SubCells_128 | gen_sbox[10].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
 |SubCells_128 | gen_sbox[11].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
 |SubCells_128 | gen_sbox[12].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
 |SubCells_128 | gen_sbox[13].SBOX_INST/sbox_mkv[0]                     | 256x8         | LUT            | 
@@ -398,25 +393,25 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:51 ; elapsed = 00:01:54 . Memory (MB): peak = 2292.250 ; gain = 668.082 ; free physical = 16401 ; free virtual = 28292
-Synthesis current peak Physical Memory [PSS] (MB): peak = 1575.737; parent = 1394.170; children = 181.612
-Synthesis current peak Virtual Memory [VSS] (MB): peak = 3305.363; parent = 2292.254; children = 1013.109
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:54 ; elapsed = 00:01:58 . Memory (MB): peak = 2360.848 ; gain = 736.160 ; free physical = 10946 ; free virtual = 25739
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1650.678; parent = 1446.532; children = 204.209
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3373.957; parent = 2360.852; children = 1013.105
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:01:56 ; elapsed = 00:01:59 . Memory (MB): peak = 2292.250 ; gain = 668.082 ; free physical = 16329 ; free virtual = 28219
-Synthesis current peak Physical Memory [PSS] (MB): peak = 1575.737; parent = 1394.170; children = 181.612
-Synthesis current peak Virtual Memory [VSS] (MB): peak = 3305.363; parent = 2292.254; children = 1013.109
+Finished Timing Optimization : Time (s): cpu = 00:01:59 ; elapsed = 00:02:03 . Memory (MB): peak = 2360.848 ; gain = 736.160 ; free physical = 10903 ; free virtual = 25692
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1650.678; parent = 1446.532; children = 204.209
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3373.957; parent = 2360.852; children = 1013.105
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:01:58 ; elapsed = 00:02:02 . Memory (MB): peak = 2292.250 ; gain = 668.082 ; free physical = 16335 ; free virtual = 28226
-Synthesis current peak Physical Memory [PSS] (MB): peak = 1575.737; parent = 1394.170; children = 181.612
-Synthesis current peak Virtual Memory [VSS] (MB): peak = 3305.363; parent = 2292.254; children = 1013.109
+Finished Technology Mapping : Time (s): cpu = 00:02:02 ; elapsed = 00:02:06 . Memory (MB): peak = 2360.848 ; gain = 736.160 ; free physical = 10948 ; free virtual = 25722
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1650.678; parent = 1446.532; children = 204.209
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3373.957; parent = 2360.852; children = 1013.105
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -434,49 +429,49 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:02:01 ; elapsed = 00:02:04 . Memory (MB): peak = 2292.250 ; gain = 668.082 ; free physical = 16344 ; free virtual = 28235
-Synthesis current peak Physical Memory [PSS] (MB): peak = 1575.737; parent = 1394.170; children = 181.612
-Synthesis current peak Virtual Memory [VSS] (MB): peak = 3305.363; parent = 2292.254; children = 1013.109
+Finished IO Insertion : Time (s): cpu = 00:02:04 ; elapsed = 00:02:08 . Memory (MB): peak = 2360.848 ; gain = 736.160 ; free physical = 10932 ; free virtual = 25717
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1650.678; parent = 1446.532; children = 204.209
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3373.957; parent = 2360.852; children = 1013.105
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:02:01 ; elapsed = 00:02:04 . Memory (MB): peak = 2292.250 ; gain = 668.082 ; free physical = 16344 ; free virtual = 28235
-Synthesis current peak Physical Memory [PSS] (MB): peak = 1575.737; parent = 1394.170; children = 181.612
-Synthesis current peak Virtual Memory [VSS] (MB): peak = 3305.363; parent = 2292.254; children = 1013.109
+Finished Renaming Generated Instances : Time (s): cpu = 00:02:04 ; elapsed = 00:02:08 . Memory (MB): peak = 2360.848 ; gain = 736.160 ; free physical = 10932 ; free virtual = 25717
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1650.678; parent = 1446.532; children = 204.209
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3373.957; parent = 2360.852; children = 1013.105
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:02:01 ; elapsed = 00:02:05 . Memory (MB): peak = 2292.250 ; gain = 668.082 ; free physical = 16344 ; free virtual = 28235
-Synthesis current peak Physical Memory [PSS] (MB): peak = 1575.737; parent = 1394.170; children = 181.612
-Synthesis current peak Virtual Memory [VSS] (MB): peak = 3305.363; parent = 2292.254; children = 1013.109
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:02:05 ; elapsed = 00:02:09 . Memory (MB): peak = 2360.848 ; gain = 736.160 ; free physical = 10935 ; free virtual = 25719
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1650.678; parent = 1446.532; children = 204.209
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3373.957; parent = 2360.852; children = 1013.105
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:02:01 ; elapsed = 00:02:05 . Memory (MB): peak = 2292.250 ; gain = 668.082 ; free physical = 16351 ; free virtual = 28241
-Synthesis current peak Physical Memory [PSS] (MB): peak = 1575.737; parent = 1394.170; children = 181.612
-Synthesis current peak Virtual Memory [VSS] (MB): peak = 3305.363; parent = 2292.254; children = 1013.109
+Finished Renaming Generated Ports : Time (s): cpu = 00:02:05 ; elapsed = 00:02:09 . Memory (MB): peak = 2360.848 ; gain = 736.160 ; free physical = 10939 ; free virtual = 25723
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1650.678; parent = 1446.532; children = 204.209
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3373.957; parent = 2360.852; children = 1013.105
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:02:02 ; elapsed = 00:02:05 . Memory (MB): peak = 2292.250 ; gain = 668.082 ; free physical = 16351 ; free virtual = 28242
-Synthesis current peak Physical Memory [PSS] (MB): peak = 1575.737; parent = 1394.170; children = 181.612
-Synthesis current peak Virtual Memory [VSS] (MB): peak = 3305.363; parent = 2292.254; children = 1013.109
+Finished Handling Custom Attributes : Time (s): cpu = 00:02:05 ; elapsed = 00:02:09 . Memory (MB): peak = 2360.848 ; gain = 736.160 ; free physical = 10942 ; free virtual = 25722
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1650.678; parent = 1446.532; children = 204.209
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3373.957; parent = 2360.852; children = 1013.105
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:02:02 ; elapsed = 00:02:05 . Memory (MB): peak = 2292.250 ; gain = 668.082 ; free physical = 16351 ; free virtual = 28242
-Synthesis current peak Physical Memory [PSS] (MB): peak = 1575.737; parent = 1394.170; children = 181.612
-Synthesis current peak Virtual Memory [VSS] (MB): peak = 3305.363; parent = 2292.254; children = 1013.109
+Finished Renaming Generated Nets : Time (s): cpu = 00:02:05 ; elapsed = 00:02:09 . Memory (MB): peak = 2360.848 ; gain = 736.160 ; free physical = 10947 ; free virtual = 25727
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1650.678; parent = 1446.532; children = 204.209
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3373.957; parent = 2360.852; children = 1013.105
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -493,39 +488,39 @@ Report Cell Usage:
 |      |Cell  |Count |
 +------+------+------+
 |1     |LUT1  |     1|
-|2     |LUT2  |   455|
-|3     |LUT3  |   843|
-|4     |LUT4  |   425|
-|5     |LUT5  |   655|
-|6     |LUT6  |  6509|
-|7     |MUXF7 |  2100|
-|8     |MUXF8 |   720|
-|9     |FDCE  |  4286|
-|10    |FDRE  |   128|
+|2     |LUT2  |   332|
+|3     |LUT3  |   971|
+|4     |LUT4  |   320|
+|5     |LUT5  |  1156|
+|6     |LUT6  |  6639|
+|7     |MUXF7 |  1808|
+|8     |MUXF8 |   714|
+|9     |FDCE  |  4280|
+|10    |FDRE  |   137|
 +------+------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:02:02 ; elapsed = 00:02:05 . Memory (MB): peak = 2292.250 ; gain = 668.082 ; free physical = 16351 ; free virtual = 28242
-Synthesis current peak Physical Memory [PSS] (MB): peak = 1575.737; parent = 1394.170; children = 181.612
-Synthesis current peak Virtual Memory [VSS] (MB): peak = 3305.363; parent = 2292.254; children = 1013.109
+Finished Writing Synthesis Report : Time (s): cpu = 00:02:05 ; elapsed = 00:02:10 . Memory (MB): peak = 2360.848 ; gain = 736.160 ; free physical = 10948 ; free virtual = 25727
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1650.678; parent = 1446.532; children = 204.209
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3373.957; parent = 2360.852; children = 1013.105
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 1 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:02:00 ; elapsed = 00:02:04 . Memory (MB): peak = 2292.250 ; gain = 505.332 ; free physical = 16407 ; free virtual = 28298
-Synthesis Optimization Complete : Time (s): cpu = 00:02:02 ; elapsed = 00:02:05 . Memory (MB): peak = 2292.258 ; gain = 668.082 ; free physical = 16407 ; free virtual = 28298
+Synthesis Optimization Runtime : Time (s): cpu = 00:02:04 ; elapsed = 00:02:08 . Memory (MB): peak = 2360.848 ; gain = 577.410 ; free physical = 10979 ; free virtual = 25760
+Synthesis Optimization Complete : Time (s): cpu = 00:02:06 ; elapsed = 00:02:10 . Memory (MB): peak = 2360.855 ; gain = 736.160 ; free physical = 10979 ; free virtual = 25760
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00.1 ; elapsed = 00:00:00.1 . Memory (MB): peak = 2292.258 ; gain = 0.000 ; free physical = 16521 ; free virtual = 28412
-INFO: [Netlist 29-17] Analyzing 2820 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00.07 ; elapsed = 00:00:00.08 . Memory (MB): peak = 2360.855 ; gain = 0.000 ; free physical = 11109 ; free virtual = 25884
+INFO: [Netlist 29-17] Analyzing 2522 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2316.262 ; gain = 0.000 ; free physical = 16481 ; free virtual = 28371
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2384.859 ; gain = 0.000 ; free physical = 11064 ; free virtual = 25840
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Synth Design complete, checksum: eca73a81
+Synth Design complete, checksum: 8a1c81a2
 INFO: [Common 17-83] Releasing license: Synthesis
 110 Infos, 1 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:02:08 ; elapsed = 00:02:10 . Memory (MB): peak = 2316.262 ; gain = 1019.164 ; free physical = 16715 ; free virtual = 28605
+synth_design: Time (s): cpu = 00:02:12 ; elapsed = 00:02:14 . Memory (MB): peak = 2384.859 ; gain = 1088.242 ; free physical = 11295 ; free virtual = 26071
 INFO: [Common 17-1381] The checkpoint '/home/tronghieu/vivado-workspace/HW/MKV_civil_block/vivado/mkv.runs/synth_1/MKV_CRYPTO_TOP.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file MKV_CRYPTO_TOP_utilization_synth.rpt -pb MKV_CRYPTO_TOP_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Thu Jun 18 18:12:36 2026...
+INFO: [Common 17-206] Exiting Vivado at Sun Jun 21 13:02:22 2026...

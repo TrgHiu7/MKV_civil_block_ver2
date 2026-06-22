@@ -26,6 +26,7 @@ entity encrypt is
         clk         : in  std_logic;
         rst         : in  std_logic;
         start       : in  std_logic;
+        keylen      : in  std_logic_vector(1 downto 0);   -- 00=128, 01=192, 10=256
         plaintext   : in  std_logic_vector(127 downto 0);
 
         keyk0       : in  std_logic_vector(127 downto 0);
@@ -52,6 +53,17 @@ architecture Behavioral of encrypt is
     signal sel_reg : unsigned(3 downto 0) := (others => '0');
     signal data_reg : std_logic_vector(127 downto 0);
     signal round_out : std_logic_vector(127 downto 0);
+
+    -- So vong cuoi cung (sel index): 128->6, 192->7, 256->8
+    function last_sel_f(kl : std_logic_vector(1 downto 0)) return unsigned is
+    begin
+        case kl is
+            when "00"   => return to_unsigned(6, 4);
+            when "01"   => return to_unsigned(7, 4);
+            when others => return to_unsigned(8, 4);
+        end case;
+    end function;
+    signal last_sel : unsigned(3 downto 0) := to_unsigned(8, 4);
     
 begin
     
@@ -77,6 +89,7 @@ begin
                 when IDLE =>
                     sel_reg <= (others => '0');
                     if start = '1' then
+                        last_sel <= last_sel_f(keylen);
                         state <= LOAD;
                     end if;
                 when LOAD =>
@@ -88,7 +101,7 @@ begin
                 when NEXT_KEY =>
                     next_round <= '0';
                     data_reg <= round_out;
-                    if sel_reg = 8 then
+                    if sel_reg = last_sel then
                         ciphertext <= round_out xor key_post;
                         done <= '1';
                         state <= FINISH;

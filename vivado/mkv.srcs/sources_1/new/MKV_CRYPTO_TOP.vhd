@@ -130,6 +130,8 @@ architecture Behavioral of MKV_CRYPTO_TOP is
     signal key_init_d          : std_logic := '0';  
     -- Chi so khoa vong cao nhat (R-1): 128->6, 192->7, 256->8
     signal last_idx            : unsigned(3 downto 0);
+    signal start_d             : std_logic := '0';
+    signal crypto_done_reg : std_logic := '0';
 begin
     last_idx <= to_unsigned(6,4) when keylen = "00" else
                 to_unsigned(7,4) when keylen = "01" else
@@ -191,6 +193,7 @@ begin
             key_expand_done_reg <= '0';
             start_key           <= '0';
             key_init_d          <= '0';
+            crypto_done_reg <= '0';
             for j in 0 to 8 loop
                 mem_keyk0(j) <= (others => '0');
                 mem_keyk1(j) <= (others => '0');
@@ -198,7 +201,13 @@ begin
         elsif rising_edge(clk) then
             sel_crypt_reg <= sel_crypt;
             key_init_d <= key_init;
+            start_d <= start;
             start_key  <= '0';
+            if (start = '1' and start_d = '0') then 
+                crypto_done_reg <= '0'; -- Xóa cờ done khi có lệnh start mới
+            elsif (enc_done = '1' or dec_done = '1') then
+                crypto_done_reg <= '1'; -- Chốt cờ done bằng 1 mãi mãi cho đến khi có lệnh start mới
+            end if;
             if (key_init = '1' and key_init_d = '0') then
                 key_expand_done_reg <= '0';
                 start_key <= '1';
@@ -262,6 +271,6 @@ begin
         end if;
     end process;    
     key_expand_done <= key_expand_done_reg;
-    done <= enc_done when sel_crypt_reg='0' else dec_done;    
+    done <= crypto_done_reg;    
     data_out <= data_out_reg when sel_crypt_reg='0' else dec_data;    
 end Behavioral;
